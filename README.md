@@ -5,7 +5,8 @@ datatype modules to support 3rd party libraries.
 
 Currently included are:
 
-* [org.json](json-org/) for JSON model datatypes ([org.json](http://json.org/java)) (included in Android SDK)
+* [org.json](json-org/) for ([org.json](http://json.org/java)) JSON model datatypes (included in Android SDK)
+* [joda-money](joda-money/) for [Joda-Money](https://www.joda.org/joda-money/) datatypes
 
 (note that repo was created for Jackson 2.11: prior to this, individual datatype
 modules had their own repos)
@@ -46,10 +47,12 @@ with the `ObjectMapper` instance:
 // Jackson 2.x before 2.10:
 ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(new JsonOrgModule());
+mapper.registerModule(new JodaMoneyModule());
 
 // OR Jackson 2.10 and above
 ObjectMapper mapper = JsonMapper.builder()
     .addModule(new JsonOrgModule())
+    .addModule(new JodaMoneyModule())
     .build();
 ```
 

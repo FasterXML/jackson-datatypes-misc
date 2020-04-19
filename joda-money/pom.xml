@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion> 
+  <parent>
+    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <artifactId>jackson-datatypes-misc-parent</artifactId>
+    <version>2.11.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>jackson-datatype-joda-money</artifactId>
+  <name>Jackson datatype: joda-money</name>
+  <packaging>bundle</packaging>
+  <version>2.11.0-SNAPSHOT</version>
+  <description>Support for datatypes of Joda-Money library (https://www.joda.org/joda-money/)
+  </description>
+  <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
+  <properties>
+    <!-- Generate PackageVersion.java into this directory. -->
+    <packageVersion.dir>com/fasterxml/jackson/datatype/jodamoney</packageVersion.dir>
+    <packageVersion.package>${project.groupId}.jodamoney</packageVersion.package>
+  </properties>
+
+  <dependencies>
+    <!-- Extends Jackson (via parent), needs joda-money -->
+    <dependency>
+      <groupId>org.joda</groupId>
+      <artifactId>joda-money</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <executions>
+          <execution>
+            <id>process-packageVersion</id>
+            <phase>generate-sources</phase>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.moditect</groupId>
+        <artifactId>moditect-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
