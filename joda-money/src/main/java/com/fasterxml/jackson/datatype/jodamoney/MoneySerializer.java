@@ -11,8 +11,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 public class MoneySerializer extends JodaMoneySerializerBase<Money>
 {
-    private static final long serialVersionUID = 1L;
-
     public MoneySerializer() {
         super(Money.class);
     }
@@ -29,7 +27,7 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
         gen.writeStartObject();
         gen.writeNumberField("amount", decimal.setScale(scale, RoundingMode.UNNECESSARY));
         gen.writeFieldName("currency");
-        context.defaultSerializeValue(money.getCurrencyUnit(), gen);
+        context.writeValue(gen,money.getCurrencyUnit());
         gen.writeEndObject();
     }
 }

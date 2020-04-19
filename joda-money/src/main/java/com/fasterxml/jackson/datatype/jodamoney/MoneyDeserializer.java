@@ -17,8 +17,6 @@ import org.joda.money.Money;
 
 public class MoneyDeserializer extends StdDeserializer<Money>
 {
-    private static final long serialVersionUID = 1L;
-
     public MoneyDeserializer() {
         super(Money.class);
     }

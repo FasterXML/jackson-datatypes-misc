@@ -11,8 +11,6 @@ import java.io.IOException;
 
 public class CurrencyUnitDeserializer extends StdScalarDeserializer<CurrencyUnit>
 {
-    private static final long serialVersionUID = 1L;
-
     public CurrencyUnitDeserializer() {
         super(CurrencyUnit.class);
     }

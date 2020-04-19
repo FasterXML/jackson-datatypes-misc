@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 
 public class CurrencyUnitSerializer extends JodaMoneySerializerBase<CurrencyUnit>
 {
-    private static final long serialVersionUID = 1L;
-
     public CurrencyUnitSerializer() {
         super(CurrencyUnit.class);
     }
