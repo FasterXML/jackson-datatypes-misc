@@ -20,6 +20,7 @@ abstract class JodaMoneySerializerBase<T> extends StdSerializer<T>
     public void serializeWithType(T value, JsonGenerator g, SerializerProvider provider,
             TypeSerializer typeSer) throws IOException
     {
+        g.setCurrentValue(value);
         // NOTE: we do not actually know the exact shape (or, rather, it varies by settings
         // and so should not claim particular shape) -- but need to make sure NOT to report
         // as `Shape.OBJECT` or `Shape.ARRAY`

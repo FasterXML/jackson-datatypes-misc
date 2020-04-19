@@ -22,7 +22,8 @@ public class CurrencyUnitDeserializer extends StdScalarDeserializer<CurrencyUnit
             final DeserializationContext context) throws IOException {
         final String currencyCode = p.getValueAsString();
 
-        // TODO: error handling?
+        // TODO: instead of leaking `IllegalCurrencyException` (an `IllegalArgumentException`)
+        //  catch and rethrow as suitable Jackson exception with extra info
         return CurrencyUnit.of(currencyCode);
     }
 }

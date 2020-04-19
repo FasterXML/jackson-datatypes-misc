@@ -9,17 +9,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public final class CurrencyUnitDeserializerTest extends ModuleTestBase
 {
-    private final ObjectMapper objectMapper = mapperWithModule();
+    private final ObjectMapper MAPPER = mapperWithModule();
 
     public void testShouldDeserialize() throws IOException {
-        final CurrencyUnit actualCurrencyUnit = objectMapper.readValue("\"EUR\"", CurrencyUnit.class);
-
-        assertEquals(CurrencyUnit.EUR, actualCurrencyUnit);
+        assertEquals(CurrencyUnit.EUR,
+                MAPPER.readValue("\"EUR\"", CurrencyUnit.class));
     }
 
     public void testShouldNotDeserializeInvalidCurrency() {
         try {
-            objectMapper.readValue("\"UNKNOWN\"", CurrencyUnit.class);
+            MAPPER.readValue("\"UNKNOWN\"", CurrencyUnit.class);
             fail("Should not pass");
         } catch (final IllegalCurrencyException e) {
             verifyException(e, "Unknown currency 'UNKNOWN'");

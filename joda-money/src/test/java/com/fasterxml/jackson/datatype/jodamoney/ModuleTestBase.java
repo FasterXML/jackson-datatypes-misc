@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.TimeZone;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.cfg.MapperBuilder;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -15,6 +16,10 @@ import static org.junit.Assert.*;
 
 public abstract class ModuleTestBase extends TestCase
 {
+    // mix-in class for force polymorphic handling
+    @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
+    static interface ForceJsonTypeInfo { }
+
     /*
     /**********************************************************************
     /* Factory methods
