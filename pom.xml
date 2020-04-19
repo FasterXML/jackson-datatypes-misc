@@ -14,6 +14,7 @@
   </description>
 
   <modules>
+    <module>joda-money</module>
     <module>json-org</module>
   </modules>
 
