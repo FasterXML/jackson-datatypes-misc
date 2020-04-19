@@ -1,7 +1,6 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.Iterator;
 
 import com.fasterxml.jackson.core.*;
@@ -13,8 +12,6 @@ import org.json.*;
 
 public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
 {
-    private static final long serialVersionUID = 1L;
-
     public final static JSONObjectSerializer instance = new JSONObjectSerializer();
 
     public JSONObjectSerializer()
@@ -37,24 +34,17 @@ public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
     }
 
     @Override
-    public void serializeWithType(JSONObject value, JsonGenerator g, SerializerProvider provider,
+    public void serializeWithType(JSONObject value, JsonGenerator g, SerializerProvider ctxt,
             TypeSerializer typeSer) throws IOException
     {
         g.setCurrentValue(value);
-        WritableTypeId typeIdDef = typeSer.writeTypePrefix(g,
+        WritableTypeId typeIdDef = typeSer.writeTypePrefix(g, ctxt,
                 typeSer.typeId(value, JsonToken.START_OBJECT));
-        serializeContents(value, g, provider);
-        typeSer.writeTypeSuffix(g, typeIdDef);
+        serializeContents(value, g, ctxt);
+        typeSer.writeTypeSuffix(g, ctxt, typeIdDef);
     
     }
 
-    @Override
-    public JsonNode getSchema(SerializerProvider provider, Type typeHint)
-        throws JsonMappingException
-    {
-        return createSchemaNode("object", true);
-    }
-    
     protected void serializeContents(JSONObject value, JsonGenerator g, SerializerProvider provider)
         throws IOException
     {
@@ -63,9 +53,8 @@ public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
             String key = (String) it.next();
             Object ob = value.opt(key);
             if (ob == null || ob == JSONObject.NULL) {
-                if (provider.isEnabled(SerializationFeature.WRITE_NULL_MAP_VALUES)) {
-                    g.writeNullField(key);
-                }
+                // 28-Mar-2019, tatu: Should possibly support filter of empty/null/default values?
+                g.writeNullField(key);
                 continue;
             }
             g.writeFieldName(key);
@@ -89,7 +78,7 @@ public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
             } else if (JSONArray.class.isAssignableFrom(cls)) { // sub-class
                 JSONArraySerializer.instance.serialize((JSONArray) ob, g, provider);
             } else {
-                provider.defaultSerializeValue(ob, g);
+                provider.writeValue(g, ob);
             }
         }
     }
