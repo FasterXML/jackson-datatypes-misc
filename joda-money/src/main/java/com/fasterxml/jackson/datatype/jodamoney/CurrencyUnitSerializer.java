@@ -14,11 +14,9 @@ public class CurrencyUnitSerializer extends JodaMoneySerializerBase<CurrencyUnit
     }
 
     @Override
-    public void serialize(
-            final CurrencyUnit currencyUnit,
-            final JsonGenerator jsonGenerator,
-            final SerializerProvider serializerProvider
-    ) throws IOException {
-        jsonGenerator.writeString(currencyUnit.getCode());
+    public void serialize(final CurrencyUnit currencyUnit,
+            final JsonGenerator g,
+            final SerializerProvider ctxt) throws IOException {
+        g.writeString(currencyUnit.getCode());
     }
 }
