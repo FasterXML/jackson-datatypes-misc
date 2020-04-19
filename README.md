@@ -7,6 +7,9 @@ Currently included are:
 
 * [org.json](json-org/) for JSON model datatypes ([org.json](http://json.org/java)) (included in Android SDK)
 
+(note that repo was created for Jackson 2.11: prior to this, individual datatype
+modules had their own repos)
+
 ## License
 
 All modules are licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
