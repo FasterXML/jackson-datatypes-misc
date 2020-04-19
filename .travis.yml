@@ -1,0 +1,19 @@
+language: java
+
+git:
+  quiet: true
+  submodules: false
+
+jdk:
+  - openjdk8
+  - openjdk11
+
+# Let's try caching Maven dependencies
+cache:
+  directories:
+    - $HOME/.m2
+
+branches:
+  only:
+    - master
+    - "2.11"
