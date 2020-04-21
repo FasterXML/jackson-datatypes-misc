@@ -4,9 +4,7 @@ import java.io.IOException;
 
 import javax.json.*;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.cfg.MapperConfig;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 
@@ -16,9 +14,9 @@ public abstract class TestBase extends junit.framework.TestCase
         extends PolymorphicTypeValidator.Base
     {
         private static final long serialVersionUID = 1L;
-    
+
         @Override
-        public Validity validateBaseType(MapperConfig<?> config, JavaType baseType) {
+        public Validity validateBaseType(DatabindContext ctxt, JavaType baseType) {
             return Validity.ALLOWED;
         }
     }

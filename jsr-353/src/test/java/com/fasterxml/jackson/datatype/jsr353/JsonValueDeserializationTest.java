@@ -1,5 +1,6 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import javax.json.*;
 import javax.json.JsonValue.ValueType;
 

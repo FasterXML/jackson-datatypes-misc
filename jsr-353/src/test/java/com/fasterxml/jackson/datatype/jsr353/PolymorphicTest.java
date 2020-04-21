@@ -15,7 +15,9 @@ public class PolymorphicTest extends TestBase
         public Wrapper(Object o) { w = o; }
     }
 
-    private final ObjectMapper MAPPER = newMapper();
+    private final ObjectMapper MAPPER = mapperBuilder()
+            .polymorphicTypeValidator(new NoCheckSubTypeValidator())
+            .build();
     
     public void testObjectAsTyped() throws Exception
     {

@@ -11,9 +11,8 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 
-public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
-    private static final long serialVersionUID = 1L;
-
+public class JsonValueDeserializer extends StdDeserializer<JsonValue>
+{
     protected final JsonBuilderFactory _builderFactory;
 
     public JsonValueDeserializer(JsonBuilderFactory bf) {
@@ -23,20 +22,20 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
 
     @Override
     public JsonValue deserialize(JsonParser p, DeserializationContext ctxt)
-            throws IOException
+        throws IOException
     {
-        switch (p.getCurrentToken()) {
-            case START_OBJECT:
-                return _deserializeObject(p, ctxt);
-            case START_ARRAY:
-                return _deserializeArray(p, ctxt);
-            default:
-                return _deserializeScalar(p, ctxt);
+        switch (p.currentToken()) {
+        case START_OBJECT:
+            return _deserializeObject(p, ctxt);
+        case START_ARRAY:
+            return _deserializeArray(p, ctxt);
+        default:
+            return _deserializeScalar(p, ctxt);
         }
     }
 
     @Override
-    public JsonValue getNullValue(final DeserializationContext ctxt) {
+    public Object getNullValue(final DeserializationContext ctxt){
         return JsonValue.NULL;
     }
 
@@ -60,7 +59,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
     {
         JsonObjectBuilder b = _builderFactory.createObjectBuilder();
         while (p.nextToken() != JsonToken.END_OBJECT) {
-            String name = p.getCurrentName();
+            String name = p.currentName();
             JsonToken t = p.nextToken();
             switch (t) {
                 case START_ARRAY:
@@ -111,8 +110,8 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
                         break;
                     }
                 }
-                default:
-                    return (JsonObject) ctxt.handleUnexpectedToken(JsonObject.class, p);
+            default:
+                return (JsonObject) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
             }
         }
         return b.build();
@@ -164,28 +163,28 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
                     b.add(p.getText());
                     break;
                 default:
-                    return (JsonArray) ctxt.handleUnexpectedToken(JsonArray.class, p);
+                    return (JsonArray) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
             }
         }
         return b.build();
     }
 
     protected JsonValue _deserializeScalar(JsonParser p, DeserializationContext ctxt)
-            throws IOException
+        throws IOException
     {
-        switch (p.getCurrentToken()) {
-            case VALUE_EMBEDDED_OBJECT:
-                // Not sure what to do with it -- could convert byte[] into Base64 encoded
-                // if we wanted to... ?
-                return (JsonValue) ctxt.handleUnexpectedToken(JsonValue.class, p);
-            case VALUE_FALSE:
-                return JsonValue.FALSE;
-            case VALUE_TRUE:
-                return JsonValue.TRUE;
-            case VALUE_NULL:
-                return JsonValue.NULL;
-            case VALUE_NUMBER_FLOAT:
-                // very cumbersome... but has to be done
+        switch (p.currentToken()) {
+        case VALUE_EMBEDDED_OBJECT:
+            // Not sure what to do with it -- could convert byte[] into Base64 encoded
+            // if we wanted to... ?
+            return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
+        case VALUE_FALSE:
+            return JsonValue.FALSE;
+        case VALUE_TRUE:
+            return JsonValue.TRUE;
+        case VALUE_NULL:
+            return JsonValue.NULL;
+        case VALUE_NUMBER_FLOAT:
+            // very cumbersome... but has to be done
             {
                 JsonArrayBuilder b = _builderFactory.createArrayBuilder();
                 if (p.getNumberType() == NumberType.BIG_DECIMAL) {
@@ -193,7 +192,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
                 }
                 return b.add(p.getDoubleValue()).build().get(0);
             }
-            case VALUE_NUMBER_INT:
+	case VALUE_NUMBER_INT:
                 // very cumbersome... but has to be done
             {
                 JsonArrayBuilder b = _builderFactory.createArrayBuilder();
@@ -206,16 +205,16 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
                         return b.add(p.getBigIntegerValue()).build().get(0);
                 }
             }
-            case VALUE_STRING:
-                return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
-            default: // errors, should never get here
+	case VALUE_STRING:
+	    return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
+	default: // errors, should never get here
 //        case END_ARRAY:
 //        case END_OBJECT:
 //        case FIELD_NAME:
 //        case NOT_AVAILABLE:
 //        case START_ARRAY:
 //        case START_OBJECT:
-                return (JsonValue) ctxt.handleUnexpectedToken(JsonValue.class, p);
+	    return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
         }
     }
 }
