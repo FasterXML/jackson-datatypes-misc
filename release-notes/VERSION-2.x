@@ -1,6 +1,8 @@
 Project: jackson-datatypes-misc
 Modules:
+  jackson-datatype-joda-money
   jackson-datatype-json-org
+  jackson-datatype-jsr353
 
 ------------------------------------------------------------------------
 === Releases ===
