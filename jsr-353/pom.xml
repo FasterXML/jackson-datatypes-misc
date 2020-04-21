@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <artifactId>jackson-datatypes-misc-parent</artifactId>
+    <version>2.11.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>jackson-datatype-jsr353</artifactId>
+  <name>Jackson datatype: jsr-353</name>
+  <version>2.11.0-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <description>Add-on module for Jackson (http://github.com/FasterXML/jackson) to support
+working with JSR-353 (JSON-P) node types via data-binding
+  </description>
+  <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
+  <properties>
+    <!-- Generate PackageVersion.java into this directory. -->
+    <packageVersion.dir>com/fasterxml/jackson/datatype/jsr353</packageVersion.dir>
+    <packageVersion.package>${project.groupId}.jsr353</packageVersion.package>
+  </properties>
+
+  <dependencies>
+    <!-- Extends Jackson mapper but needs jsr-353 api, impl for tests -->
+
+    <dependency>
+        <groupId>javax.json</groupId>
+        <artifactId>javax.json-api</artifactId>
+        <version>1.1.4</version>
+    </dependency>
+
+    <!-- and for tests can use the RI -->
+    <dependency>
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.json</artifactId>
+        <version>1.1.4</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- Inherited from oss-base. Generate PackageVersion.java.-->
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+      </plugin>
+      <!--  28-Mar-2019, tatu: Add rudimentary JDK9+ module info. To build with JDK 8
+            will have to use `moduleInfoFile` as anything else requires JDK 9+
+	-->
+      <plugin>
+        <groupId>org.moditect</groupId>
+        <artifactId>moditect-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

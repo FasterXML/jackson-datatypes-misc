@@ -14,6 +14,7 @@
   </description>
 
   <modules>
+    <module>jsr-353</module>
     <module>joda-money</module>
     <module>json-org</module>
   </modules>
