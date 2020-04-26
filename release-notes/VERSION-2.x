@@ -10,6 +10,10 @@ Modules:
 
 2.11.0 (not yet released)
 
+-
+
+2.11.0 (26-Apr-2020)
+
 * New module, `jackson-datatype-joda-money`
   (contributed by Iurii I)
 * (org.json) Upgrade `org.json` dependency to `20190722` (from `20180813`)
