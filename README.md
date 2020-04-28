@@ -31,7 +31,7 @@ To use module (version 2.x) on Maven-based projects, use dependency like
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-json-org</artifactId>
-  <version>2.10.3</version>
+  <version>2.11.0</version>
 </dependency>
 ```
 
@@ -48,11 +48,13 @@ with the `ObjectMapper` instance:
 // Jackson 2.x before 2.10:
 ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(new JsonOrgModule());
+mapper.registerModule(new JSR353Module());
 mapper.registerModule(new JodaMoneyModule());
 
 // OR Jackson 2.10 and above
 ObjectMapper mapper = JsonMapper.builder()
     .addModule(new JsonOrgModule())
+    .addModule(new JSR353Module())
     .addModule(new JodaMoneyModule())
     .build();
 ```
