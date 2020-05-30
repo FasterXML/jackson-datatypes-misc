@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.*;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.type.LogicalType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +20,11 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
     public JSONObjectDeserializer()
     {
         super(JSONObject.class);
+    }
+
+    @Override
+    public LogicalType logicalType() {
+        return LogicalType.Untyped;
     }
 
     @Override

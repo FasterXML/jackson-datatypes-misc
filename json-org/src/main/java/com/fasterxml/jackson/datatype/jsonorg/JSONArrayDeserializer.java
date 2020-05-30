@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.*;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.type.LogicalType;
 import com.fasterxml.jackson.databind.util.ClassUtil;
 
 import org.json.JSONArray;
@@ -20,6 +21,11 @@ public class JSONArrayDeserializer extends StdDeserializer<JSONArray>
     public JSONArrayDeserializer()
     {
         super(JSONArray.class);
+    }
+
+    @Override
+    public LogicalType logicalType() {
+        return LogicalType.Untyped;
     }
     
     @Override
