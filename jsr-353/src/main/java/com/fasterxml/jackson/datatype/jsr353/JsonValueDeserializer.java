@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
+import com.fasterxml.jackson.databind.type.LogicalType;
 
 public class JsonValueDeserializer extends StdDeserializer<JsonValue>
 {
@@ -18,6 +19,11 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     public JsonValueDeserializer(JsonBuilderFactory bf) {
         super(JsonValue.class);
         _builderFactory = bf;
+    }
+
+    @Override
+    public LogicalType logicalType() {
+        return LogicalType.Untyped;
     }
 
     @Override

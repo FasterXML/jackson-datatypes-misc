@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
+import com.fasterxml.jackson.databind.type.LogicalType;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
@@ -20,6 +21,12 @@ public class MoneyDeserializer extends StdDeserializer<Money>
 {
     public MoneyDeserializer() {
         super(Money.class);
+    }
+
+    @Override
+    public LogicalType logicalType() {
+        // structured, hence POJO
+        return LogicalType.POJO;
     }
 
     @Override
