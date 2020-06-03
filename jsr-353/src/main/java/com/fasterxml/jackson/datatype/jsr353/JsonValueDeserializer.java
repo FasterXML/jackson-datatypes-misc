@@ -7,37 +7,68 @@ import javax.json.*;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonParser.NumberType;
 import com.fasterxml.jackson.core.JsonToken;
+
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
+import com.fasterxml.jackson.databind.util.ClassUtil;
 
 public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
     private static final long serialVersionUID = 1L;
 
     protected final JsonBuilderFactory _builderFactory;
 
+    // @since 2.12
+    protected final boolean _forJsonValue;
+
+    @Deprecated // since 2.12
     public JsonValueDeserializer(JsonBuilderFactory bf) {
-        super(JsonValue.class);
+        this(JsonValue.class, bf);
+    }
+
+    // @since 2.12
+    public JsonValueDeserializer(Class<?> target, JsonBuilderFactory bf) {
+        super(target);
         _builderFactory = bf;
+        _forJsonValue = (target == JsonValue.class);
     }
 
     @Override
     public JsonValue deserialize(JsonParser p, DeserializationContext ctxt)
             throws IOException
     {
+        JsonValue v;
         switch (p.getCurrentToken()) {
             case START_OBJECT:
-                return _deserializeObject(p, ctxt);
+                v = _deserializeObject(p, ctxt);
+                break;
             case START_ARRAY:
-                return _deserializeArray(p, ctxt);
+                v = _deserializeArray(p, ctxt);
+                break;
             default:
-                return _deserializeScalar(p, ctxt);
+                v = _deserializeScalar(p, ctxt);
         }
+
+        if (!_forJsonValue) {
+            if (!handledType().isAssignableFrom(v.getClass())) {
+                ctxt.reportInputMismatch(handledType(),
+                        "Expected %s, but encountered %s Value",
+                        ClassUtil.getClassDescription(handledType()),
+                        v.getValueType().toString()
+                        );
+            }
+        }
+        return v;
     }
 
     @Override
     public JsonValue getNullValue(final DeserializationContext ctxt) {
-        return JsonValue.NULL;
+        // 02-Jun-2020, tatu: JsonValue.NULL only allowed if nominal type
+        //    compatible
+        if (_forJsonValue) {
+            return JsonValue.NULL;
+        }
+        return null;
     }
 
     @Override

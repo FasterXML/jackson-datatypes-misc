@@ -21,9 +21,9 @@ public class JSR353Module extends SimpleModule
     public JSR353Module() {
         super(PackageVersion.VERSION); //ModuleVersion.instance.version());
 
-        JsonProvider jp = JsonProvider.provider();
+        final JsonProvider jp = JsonProvider.provider();
         _builderFactory = jp.createBuilderFactory(Collections.<String, Object>emptyMap());
-        final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(_builderFactory);
+        final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(JsonValue.class, _builderFactory);
         final JsonPatchDeserializer jsonPatchDeser = new JsonPatchDeserializer(jsonValueDeser);
         final JsonMergePatchDeserializer jsonMergePatchDeser = new JsonMergePatchDeserializer(jsonValueDeser);
 
@@ -35,8 +35,11 @@ public class JSR353Module extends SimpleModule
                     DeserializationConfig config,
                     BeanDescription beanDesc
             ) {
-                if (JsonValue.class.isAssignableFrom(type.getRawClass())) {
-                    return jsonValueDeser;
+                if (type.isTypeOrSubTypeOf(JsonValue.class)) {
+                    if (type.hasRawClass(JsonValue.class)) {
+                        return jsonValueDeser;
+                    }
+                    return new JsonValueDeserializer(type.getRawClass(), _builderFactory);
                 }
                 if (JsonPatch.class.isAssignableFrom(type.getRawClass())) {
                     return jsonPatchDeser;
@@ -55,8 +58,8 @@ public class JSR353Module extends SimpleModule
                     TypeDeserializer elementTypeDeserializer,
                     JsonDeserializer<?> elementDeserializer
             ) {
-                if (JsonArray.class.isAssignableFrom(type.getRawClass())) {
-                    return jsonValueDeser;
+                if (type.hasRawClass(JsonArray.class)) {
+                    return new JsonValueDeserializer(type.getRawClass(), _builderFactory);
                 }
                 return null;
             }
@@ -70,8 +73,8 @@ public class JSR353Module extends SimpleModule
                     TypeDeserializer elementTypeDeserializer,
                     JsonDeserializer<?> elementDeserializer
             ) {
-                if (JsonObject.class.isAssignableFrom(type.getRawClass())) {
-                    return jsonValueDeser;
+                if (type.hasRawClass(JsonObject.class)) {
+                    return new JsonValueDeserializer(type.getRawClass(), _builderFactory);
                 }
                 return null;
             }
