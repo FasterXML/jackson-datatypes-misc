@@ -39,7 +39,7 @@ To use module (version 2.x) on Maven-based projects, use dependency like
 
 ### Registering module
 
-To use the the datatype module(s) with Jackson, simply register it
+To use the datatype module(s) with Jackson, simply register it
 with the `ObjectMapper` instance:
 
 ```java
@@ -59,4 +59,4 @@ ObjectMapper mapper = JsonMapper.builder()
     .build();
 ```
 
-after which datatype read/write support is available for all normal Jackson operations,
+after which datatype rewad/write support is available for all normal Jackson operations,
