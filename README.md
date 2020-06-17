@@ -59,4 +59,4 @@ ObjectMapper mapper = JsonMapper.builder()
     .build();
 ```
 
-after which datatype rewad/write support is available for all normal Jackson operations,
+after which datatype read/write support is available for all normal Jackson operations,
