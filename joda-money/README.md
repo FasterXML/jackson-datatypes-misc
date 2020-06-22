@@ -12,7 +12,7 @@ To use module on Maven-based projects, use following dependency:
 ```xml
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
-  <artifactId>jackson-datatype-json-org</artifactId>
+  <artifactId>jackson-datatype-joda-money</artifactId>
   <version>2.10.3</version>
 </dependency>
 ```
@@ -24,25 +24,23 @@ To use module on Maven-based projects, use following dependency:
 Like all standard Jackson modules (libraries that implement Module interface), registration is done as follows (Jackson 2.x up to 2.9)
 
 ```java
-// import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
+// import com.fasterxml.jackson.datatype.jodamoney.JodaMoneyModule;
 
 ObjectMapper mapper = new ObjectMapper()
-    .registerModule(new JsonOrgModule());
+    .registerModule(new JodaMoneyModule());
 ```
 OR, the new method added in 2.10 (old method will work with 2.x but not 3.x):
 
 ```java
 ObjectMapper mapper = JsonMapper.builder()
-    .addModule(new JsonOrgModule())
+    .addModule(new JodaMoneyModule())
     .build();
 ```
 
 after which functionality is available with all normal Jackson operations, like:
 
 ```java
-JSONObject ob = mapper.readValue("{\"a\":{\"b\":3}, \"c\":[9, -4], \"d\":null, \"e\":true}",
-                JSONObject.class);
-assertEquals(4, ob.length());
-JSONObject ob2 = ob.getJSONObject("a");
-assertEquals(1, ob2.length());
+Money amount = mapper.readValue("{\"currency\":\"EUR\",\"amount\":19.99}", Money.class)
+assertEquals("EUR", amount.getCurrencyUnit().getCode())
+assertEquals(BigDecimal.valueOf(19.99), amount.getAmount())
 ```

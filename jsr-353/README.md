@@ -59,6 +59,12 @@ ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(new JSR353Module());
 ```
 
+```java
+ObjectMapper mapper = JsonMapper.builder()
+    .addModule(new JSR353Module())
+    .build();
+```
+
 after which functionality is available for all normal Jackson operations:
 you can read JSON as `JsonValue` (or its subtypes), `JsonValues` as JSON, like:
 
