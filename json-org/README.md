@@ -13,7 +13,7 @@ To use module on Maven-based projects, use following dependency:
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-json-org</artifactId>
-  <version>2.10.3</version>
+  <version>2.11.0</version>
 </dependency>
 ```
 

@@ -26,7 +26,7 @@ To use module on Maven-based projects, use following dependency:
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-jsr353</artifactId>
-  <version>2.10.3</version>
+  <version>2.11.0</version>
 </dependency>
 ```
 
@@ -52,12 +52,14 @@ Reference implementation dependency would be:
 
 ### Registering module
 
-Like all standard Jackson modules (libraries that implement Module interface), registration is done as follows:
+Like all standard Jackson modules (libraries that implement Module interface), registration is done as follows (Jackson 2.x up to 2.9)
 
 ```java
 ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(new JSR353Module());
 ```
+OR, the new method added in 2.10 (old method will work with 2.x but not 3.x):
+
 
 ```java
 ObjectMapper mapper = JsonMapper.builder()
