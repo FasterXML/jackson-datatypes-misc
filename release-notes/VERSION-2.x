@@ -8,7 +8,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.11.1 (not yet released)
+2.11.1 (25-Jun-2020)
 
 #2: (jsr-353) Input `null` being deserialized as Java null value instead
   of `JsonValue.NULL`
