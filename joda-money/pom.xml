@@ -3,12 +3,12 @@
   <parent>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>2.11.1-SNAPSHOT</version>
+    <version>2.11.1</version>
   </parent>
   <artifactId>jackson-datatype-joda-money</artifactId>
   <name>Jackson datatype: joda-money</name>
   <packaging>bundle</packaging>
-  <version>2.11.1-SNAPSHOT</version>
+  <version>2.11.1</version>
   <description>Support for datatypes of Joda-Money library (https://www.joda.org/joda-money/)
   </description>
   <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
