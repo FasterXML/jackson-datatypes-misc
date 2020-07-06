@@ -38,12 +38,6 @@ mainly to make it easier to upgrade code to Jackson, using automated conversions
       <plugin>
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
-        <executions>
-          <execution>
-            <id>process-packageVersion</id>
-            <phase>generate-sources</phase>
-          </execution>
-        </executions>
       </plugin>
       <!--  19-Mar-2019, tatu: Add rudimentary JDK9+ module info. To build with JDK 8
              will have to use `moduleInfoFile` as anything else requires JDK 9+
