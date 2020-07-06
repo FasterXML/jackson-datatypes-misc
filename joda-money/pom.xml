@@ -37,12 +37,6 @@
       <plugin>
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
-        <executions>
-          <execution>
-            <id>process-packageVersion</id>
-            <phase>generate-sources</phase>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.moditect</groupId>
