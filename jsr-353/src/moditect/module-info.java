@@ -3,7 +3,8 @@ module com.fasterxml.jackson.datatype.jsr353 {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 
-    requires javax.json.api;
+    // 08-Jan-2020, tatu: changed in 2.12.1 from "javax.json.api"
+    requires java.json;
 
     exports com.fasterxml.jackson.datatype.jsr353;
 

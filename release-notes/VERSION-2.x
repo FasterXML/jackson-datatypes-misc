@@ -8,10 +8,16 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
+2.12.1 (not yet released)
+
+#7: Jackson JSR353 library is using wrong module name for javax json api
+  (reported by Ryan M)
+
 2.12.0 (29-Nov-2020)
 
 - Add Gradle Module Metadata (https://blog.gradle.org/alignment-with-gradle-module-metadata)
 
+2.11.4 (12-Dec-2020)
 2.11.3 (02-Oct-2020)
 2.11.2 (02-Aug-2020)
 
