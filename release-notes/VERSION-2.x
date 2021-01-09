@@ -8,7 +8,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.12.1 (not yet released)
+2.12.1 (08-Jan-2021)
 
 #7: Jackson JSR353 library is using wrong module name for javax json api
   (reported by Ryan M)
