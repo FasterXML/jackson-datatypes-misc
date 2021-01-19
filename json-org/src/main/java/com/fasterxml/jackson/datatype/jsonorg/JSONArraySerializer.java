@@ -1,12 +1,11 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
-import java.io.IOException;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.WritableTypeId;
+
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 
@@ -19,13 +18,14 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
         super(JSONArray.class);
     }
 
-    @Override // since 2.6
+    @Override
     public boolean isEmpty(SerializerProvider provider, JSONArray value) {
         return (value == null) || value.length() == 0;
     }
     
     @Override
-    public void serialize(JSONArray value, JsonGenerator g, SerializerProvider provider) throws IOException
+    public void serialize(JSONArray value, JsonGenerator g, SerializerProvider provider)
+        throws JacksonException
     {
         g.writeStartArray();
         serializeContents(value, g, provider);
@@ -34,7 +34,8 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
 
     @Override
     public void serializeWithType(JSONArray value, JsonGenerator g, SerializerProvider ctxt,
-            TypeSerializer typeSer) throws IOException
+            TypeSerializer typeSer)
+        throws JacksonException
     {
         g.setCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g, ctxt,
@@ -44,7 +45,7 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
     }
 
     protected void serializeContents(JSONArray value, JsonGenerator g, SerializerProvider provider)
-        throws IOException
+        throws JacksonException
     {
         for (int i = 0, len = value.length(); i < len; ++i) {
             Object ob = value.opt(i);

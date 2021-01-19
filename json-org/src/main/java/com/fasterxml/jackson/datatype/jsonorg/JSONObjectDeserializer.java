@@ -1,7 +1,5 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.*;
 
 import com.fasterxml.jackson.databind.*;
@@ -27,7 +25,7 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
 
     @Override
     public JSONObject deserialize(JsonParser p, DeserializationContext ctxt)
-        throws IOException
+        throws JacksonException
     {
         JSONObject ob = new JSONObject();
         JsonToken t = p.currentToken();

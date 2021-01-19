@@ -1,7 +1,6 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.WritableTypeId;
@@ -16,7 +15,8 @@ abstract class JodaMoneySerializerBase<T> extends StdSerializer<T>
 
     @Override
     public void serializeWithType(T value, JsonGenerator g, SerializerProvider ctxt,
-            TypeSerializer typeSer) throws IOException
+            TypeSerializer typeSer)
+        throws JacksonException
     {
         g.setCurrentValue(value);
         // NOTE: we do not actually know the exact shape (or, rather, it varies by settings

@@ -1,11 +1,11 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import org.joda.money.Money;
 
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.WritableTypeId;
@@ -20,9 +20,8 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
 
     @Override
     public void serialize(final Money value,
-            final JsonGenerator g,
-            final SerializerProvider ctxt)
-        throws IOException
+            final JsonGenerator g, final SerializerProvider ctxt)
+        throws JacksonException
     {
         g.writeStartObject();
         _writeFields(value, g, ctxt);
@@ -32,9 +31,10 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
     // 19-Apr-2020, tatu: Need to override because `Money` instances ARE actually
     //    serialized as JSON Objects, unlike most other Joda types
     @Override
-    public void serializeWithType(Money value, JsonGenerator g,
-            SerializerProvider ctxt,
-            TypeSerializer typeSer) throws IOException
+    public void serializeWithType(final Money value,
+            final JsonGenerator g, final SerializerProvider ctxt,
+            final TypeSerializer typeSer)
+        throws JacksonException
     {
         g.setCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g, ctxt,
@@ -44,9 +44,8 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
     }
 
     private final void _writeFields(final Money value,
-            final JsonGenerator g,
-            final SerializerProvider ctxt)
-        throws IOException
+            final JsonGenerator g, final SerializerProvider ctxt)
+        throws JacksonException
     {
         final BigDecimal decimal = value.getAmount();
         final int decimalPlaces = value.getCurrencyUnit().getDecimalPlaces();

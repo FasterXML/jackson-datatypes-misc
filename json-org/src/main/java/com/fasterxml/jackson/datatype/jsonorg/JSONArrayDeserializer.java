@@ -1,7 +1,5 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.*;
 
 import com.fasterxml.jackson.databind.*;
@@ -28,7 +26,7 @@ public class JSONArrayDeserializer extends StdDeserializer<JSONArray>
     
     @Override
     public JSONArray deserialize(JsonParser p, DeserializationContext ctxt)
-        throws IOException
+        throws JacksonException
     {
         // 07-Jan-2019, tatu: As per [datatype-json-org#15], need to verify it's an Array
         if (!p.isExpectedStartArrayToken()) {

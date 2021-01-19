@@ -1,6 +1,5 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
-import java.io.IOException;
 import java.util.Map;
 
 import javax.json.*;
@@ -25,7 +24,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
     
     @Override
     public void serialize(JsonValue value, JsonGenerator g, SerializerProvider provider)
-        throws IOException
+        throws JacksonException
     {
         switch (value.getValueType()) {
         case ARRAY:
@@ -46,7 +45,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
     @Override
     public void serializeWithType(JsonValue value, JsonGenerator g, SerializerProvider ctxt,
             TypeSerializer typeSer)
-        throws IOException
+        throws JacksonException
     {
         g.setCurrentValue(value);
         // 25-Jul-2017, tatu: This may look wrong, but since we don't really know impl
@@ -69,7 +68,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
 
     protected void serializeScalar(JsonValue value,
             JsonGenerator g, SerializerProvider provider)
-        throws IOException
+        throws JacksonException
     {
         switch (value.getValueType()) {
         case FALSE:
@@ -105,7 +104,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
 
     protected void serializeArrayContents(JsonArray values,
             JsonGenerator g, SerializerProvider provider)
-        throws IOException
+        throws JacksonException
     {
         if (!values.isEmpty()) {
             for (JsonValue value : values) {
@@ -116,7 +115,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
 
     protected void serializeObjectContents(JsonObject ob,
             JsonGenerator g, SerializerProvider provider)
-        throws IOException
+        throws JacksonException
     {
         if (!ob.isEmpty()) {
             for (Map.Entry<String, JsonValue> entry : ob.entrySet()) {
