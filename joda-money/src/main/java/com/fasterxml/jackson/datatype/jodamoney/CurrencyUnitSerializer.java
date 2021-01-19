@@ -1,10 +1,10 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.io.IOException;
-
 import org.joda.money.CurrencyUnit;
 
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
+
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 public class CurrencyUnitSerializer extends JodaMoneySerializerBase<CurrencyUnit>
@@ -15,8 +15,9 @@ public class CurrencyUnitSerializer extends JodaMoneySerializerBase<CurrencyUnit
 
     @Override
     public void serialize(final CurrencyUnit currencyUnit,
-            final JsonGenerator g,
-            final SerializerProvider ctxt) throws IOException {
+            final JsonGenerator g, final SerializerProvider ctxt)
+        throws JacksonException
+    {
         g.writeString(currencyUnit.getCode());
     }
 }

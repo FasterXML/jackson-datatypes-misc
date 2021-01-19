@@ -9,7 +9,7 @@ import org.joda.money.Money;
 
 public final class MoneySerializerTest extends ModuleTestBase
 {
-    public void testShouldSerialize() throws Exception {
+    public void testShouldSerialize() {
         final ObjectMapper mapper = mapperWithModule();
         assertEquals("{\"amount\":19.99,\"currency\":\"EUR\"}",
                 mapper.writeValueAsString(Money.of(CurrencyUnit.EUR, BigDecimal.valueOf(19.99))));

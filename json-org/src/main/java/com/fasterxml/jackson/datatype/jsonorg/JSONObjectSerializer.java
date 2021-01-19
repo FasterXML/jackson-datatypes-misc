@@ -1,10 +1,10 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
-import java.io.IOException;
 import java.util.Iterator;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.WritableTypeId;
+
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 
@@ -19,14 +19,14 @@ public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
         super(JSONObject.class);
     }
 
-    @Override // since 2.6
+    @Override
     public boolean isEmpty(SerializerProvider provider, JSONObject value) {
         return (value == null) || value.length() == 0;
     }
 
     @Override
     public void serialize(JSONObject value, JsonGenerator g, SerializerProvider provider)
-        throws IOException
+        throws JacksonException
     {
         g.writeStartObject(value);
         serializeContents(value, g, provider);
@@ -35,7 +35,8 @@ public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
 
     @Override
     public void serializeWithType(JSONObject value, JsonGenerator g, SerializerProvider ctxt,
-            TypeSerializer typeSer) throws IOException
+            TypeSerializer typeSer)
+        throws JacksonException
     {
         g.setCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g, ctxt,
@@ -46,7 +47,7 @@ public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
     }
 
     protected void serializeContents(JSONObject value, JsonGenerator g, SerializerProvider provider)
-        throws IOException
+        throws JacksonException
     {
         Iterator<?> it = value.keys();
         while (it.hasNext()) {

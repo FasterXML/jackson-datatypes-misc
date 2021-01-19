@@ -1,7 +1,8 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.io.IOException;
 import java.math.BigDecimal;
+
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,7 +11,7 @@ import org.joda.money.Money;
 
 public final class MoneyDeserializerTest extends ModuleTestBase
 {
-    public void testShouldDeserialize() throws IOException {
+    public void testShouldDeserialize() {
         final ObjectMapper objectMapper = mapperWithModule();
 
         final String content = "{\"amount\":19.99,\"currency\":\"EUR\"}";
@@ -21,7 +22,7 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         assertEquals(actualAmount.getCurrencyUnit().getCode(), "EUR");
     }
 
-    public void testShouldDeserializeWhenAmountIsAStringValue() throws IOException {
+    public void testShouldDeserializeWhenAmountIsAStringValue() {
         final ObjectMapper objectMapper = mapperWithModule();
 
         final String content = "{\"currency\":\"EUR\",\"amount\":\"19.99\"}";
@@ -31,7 +32,7 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         assertEquals(actualAmount.getCurrencyUnit().getCode(), "EUR");
     }
 
-    public void testShouldDeserializeWhenOrderIsDifferent() throws IOException {
+    public void testShouldDeserializeWhenOrderIsDifferent() {
         final ObjectMapper objectMapper = mapperWithModule();
 
         final String content = "{\"currency\":\"EUR\",\"amount\":19.99}";
@@ -51,8 +52,6 @@ public final class MoneyDeserializerTest extends ModuleTestBase
             fail();
         } catch (final NullPointerException e) {
             verifyException(e, "Amount must not be null");
-        } catch (final IOException e) {
-            fail("NullPointerException should have been thrown");
         }
     }
 
@@ -66,8 +65,6 @@ public final class MoneyDeserializerTest extends ModuleTestBase
             fail();
         } catch (final NullPointerException e) {
             verifyException(e, "Currency must not be null");
-        } catch (final IOException e) {
-            fail("NullPointerException should have been thrown");
         }
     }
 
@@ -81,12 +78,13 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         try {
             objectMapper.readValue(content, Money.class);
             fail();
-        } catch (final IOException e) {
+        } catch (final JacksonException e) {
             verifyException(e, "test");
         }
     }
 
-    public void testShouldPerformDeserializationWithUnknownProperties() throws IOException {
+    public void testShouldPerformDeserializationWithUnknownProperties()
+    {
         final ObjectMapper objectMapper = mapperWithModuleBuilder()
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                 .build();

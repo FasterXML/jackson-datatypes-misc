@@ -1,9 +1,9 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collections;
 
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
@@ -30,8 +30,8 @@ public class MoneyDeserializer extends StdDeserializer<Money>
     }
 
     @Override
-    public Money deserialize(final JsonParser p,
-            final DeserializationContext context) throws IOException
+    public Money deserialize(final JsonParser p, final DeserializationContext context)
+        throws JacksonException
     {
         BigDecimal amount = null;
         CurrencyUnit currencyUnit = null;
@@ -64,7 +64,7 @@ public class MoneyDeserializer extends StdDeserializer<Money>
     @Override
     public Object deserializeWithType(JsonParser p, DeserializationContext ctxt,
             TypeDeserializer typeDeserializer)
-        throws IOException
+        throws JacksonException
     {
         // In future could check current token... for now this should be enough:
         return typeDeserializer.deserializeTypedFromObject(p, ctxt);

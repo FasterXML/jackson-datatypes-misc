@@ -1,16 +1,17 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
+
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.type.LogicalType;
 
 import javax.json.Json;
 import javax.json.JsonMergePatch;
-import java.io.IOException;
 
-public class JsonMergePatchDeserializer extends StdDeserializer<JsonMergePatch> {
-
+public class JsonMergePatchDeserializer extends StdDeserializer<JsonMergePatch>
+{
     protected final JsonValueDeserializer jsonValueDeser;
 
     public JsonMergePatchDeserializer(JsonValueDeserializer jsonValueDeser) {
@@ -24,8 +25,9 @@ public class JsonMergePatchDeserializer extends StdDeserializer<JsonMergePatch> 
     }
     
     @Override
-    public JsonMergePatch deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public JsonMergePatch deserialize(JsonParser p, DeserializationContext ctxt)
+        throws JacksonException
+    {
         return Json.createMergePatch(jsonValueDeser._deserializeObject(p, ctxt));
     }
-
 }

@@ -2,10 +2,10 @@ package com.fasterxml.jackson.datatype.jodamoney;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.joda.money.CurrencyUnit;
 import org.joda.money.IllegalCurrencyException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public final class CurrencyUnitDeserializerTest extends ModuleTestBase
 {
@@ -22,8 +22,6 @@ public final class CurrencyUnitDeserializerTest extends ModuleTestBase
             fail("Should not pass");
         } catch (final IllegalCurrencyException e) {
             verifyException(e, "Unknown currency 'UNKNOWN'");
-        } catch (final IOException e) {
-            fail("IllegalCurrencyException should have been thrown");
         }
     }
 }

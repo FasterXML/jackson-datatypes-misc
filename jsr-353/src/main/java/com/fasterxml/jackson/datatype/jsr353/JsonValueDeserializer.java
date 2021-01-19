@@ -1,9 +1,8 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
-import java.io.IOException;
-
 import javax.json.*;
 
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonParser.NumberType;
 import com.fasterxml.jackson.core.JsonToken;
@@ -18,15 +17,8 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
 {
     protected final JsonBuilderFactory _builderFactory;
 
-    // @since 2.12
     protected final boolean _forJsonValue;
 
-    @Deprecated // since 2.12
-    public JsonValueDeserializer(JsonBuilderFactory bf) {
-        this(JsonValue.class, bf);
-    }
-
-    // @since 2.12
     public JsonValueDeserializer(Class<?> target, JsonBuilderFactory bf) {
         super(target);
         _builderFactory = bf;
@@ -40,7 +32,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
 
     @Override
     public JsonValue deserialize(JsonParser p, DeserializationContext ctxt)
-        throws IOException
+        throws JacksonException
     {
         JsonValue v;
         switch (p.currentToken()) {
@@ -79,7 +71,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     @Override
     public Object deserializeWithType(JsonParser p,
             DeserializationContext ctxt, TypeDeserializer typeDeser)
-        throws IOException
+        throws JacksonException
     {
         // we will always serialize using wrapper-array; approximated by claiming it's scalar
         return typeDeser.deserializeTypedFromScalar(p, ctxt);
@@ -92,7 +84,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
      */
 
     protected JsonObject _deserializeObject(JsonParser p, DeserializationContext ctxt)
-        throws IOException
+        throws JacksonException
     {
         JsonObjectBuilder b = _builderFactory.createObjectBuilder();
         while (p.nextToken() != JsonToken.END_OBJECT) {
@@ -155,7 +147,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     protected JsonArray _deserializeArray(JsonParser p, DeserializationContext ctxt)
-            throws IOException
+            throws JacksonException
     {
         JsonArrayBuilder b = _builderFactory.createArrayBuilder();
         JsonToken t;
@@ -207,7 +199,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     protected JsonValue _deserializeScalar(JsonParser p, DeserializationContext ctxt)
-        throws IOException
+        throws JacksonException
     {
         switch (p.currentToken()) {
         case VALUE_EMBEDDED_OBJECT:
