@@ -37,7 +37,7 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
             TypeSerializer typeSer)
         throws JacksonException
     {
-        g.setCurrentValue(value);
+        g.assignCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g, ctxt,
                 typeSer.typeId(value, JsonToken.START_ARRAY));
         serializeContents(value, g, ctxt);

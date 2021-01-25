@@ -47,7 +47,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
             TypeSerializer typeSer)
         throws JacksonException
     {
-        g.setCurrentValue(value);
+        g.assignCurrentValue(value);
         // 25-Jul-2017, tatu: This may look wrong, but since we don't really know impl
         //   classes we need to demote type to generic one, first: and as importantly,
         //   need to claim that we don't really know shape to use (since that can vary

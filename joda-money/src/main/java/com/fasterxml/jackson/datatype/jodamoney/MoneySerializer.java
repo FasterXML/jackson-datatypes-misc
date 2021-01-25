@@ -36,7 +36,7 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
             final TypeSerializer typeSer)
         throws JacksonException
     {
-        g.setCurrentValue(value);
+        g.assignCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g, ctxt,
                 typeSer.typeId(value, JsonToken.START_OBJECT));
         _writeFields(value, g, ctxt);
