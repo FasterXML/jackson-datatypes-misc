@@ -55,10 +55,10 @@ public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
             Object ob = value.opt(key);
             if (ob == null || ob == JSONObject.NULL) {
                 // 28-Mar-2019, tatu: Should possibly support filter of empty/null/default values?
-                g.writeNullField(key);
+                g.writeNullProperty(key);
                 continue;
             }
-            g.writeFieldName(key);
+            g.writeName(key);
             Class<?> cls = ob.getClass();
             if (cls == JSONObject.class) {
                 serialize((JSONObject) ob, g, provider);

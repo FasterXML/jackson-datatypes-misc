@@ -24,7 +24,7 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
         throws JacksonException
     {
         g.writeStartObject();
-        _writeFields(value, g, ctxt);
+        _writeProperties(value, g, ctxt);
         g.writeEndObject();
     }
 
@@ -39,11 +39,11 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
         g.assignCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g, ctxt,
                 typeSer.typeId(value, JsonToken.START_OBJECT));
-        _writeFields(value, g, ctxt);
+        _writeProperties(value, g, ctxt);
         typeSer.writeTypeSuffix(g, ctxt, typeIdDef);
     }
 
-    private final void _writeFields(final Money value,
+    private final void _writeProperties(final Money value,
             final JsonGenerator g, final SerializerProvider ctxt)
         throws JacksonException
     {
@@ -51,8 +51,8 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
         final int decimalPlaces = value.getCurrencyUnit().getDecimalPlaces();
         final int scale = Math.max(decimal.scale(), decimalPlaces);
 
-        g.writeNumberField("amount", decimal.setScale(scale, RoundingMode.UNNECESSARY));
-        g.writeFieldName("currency");
+        g.writeNumberProperty("amount", decimal.setScale(scale, RoundingMode.UNNECESSARY));
+        g.writeName("currency");
         ctxt.writeValue(g, value.getCurrencyUnit());
     }
 }

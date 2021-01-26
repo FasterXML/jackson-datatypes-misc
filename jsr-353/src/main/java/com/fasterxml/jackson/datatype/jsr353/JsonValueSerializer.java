@@ -119,7 +119,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
     {
         if (!ob.isEmpty()) {
             for (Map.Entry<String, JsonValue> entry : ob.entrySet()) {
-                g.writeFieldName(entry.getKey());
+                g.writeName(entry.getKey());
                 serialize(entry.getValue(), g, provider);
             }
         }

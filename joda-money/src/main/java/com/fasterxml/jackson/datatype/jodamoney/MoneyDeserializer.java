@@ -40,7 +40,7 @@ public class MoneyDeserializer extends StdDeserializer<Money>
             p.nextToken();
         }
         
-        for (; p.currentToken() == JsonToken.FIELD_NAME; p.nextToken()) {
+        for (; p.currentToken() == JsonToken.PROPERTY_NAME; p.nextToken()) {
             final String field = p.currentName();
 
             p.nextToken();
