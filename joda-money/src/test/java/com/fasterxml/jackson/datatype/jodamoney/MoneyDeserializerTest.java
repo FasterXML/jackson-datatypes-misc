@@ -12,40 +12,56 @@ import org.joda.money.Money;
 public final class MoneyDeserializerTest extends ModuleTestBase
 {
     private final ObjectMapper MAPPER = mapperWithModule();
+    private final ObjectReader R = MAPPER.readerFor(Money.class);
 
-    public void testShouldDeserialize() throws IOException {
+    /*
+    /**********************************************************************
+    /* Tests, happy path
+    /**********************************************************************
+     */
+    
+    public void testShouldDeserialize() throws IOException
+    {
 
         final String content = "{\"amount\":19.99,\"currency\":\"EUR\"}";
-        final Money actualAmount = MAPPER.readValue(content, Money.class);
+        final Money actualAmount = R.readValue(content);
 
         assertEquals(Money.of(CurrencyUnit.EUR, BigDecimal.valueOf(19.99)), actualAmount);
         assertEquals(BigDecimal.valueOf(19.99), actualAmount.getAmount());
         assertEquals(actualAmount.getCurrencyUnit().getCode(), "EUR");
     }
 
-    public void testShouldDeserializeWhenAmountIsAStringValue() throws IOException {
+    public void testShouldDeserializeWhenAmountIsAStringValue() throws IOException
+    {
         final String content = "{\"currency\":\"EUR\",\"amount\":\"19.99\"}";
-        final Money actualAmount = MAPPER.readValue(content, Money.class);
+        final Money actualAmount = R.readValue(content);
 
         assertEquals(BigDecimal.valueOf(19.99), actualAmount.getAmount());
         assertEquals(actualAmount.getCurrencyUnit().getCode(), "EUR");
     }
 
-    public void testShouldDeserializeWhenOrderIsDifferent() throws IOException {
+    public void testShouldDeserializeWhenOrderIsDifferent() throws IOException
+    {
         final String content = "{\"currency\":\"EUR\",\"amount\":19.99}";
-        final Money actualAmount = MAPPER.readValue(content, Money.class);
+        final Money actualAmount = R.readValue(content);
 
         assertEquals(BigDecimal.valueOf(19.99), actualAmount.getAmount());
         assertEquals(actualAmount.getCurrencyUnit().getCode(), "EUR");
     }
+
+    /*
+    /**********************************************************************
+    /* Tests, fail handling
+    /**********************************************************************
+     */
 
     public void testShouldFailDeserializationWithoutAmount()
     {
         final String content = "{\"currency\":\"EUR\"}";
 
         try {
-            MAPPER.readValue(content, Money.class);
-            fail();
+            final Money amount = R.readValue(content);
+            fail("Should not pass but got: "+amount);
         } catch (final NullPointerException e) {
             verifyException(e, "Amount must not be null");
         } catch (final IOException e) {
@@ -58,8 +74,8 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         final String content = "{\"amount\":5000}";
 
         try {
-            MAPPER.readValue(content, Money.class);
-            fail();
+            final Money amount = R.readValue(content);
+            fail("Should not pass but got: "+amount);
         } catch (final NullPointerException e) {
             verifyException(e, "Currency must not be null");
         } catch (final IOException e) {
@@ -67,20 +83,22 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         }
     }
 
-    public void testShouldFailDeserializationWithUnknownProperties() {
+    public void testShouldFailDeserializationWithUnknownProperties()
+    {
         final ObjectReader r = MAPPER.readerFor(Money.class)
                 .with(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         final String content = "{\"amount\":5000,\"currency\":\"EUR\",\"unknown\":\"test\"}";
 
         try {
-            Money result = r.readValue(content);
-            fail("Should pass but got: "+result);
+            final Money amount = r.readValue(content);
+            fail("Should not pass but got: "+amount);
         } catch (final IOException e) {
             verifyException(e, "test");
         }
     }
 
-    public void testShouldPerformDeserializationWithUnknownProperties() throws IOException {
+    public void testShouldPerformDeserializationWithUnknownProperties() throws IOException
+    {
         final ObjectReader r = MAPPER.readerFor(Money.class)
                 .without(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         final String content = "{\"amount\":5000,\"currency\":\"EUR\",\"unknown\":\"test\"}";
