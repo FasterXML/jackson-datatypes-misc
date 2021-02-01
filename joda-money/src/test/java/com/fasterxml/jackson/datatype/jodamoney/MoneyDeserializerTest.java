@@ -2,10 +2,12 @@ package com.fasterxml.jackson.datatype.jodamoney;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
@@ -80,7 +82,7 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         }
     }
 
-    public void testShouldFailDeserializationWithUnknownProperties()
+    public void testShouldFailDeserializationWithUnknownProperties() throws Exception
     {
         final ObjectReader r = MAPPER.readerFor(Money.class)
                 .with(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -89,7 +91,7 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         try {
             final Money amount = r.readValue(content);
             fail("Should not pass but got: "+amount);
-        } catch (final IOException e) {
+        } catch (final UnrecognizedPropertyException e) {
             verifyException(e, "Unrecognized field \"unknown\"");
             verifyException(e, "2 known properties: \"amount\", \"currency\"]");
         }
