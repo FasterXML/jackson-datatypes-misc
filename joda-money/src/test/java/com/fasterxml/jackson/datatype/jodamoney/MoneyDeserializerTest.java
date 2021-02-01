@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
@@ -61,8 +63,8 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         try {
             final Money amount = R.readValue(content);
             fail("Should not pass but got: "+amount);
-        } catch (final NullPointerException e) {
-            verifyException(e, "Amount must not be null");
+        } catch (final MismatchedInputException e) {
+            verifyException(e, "Property 'amount' missing from Object value");
         }
     }
 
@@ -73,8 +75,8 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         try {
             final Money amount = R.readValue(content);
             fail("Should not pass but got: "+amount);
-        } catch (final NullPointerException e) {
-            verifyException(e, "Currency must not be null");
+        } catch (final MismatchedInputException e) {
+            verifyException(e, "Property 'currency' missing from Object value");
         }
     }
 
@@ -87,8 +89,9 @@ public final class MoneyDeserializerTest extends ModuleTestBase
         try {
             final Money amount = r.readValue(content);
             fail("Should not pass but got: "+amount);
-        } catch (final Exception e) {
-            verifyException(e, "test");
+        } catch (final UnrecognizedPropertyException e) {
+            verifyException(e, "Unrecognized property \"unknown\"");
+            verifyException(e, "2 known properties: \"amount\", \"currency\"]");
         }
     }
 
@@ -96,7 +99,7 @@ public final class MoneyDeserializerTest extends ModuleTestBase
     {
         final ObjectReader r = MAPPER.readerFor(Money.class)
                 .without(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        final String content = "{\"amount\":5000,\"currency\":\"EUR\",\"unknown\":\"test\"}";
+        final String content = a2q("{'amount':5000,'currency':'EUR','unknown':'test'}");
         final Money actualAmount = r.readValue(content);
         assertEquals(Money.of(CurrencyUnit.EUR, BigDecimal.valueOf(5000)), actualAmount);
     }
