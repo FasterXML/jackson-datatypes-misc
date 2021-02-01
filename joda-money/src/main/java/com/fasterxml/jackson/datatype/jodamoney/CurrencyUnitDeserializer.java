@@ -1,7 +1,7 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
 import com.fasterxml.jackson.core.JsonParser;
-
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 
@@ -19,11 +19,19 @@ public class CurrencyUnitDeserializer extends StdScalarDeserializer<CurrencyUnit
 
     @Override
     public CurrencyUnit deserialize(final JsonParser p,
-            final DeserializationContext context) throws IOException {
-        final String currencyCode = p.getValueAsString();
-
-        // TODO: instead of leaking `IllegalCurrencyException` (an `IllegalArgumentException`)
-        //  catch and rethrow as suitable Jackson exception with extra info
-        return CurrencyUnit.of(currencyCode);
+            final DeserializationContext ctxt) throws IOException
+    {
+        if (p.hasToken(JsonToken.VALUE_STRING)) {
+            final String currencyCode = p.getText();
+            try {
+                return CurrencyUnit.of(currencyCode);
+            } catch (Exception e) {
+                return (CurrencyUnit) ctxt.handleWeirdStringValue(handledType(), currencyCode,
+                        e.getMessage());
+            }
+        }
+        return (CurrencyUnit) ctxt.handleUnexpectedToken(handledType(), p.currentToken(), p,
+                "Expected a `JsonToken.VALUE_STRING`, got `JsonToken.%s`",
+                p.currentToken());
     }
 }

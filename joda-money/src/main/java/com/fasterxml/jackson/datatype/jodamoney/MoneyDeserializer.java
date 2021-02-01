@@ -32,8 +32,8 @@ public class MoneyDeserializer extends StdDeserializer<Money>
     }
 
     @Override
-    public Money deserialize(final JsonParser p,
-            final DeserializationContext context) throws IOException
+    public Money deserialize(final JsonParser p, final DeserializationContext ctxt)
+        throws IOException
     {
         BigDecimal amount = null;
         CurrencyUnit currencyUnit = null;
@@ -41,22 +41,21 @@ public class MoneyDeserializer extends StdDeserializer<Money>
         if (p.isExpectedStartObjectToken()) {
             p.nextToken();
         }
-        
+
         for (; p.currentToken() == JsonToken.FIELD_NAME; p.nextToken()) {
             final String field = p.currentName();
 
             p.nextToken();
 
-            if ("amount".equals(field)) {
-                amount = context.readValue(p, BigDecimal.class);
-            } else if ("currency".equals(field)) {
-                currencyUnit = context.readValue(p, CurrencyUnit.class);
-            } else if (context.isEnabled(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)) {
-                throw UnrecognizedPropertyException.from(p, Money.class, field,
-                        Collections.<Object>singletonList("amount, currency")
-                );
-            } else {
-                p.skipChildren();
+            switch (field) {
+            case "amount":
+                amount = ctxt.readValue(p, BigDecimal.class);
+                break;
+            case "currency":
+                currencyUnit = ctxt.readValue(p, CurrencyUnit.class);
+                break;
+            default:
+                ctxt.handleUnknownProperty(p, this, handledType(), field);
             }
         }
 

@@ -1,29 +1,28 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.io.IOException;
-
 import org.joda.money.CurrencyUnit;
-import org.joda.money.IllegalCurrencyException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 public final class CurrencyUnitDeserializerTest extends ModuleTestBase
 {
     private final ObjectMapper MAPPER = mapperWithModule();
 
-    public void testShouldDeserialize() throws IOException {
+    public void testShouldDeserialize() throws Exception
+    {
         assertEquals(CurrencyUnit.EUR,
                 MAPPER.readValue("\"EUR\"", CurrencyUnit.class));
     }
 
-    public void testShouldNotDeserializeInvalidCurrency() {
+    public void testShouldNotDeserializeInvalidCurrency() throws Exception
+    {
         try {
             MAPPER.readValue("\"UNKNOWN\"", CurrencyUnit.class);
             fail("Should not pass");
-        } catch (final IllegalCurrencyException e) {
-            verifyException(e, "Unknown currency 'UNKNOWN'");
-        } catch (final IOException e) {
-            fail("IllegalCurrencyException should have been thrown");
+        } catch (final InvalidFormatException e) {
+            verifyException(e, "Cannot deserialize value of type `org.joda.money.CurrencyUnit");
+            verifyException(e, "from String \"UNKNOWN\": Unknown currency");
         }
     }
 }
