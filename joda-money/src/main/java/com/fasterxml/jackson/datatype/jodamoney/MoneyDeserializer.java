@@ -1,16 +1,13 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.type.LogicalType;
 
@@ -30,7 +27,7 @@ public class MoneyDeserializer extends StdDeserializer<Money>
     }
 
     @Override
-    public Money deserialize(final JsonParser p, final DeserializationContext context)
+    public Money deserialize(final JsonParser p, final DeserializationContext ctxt)
         throws JacksonException
     {
         BigDecimal amount = null;
@@ -39,22 +36,21 @@ public class MoneyDeserializer extends StdDeserializer<Money>
         if (p.isExpectedStartObjectToken()) {
             p.nextToken();
         }
-        
+
         for (; p.currentToken() == JsonToken.PROPERTY_NAME; p.nextToken()) {
             final String field = p.currentName();
 
             p.nextToken();
 
-            if ("amount".equals(field)) {
-                amount = context.readValue(p, BigDecimal.class);
-            } else if ("currency".equals(field)) {
-                currencyUnit = context.readValue(p, CurrencyUnit.class);
-            } else if (context.isEnabled(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)) {
-                throw UnrecognizedPropertyException.from(p, Money.class, field,
-                        Collections.<Object>singletonList("amount, currency")
-                );
-            } else {
-                p.skipChildren();
+            switch (field) {
+            case "amount":
+                amount = ctxt.readValue(p, BigDecimal.class);
+                break;
+            case "currency":
+                currencyUnit = ctxt.readValue(p, CurrencyUnit.class);
+                break;
+            default:
+                ctxt.handleUnknownProperty(p, this, handledType(), field);
             }
         }
 
