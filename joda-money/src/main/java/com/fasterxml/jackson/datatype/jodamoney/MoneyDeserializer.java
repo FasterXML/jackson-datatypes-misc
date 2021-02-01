@@ -2,6 +2,8 @@ package com.fasterxml.jackson.datatype.jodamoney;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collection;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
@@ -18,6 +20,9 @@ public class MoneyDeserializer extends StdDeserializer<Money>
 {
     private static final long serialVersionUID = 1L;
 
+    private final String F_AMOUNT = "amount";
+    private final String F_CURRENCY = "currency";
+
     public MoneyDeserializer() {
         super(Money.class);
     }
@@ -26,6 +31,12 @@ public class MoneyDeserializer extends StdDeserializer<Money>
     public LogicalType logicalType() {
         // structured, hence POJO
         return LogicalType.POJO;
+    }
+
+    // Needed for proper exception message later on
+    @Override
+    public Collection<Object> getKnownPropertyNames() {
+        return Arrays.<Object>asList(F_AMOUNT, F_CURRENCY);
     }
 
     @Override
@@ -45,10 +56,10 @@ public class MoneyDeserializer extends StdDeserializer<Money>
             p.nextToken();
 
             switch (field) {
-            case "amount":
+            case F_AMOUNT:
                 amount = ctxt.readValue(p, BigDecimal.class);
                 break;
-            case "currency":
+            case F_CURRENCY:
                 currencyUnit = ctxt.readValue(p, CurrencyUnit.class);
                 break;
             default:
@@ -56,7 +67,19 @@ public class MoneyDeserializer extends StdDeserializer<Money>
             }
         }
 
-        return Money.of(currencyUnit, amount);
+        // 01-Feb-2021, tatu: [datatypes-misc#8] Verify explicitly
+        String missingName;
+
+        if (amount == null) {
+            missingName = F_AMOUNT;
+        } else if (currencyUnit == null) {
+            missingName = F_CURRENCY;
+        } else {
+            return Money.of(currencyUnit, amount);
+        }
+
+        return ctxt.reportPropertyInputMismatch(getValueType(ctxt), missingName,
+"Property '%s' missing from Object value", missingName);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.TimeZone;
@@ -81,20 +80,15 @@ public abstract class ModuleTestBase extends TestCase
                 return;
             }
         }
-        fail("Expected an exception with one of substrings ("+Arrays.asList(matches)+"): got one with message \""+msg+"\"");
+        fail("Expected an exception (type "+e.getClass().getName()+") with one of substrings ("
++Arrays.asList(matches)+"): got one with message \""+msg+"\"");
     }
 
-    public String quote(String str) {
+    public String q(String str) {
         return '"'+str+'"';
     }
 
-    protected String aposToQuotes(String json) {
+    protected String a2q(String json) {
         return json.replace("'", "\"");
-    }
-
-    protected <T> T readAndMapFromString(ObjectMapper m, String input, Class<T> cls)
-        throws IOException
-    {
-        return (T) m.readValue("\""+input+"\"", cls);
     }
 }

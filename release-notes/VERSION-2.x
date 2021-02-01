@@ -10,7 +10,7 @@ Modules:
 
 2.13.0 (not yet released)
 
-No changes since 2.12
+#8: Improve error handling of "joda-money" `MoneyDeserializer`, `CurrencyUnitDeserializer`
 
 2.12.1 (08-Jan-2021)
 
