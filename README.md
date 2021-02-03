@@ -8,6 +8,7 @@ Currently included are:
 * [joda-money](joda-money/) for [Joda-Money](https://www.joda.org/joda-money/) datatypes
 * [jsr-353](jsr-353/) for [JSR-353](https://www.jcp.org/en/jsr/detail?id=353) (aka JSON-P) datatypes
 * [org.json](json-org/) for ([org.json](http://json.org/java)) JSON model datatypes (included in Android SDK)
+* [jakata-jsonp](jakarta-jsonp/) for [Jakarta JSON Processing](https://jakarta.ee/specifications/jsonp/2.0/)
 
 Note that this repo was created for Jackson 2.11: prior to this, individual datatype
 modules had their own repositories.
@@ -50,12 +51,14 @@ ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(new JsonOrgModule());
 mapper.registerModule(new JSR353Module());
 mapper.registerModule(new JodaMoneyModule());
+mapper.registerModule(new JSONPModule());
 
 // OR Jackson 2.10 and above
 ObjectMapper mapper = JsonMapper.builder()
     .addModule(new JsonOrgModule())
     .addModule(new JSR353Module())
     .addModule(new JodaMoneyModule())
+    .addModule(new JSONPModule())
     .build();
 ```
 

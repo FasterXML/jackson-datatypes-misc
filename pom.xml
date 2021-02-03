@@ -17,6 +17,7 @@
     <module>jsr-353</module>
     <module>joda-money</module>
     <module>json-org</module>
+    <module>jakarta-jsonp</module>
   </modules>
 
   <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
