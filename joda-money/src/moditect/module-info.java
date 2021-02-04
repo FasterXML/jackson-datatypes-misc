@@ -8,6 +8,6 @@ module com.fasterxml.jackson.datatype.joda {
 
     exports com.fasterxml.jackson.datatype.jodamoney;
 
-    provides com.fasterxml.jackson.databind.Module with
+    provides com.fasterxml.jackson.databind.JacksonModule with
         com.fasterxml.jackson.datatype.jodamoney.JodaMoneyModule;
 }

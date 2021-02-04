@@ -8,6 +8,6 @@ module com.fasterxml.jackson.datatype.jsr353 {
 
     exports com.fasterxml.jackson.datatype.jsr353;
 
-    provides com.fasterxml.jackson.databind.Module with
+    provides com.fasterxml.jackson.databind.JacksonModule with
         com.fasterxml.jackson.datatype.jsr353.JSR353Module;
 }

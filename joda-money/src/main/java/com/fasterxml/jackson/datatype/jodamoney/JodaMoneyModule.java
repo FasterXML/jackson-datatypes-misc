@@ -5,11 +5,11 @@ import org.joda.money.Money;
 
 import com.fasterxml.jackson.core.Version;
 
-import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.JacksonModule;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
 
-public class JodaMoneyModule extends Module
+public class JodaMoneyModule extends JacksonModule
     implements java.io.Serializable
 {
     private static final long serialVersionUID = 1L;
