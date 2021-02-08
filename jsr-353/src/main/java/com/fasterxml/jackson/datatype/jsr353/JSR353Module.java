@@ -30,7 +30,7 @@ public class JSR353Module extends SimpleModule
         addSerializer(JsonValue.class, new JsonValueSerializer());
         setDeserializers(new SimpleDeserializers() {
             @Override
-            public JsonDeserializer<?> findBeanDeserializer(
+            public ValueDeserializer<?> findBeanDeserializer(
                     JavaType type,
                     DeserializationConfig config,
                     BeanDescription beanDesc
@@ -51,12 +51,12 @@ public class JSR353Module extends SimpleModule
             }
 
             @Override
-            public JsonDeserializer<?> findCollectionDeserializer(
+            public ValueDeserializer<?> findCollectionDeserializer(
                     CollectionType type,
                     DeserializationConfig config,
                     BeanDescription beanDesc,
                     TypeDeserializer elementTypeDeserializer,
-                    JsonDeserializer<?> elementDeserializer
+                    ValueDeserializer<?> elementDeserializer
             ) {
                 if (type.hasRawClass(JsonArray.class)) {
                     return new JsonValueDeserializer(type.getRawClass(), _builderFactory);
@@ -65,13 +65,13 @@ public class JSR353Module extends SimpleModule
             }
 
             @Override
-            public JsonDeserializer<?> findMapDeserializer(
+            public ValueDeserializer<?> findMapDeserializer(
                     MapType type,
                     DeserializationConfig config,
                     BeanDescription beanDesc,
                     KeyDeserializer keyDeserializer,
                     TypeDeserializer elementTypeDeserializer,
-                    JsonDeserializer<?> elementDeserializer
+                    ValueDeserializer<?> elementDeserializer
             ) {
                 if (type.hasRawClass(JsonObject.class)) {
                     return new JsonValueDeserializer(type.getRawClass(), _builderFactory);
