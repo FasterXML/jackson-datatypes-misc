@@ -8,6 +8,12 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
+2.12.2 (not yet released)
+
+#6: Add `jakarta` classifier version of `jackson-datatype-jsr353` to work
+  with new Jakarta-based JSON-P
+ (reported by Filip K, fix contributed by Florian W)
+
 2.12.1 (08-Jan-2021)
 
 #7: Jackson JSR353 library is using wrong module name for javax json api
