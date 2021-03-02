@@ -14,3 +14,14 @@ Ryan Moquin
 * Reported #7: Jackson JSR353 library is using wrong module name for javax json api
  (2.12.1)
 
+Filip Kolarik (filip26@github)
+
+* Reported #6: Add `jakarta` classifier version of `jackson-datatype-jsr353` to work
+  with new Jakarta-based JSON-P
+ (2.12.2)
+
+Florian Wiesweg (fwiesweg@github)
+
+* Contributed fix for #6: Add `jakarta` classifier version of `jackson-datatype-jsr353` to work
+  with new Jakarta-based JSON-P
+ (2.12.2)
