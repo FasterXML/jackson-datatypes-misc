@@ -12,7 +12,7 @@ Modules:
 
 #8: Improve error handling of "joda-money" `MoneyDeserializer`, `CurrencyUnitDeserializer`
 
-2.12.2 (not yet released)
+2.12.2 (03-Mar-2021)
 
 #6: Add `jakarta` classifier version of `jackson-datatype-jsr353` to work
   with new Jakarta-based JSON-P
