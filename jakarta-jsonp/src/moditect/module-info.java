@@ -1,5 +1,5 @@
-// Generated 28-Mar-2019 using Moditect maven plugin
-module com.fasterxml.jackson.datatype.jakarta.jsonp {
+// Copied+modified from jsr-353 ones on 04-Mar-2021
+Module com.fasterxml.jackson.datatype.jsonp {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 
@@ -8,5 +8,5 @@ module com.fasterxml.jackson.datatype.jakarta.jsonp {
     exports com.fasterxml.jackson.datatype.jakarta.jsonp;
 
     provides com.fasterxml.jackson.databind.Module with
-        com.fasterxml.jackson.datatype.jakarta.jsonp.JSONPModule;
+        com.fasterxml.jackson.datatype.jsonp.JSONPModule;
 }

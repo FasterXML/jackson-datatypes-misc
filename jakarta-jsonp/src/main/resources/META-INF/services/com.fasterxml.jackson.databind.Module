@@ -1,1 +1,1 @@
-com.fasterxml.jackson.datatype.jakarta.jsonp.JSONPModule
+com.fasterxml.jackson.datatype.jsonp.JSONPModule

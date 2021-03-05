@@ -1,4 +1,4 @@
-package com.fasterxml.jackson.datatype.jakarta.jsonp;
+package com.fasterxml.jackson.datatype.jsonp;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
+import com.fasterxml.jackson.datatype.jakarta.jsonp.PackageVersion;
 
 import jakarta.json.*;
 import jakarta.json.spi.JsonProvider;
@@ -30,7 +31,7 @@ public class JSONPModule extends SimpleModule
         addSerializer(JsonValue.class, new JsonValueSerializer());
         setDeserializers(new SimpleDeserializers() {
             @Override
-            public JsonDeserializer<?> findBeanDeserializer(
+            public ValueDeserializer<?> findBeanDeserializer(
                     JavaType type,
                     DeserializationConfig config,
                     BeanDescription beanDesc
@@ -51,12 +52,12 @@ public class JSONPModule extends SimpleModule
             }
 
             @Override
-            public JsonDeserializer<?> findCollectionDeserializer(
+            public ValueDeserializer<?> findCollectionDeserializer(
                     CollectionType type,
                     DeserializationConfig config,
                     BeanDescription beanDesc,
                     TypeDeserializer elementTypeDeserializer,
-                    JsonDeserializer<?> elementDeserializer
+                    ValueDeserializer<?> elementDeserializer
             ) {
                 if (type.hasRawClass(JsonArray.class)) {
                     return new JsonValueDeserializer(type.getRawClass(), _builderFactory);
@@ -65,13 +66,13 @@ public class JSONPModule extends SimpleModule
             }
 
             @Override
-            public JsonDeserializer<?> findMapDeserializer(
+            public ValueDeserializer<?> findMapDeserializer(
                     MapType type,
                     DeserializationConfig config,
                     BeanDescription beanDesc,
                     KeyDeserializer keyDeserializer,
                     TypeDeserializer elementTypeDeserializer,
-                    JsonDeserializer<?> elementDeserializer
+                    ValueDeserializer<?> elementDeserializer
             ) {
                 if (type.hasRawClass(JsonObject.class)) {
                     return new JsonValueDeserializer(type.getRawClass(), _builderFactory);

@@ -1,4 +1,4 @@
-package com.fasterxml.jackson.datatype.jakarta.jsonp;
+package com.fasterxml.jackson.datatype.jsonp;
 
 import java.io.IOException;
 
@@ -7,6 +7,7 @@ import jakarta.json.*;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+import com.fasterxml.jackson.datatype.jsonp.JSONPModule;
 
 public abstract class TestBase extends junit.framework.TestCase
 {

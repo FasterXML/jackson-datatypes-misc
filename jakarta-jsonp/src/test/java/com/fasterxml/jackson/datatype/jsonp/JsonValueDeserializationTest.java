@@ -1,4 +1,4 @@
-package com.fasterxml.jackson.datatype.jakarta.jsonp;
+package com.fasterxml.jackson.datatype.jsonp;
 
 import jakarta.json.*;
 import jakarta.json.JsonValue.ValueType;
