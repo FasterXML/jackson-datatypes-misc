@@ -11,7 +11,7 @@
     <artifactId>jackson-datatypes-misc-parent</artifactId>
     <version>3.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>jackson-datatype-jsonp</artifactId>
+  <artifactId>jackson-datatype-jakarta-jsonp</artifactId>
   <name>Jackson datatype: JSON-P (Jakarta)</name>
   <version>3.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>

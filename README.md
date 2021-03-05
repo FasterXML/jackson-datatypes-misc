@@ -5,12 +5,11 @@ datatype modules to support 3rd party libraries.
 
 Currently included are:
 
-* [joda-money](joda-money/) for [Joda-Money](https://www.joda.org/joda-money/) datatypes
+* [jackson-datatype-joda-money](joda-money/) for [Joda-Money](https://www.joda.org/joda-money/) datatypes
 * JSR-353/JSON-P: 2 variants (starting with Jackson 2.12.2)
-    * [jsr-353](jsr-353/) for older "javax.json" [JSR-353](https://www.jcp.org/en/jsr/detail?id=353) (aka JSON-P) datatypes (package `javax.json`)
-    * [jakarta/json](jakarta-jsonp/) for newer "Jakarta JSON-P" (package `jakarta.json`)
-* [org.json](json-org/) for ([org.json](http://json.org/java)) JSON model datatypes (included in Android SDK)
-* [jakata-jsonp](jakarta-jsonp/) for [Jakarta JSON Processing](https://jakarta.ee/specifications/jsonp/2.0/)
+    * [jackson-datatype-jsr353](jsr-353/) for older "javax.json" [JSR-353](https://www.jcp.org/en/jsr/detail?id=353) (aka JSON-P) datatypes (package `javax.json`)
+    * [jakson-datatype-jakarta-jsonp](jakarta-jsonp/) for newer "Jakarta" JSON-P datatypes (package `jakarta.json`)
+* [jackson-datatype-json-org](json-org/) for ([org.json](http://json.org/java)) JSON model datatypes (included in Android SDK, as well as stand-alone Java library)
 
 Note that this repo was created for Jackson 2.11: prior to this, individual datatype
 modules had their own repositories.
