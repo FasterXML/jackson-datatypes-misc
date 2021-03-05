@@ -8,9 +8,9 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.12.2 (03-Mar-2021)
+2.12.2 (03-Mar-2021 / 04-Mar-2021)
 
-#10: Add Jakarta JSON Processing module
+#10: Add Jakarta JSON Processing module (`jackson-datatype-jsonp`)
  (contributed by Thiago H)
 
 2.12.1 (08-Jan-2021)
