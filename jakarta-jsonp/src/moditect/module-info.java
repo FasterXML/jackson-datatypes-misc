@@ -1,5 +1,5 @@
 // Copied+modified from jsr-353 ones on 04-Mar-2021
-Module com.fasterxml.jackson.datatype.jsonp {
+module com.fasterxml.jackson.datatype.jsonp {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 

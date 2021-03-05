@@ -1,16 +1,18 @@
 package com.fasterxml.jackson.datatype.jsonp;
 
+import java.util.Collections;
+
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
-import com.fasterxml.jackson.datatype.jakarta.jsonp.PackageVersion;
+
+import com.fasterxml.jackson.datatype.jsonp.PackageVersion;
 
 import jakarta.json.*;
 import jakarta.json.spi.JsonProvider;
-import java.util.Collections;
 
 public class JSONPModule extends SimpleModule
 {

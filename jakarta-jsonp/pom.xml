@@ -11,18 +11,18 @@
     <artifactId>jackson-datatypes-misc-parent</artifactId>
     <version>3.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>jackson-datatype-jakarta-jsonp</artifactId>
-  <name>Jackson datatype: Jakarta JSON Processing</name>
+  <artifactId>jackson-datatype-jsonp</artifactId>
+  <name>Jackson datatype: JSON-P (Jakarta)</name>
   <version>3.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <description>Add-on module for Jackson (http://github.com/FasterXML/jackson) to support
-working with Jakarta JSON Processing node types via data-binding
+working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-binding
   </description>
   <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
   <properties>
     <!-- Generate PackageVersion.java into this directory. -->
-    <packageVersion.dir>com/fasterxml/jackson/datatype/jakarta/jsonp</packageVersion.dir>
-    <packageVersion.package>${project.groupId}.jakarta.jsonp</packageVersion.package>
+    <packageVersion.dir>com/fasterxml/jackson/datatype/jsonp</packageVersion.dir>
+    <packageVersion.package>${project.groupId}.jsonp</packageVersion.package>
   </properties>
 
   <dependencies>

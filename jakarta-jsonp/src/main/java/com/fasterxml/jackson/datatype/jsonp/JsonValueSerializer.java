@@ -2,13 +2,13 @@ package com.fasterxml.jackson.datatype.jsonp;
 
 import java.util.Map;
 
-import jakarta.json.*;
-
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.core.type.WritableTypeId;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
+import jakarta.json.*;
 
 public class JsonValueSerializer extends StdSerializer<JsonValue>
 {

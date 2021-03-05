@@ -6,7 +6,7 @@ module com.fasterxml.jackson.datatype.jsonorg {
     // is this the package name
     requires static json;
     //^2015
-	requires static org.json;
+    requires static org.json;
 
     exports com.fasterxml.jackson.datatype.jsonorg;
 
