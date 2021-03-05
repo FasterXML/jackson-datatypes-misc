@@ -3,6 +3,9 @@ recognize `JsonValue` types of JSON API defined in Jakarta JSON Processing speci
 you can read JSON as `JsonValue`s and write `JsonValue`s as JSON as part of normal
 Jackson processing.
 
+NOTE: this is for "new" version of JSON-P api under Java package `jakarta.json`,
+NOT the "older" one under `javax.json`.
+
 In both cases the main reason for use is interoperability, as well as to take advantage
 of powerful data-binding features Jackson provides.
 Another benefit is the
@@ -18,8 +21,8 @@ To use module on Maven-based projects, use following dependency:
 ```xml
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
-  <artifactId>jackson-datatype-jakarta-jsonp</artifactId>
-  <version>2.11.0</version>
+  <artifactId>jackson-datatype-jsonp</artifactId>
+  <version>2.12.2</version>
 </dependency>
 ```
 
