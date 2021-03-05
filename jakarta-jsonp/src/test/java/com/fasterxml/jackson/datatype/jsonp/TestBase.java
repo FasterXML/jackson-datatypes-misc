@@ -1,11 +1,10 @@
-package com.fasterxml.jackson.datatype.jsr353;
+package com.fasterxml.jackson.datatype.jsonp;
 
 import java.io.IOException;
 
-import javax.json.*;
+import jakarta.json.*;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
@@ -23,7 +22,7 @@ public abstract class TestBase extends junit.framework.TestCase
         }
     }
 
-    private final static JSR353Module MODULE = new JSR353Module();
+    private final static JSONPModule MODULE = new JSONPModule();
 
     private final static ObjectMapper SHARED_MAPPER = newMapper();
 

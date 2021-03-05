@@ -6,7 +6,9 @@ datatype modules to support 3rd party libraries.
 Currently included are:
 
 * [joda-money](joda-money/) for [Joda-Money](https://www.joda.org/joda-money/) datatypes
-* [jsr-353](jsr-353/) for [JSR-353](https://www.jcp.org/en/jsr/detail?id=353) (aka JSON-P) datatypes
+* JSR-353/JSON-P: 2 variants (starting with Jackson 2.12.2)
+    * [jsr-353](jsr-353/) for older "javax.json" [JSR-353](https://www.jcp.org/en/jsr/detail?id=353) (aka JSON-P) datatypes (package `javax.json`)
+    * [jakarta/json](jakarta-jsonp/) for newer "Jakarta JSON-P" (package `jakarta.json`)
 * [org.json](json-org/) for ([org.json](http://json.org/java)) JSON model datatypes (included in Android SDK)
 
 Note that this repo was created for Jackson 2.11: prior to this, individual datatype
@@ -31,7 +33,7 @@ To use module (version 2.x) on Maven-based projects, use dependency like
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-json-org</artifactId>
-  <version>2.11.0</version>
+  <version>2.12.2</version>
 </dependency>
 ```
 
