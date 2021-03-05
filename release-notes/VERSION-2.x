@@ -14,9 +14,7 @@ Modules:
 
 2.12.2 (03-Mar-2021)
 
-#6: Add `jakarta` classifier version of `jackson-datatype-jsr353` to work
-  with new Jakarta-based JSON-P
- (reported by Filip K, fix contributed by Florian W)
+- No changes since 2.12.1
 
 2.12.1 (08-Jan-2021)
 
