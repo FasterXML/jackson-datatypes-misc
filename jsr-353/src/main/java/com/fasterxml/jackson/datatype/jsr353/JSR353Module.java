@@ -1,5 +1,7 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
+import java.util.Collections;
+
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -9,7 +11,6 @@ import com.fasterxml.jackson.databind.type.MapType;
 
 import javax.json.*;
 import javax.json.spi.JsonProvider;
-import java.util.Collections;
 
 public class JSR353Module extends SimpleModule
 {
@@ -22,8 +23,9 @@ public class JSR353Module extends SimpleModule
     }
 
     @SuppressWarnings("serial")
-    public JSR353Module(JsonProvider jsonProvider) {
-        super(PackageVersion.VERSION); //ModuleVersion.instance.version());
+    public JSR353Module(JsonProvider jsonProvider)
+    {
+        super(PackageVersion.VERSION);
 
         _builderFactory = jsonProvider.createBuilderFactory(Collections.<String, Object>emptyMap());
         final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(JsonValue.class, _builderFactory);

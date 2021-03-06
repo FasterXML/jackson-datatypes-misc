@@ -9,17 +9,15 @@ public class JsonOrgModule extends SimpleModule
 {
     private static final long serialVersionUID = 1;
 
-    private final static String NAME = "JsonOrgModule";
-
     /*
-    /**********************************************************
+    /**********************************************************************
     /* Life-cycle
-    /**********************************************************
+    /**********************************************************************
      */
 
     public JsonOrgModule()
     {
-        super(NAME, PackageVersion.VERSION);
+        super(PackageVersion.VERSION);
         addDeserializer(JSONArray.class, JSONArrayDeserializer.instance);
         addDeserializer(JSONObject.class, JSONObjectDeserializer.instance);
         addSerializer(JSONArraySerializer.instance);

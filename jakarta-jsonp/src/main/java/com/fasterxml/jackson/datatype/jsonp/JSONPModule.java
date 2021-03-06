@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 
-import com.fasterxml.jackson.datatype.jsonp.PackageVersion;
-
 import jakarta.json.*;
 import jakarta.json.spi.JsonProvider;
 
@@ -25,8 +23,9 @@ public class JSONPModule extends SimpleModule
     }
 
     @SuppressWarnings("serial")
-    public JSONPModule(JsonProvider jsonProvider) {
-        super(PackageVersion.VERSION); //ModuleVersion.instance.version());
+    public JSONPModule(JsonProvider jsonProvider)
+    {
+        super(PackageVersion.VERSION);
 
         _builderFactory = jsonProvider.createBuilderFactory(Collections.<String, Object>emptyMap());
         final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(JsonValue.class, _builderFactory);
@@ -85,7 +84,7 @@ public class JSONPModule extends SimpleModule
                 return null;
             }
 
-            @Override // since 2.11
+            @Override
             public boolean hasDeserializerFor(DeserializationConfig config, Class<?> valueType) {
                 return JsonValue.class.isAssignableFrom(valueType) ||
                         JsonPatch.class.isAssignableFrom(valueType) ||
