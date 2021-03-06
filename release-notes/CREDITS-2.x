@@ -16,6 +16,9 @@ Ryan Moquin
 
 Thiago Henrique Hüpner (Thihup@github)
 
-* Contributed#10: Add Jakarta JSON Processing module
+* Contributed #10: Add Jakarta JSON Processing module
  (2.12.2)
+* Contributed #12: (jsonp) Add alternate constructor in `JSONPModule`/`JSR353Module`
+  to take `JsonProvider`
+ (2.12.3)
 
