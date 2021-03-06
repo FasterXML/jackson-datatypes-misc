@@ -20,12 +20,15 @@ public class JSONPModule extends SimpleModule
 
     protected final JsonBuilderFactory _builderFactory;
 
-    @SuppressWarnings("serial")
     public JSONPModule() {
+        this(JsonProvider.provider());
+    }
+
+    @SuppressWarnings("serial")
+    public JSONPModule(JsonProvider jsonProvider) {
         super(PackageVersion.VERSION); //ModuleVersion.instance.version());
 
-        final JsonProvider jp = JsonProvider.provider();
-        _builderFactory = jp.createBuilderFactory(Collections.<String, Object>emptyMap());
+        _builderFactory = jsonProvider.createBuilderFactory(Collections.<String, Object>emptyMap());
         final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(JsonValue.class, _builderFactory);
         final JsonPatchDeserializer jsonPatchDeser = new JsonPatchDeserializer(jsonValueDeser);
         final JsonMergePatchDeserializer jsonMergePatchDeser = new JsonMergePatchDeserializer(jsonValueDeser);
