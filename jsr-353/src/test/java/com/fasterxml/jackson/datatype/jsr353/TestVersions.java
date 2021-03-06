@@ -12,7 +12,7 @@ public class TestVersions extends TestBase
         JSR353Module module = new JSR353Module();
         assertVersion(module);
         // just because name is assigned programmatically
-        assertEquals("JSR353Module",
+        assertEquals("jackson-datatype-jsr353",
                 module.getModuleName());
     }
 
