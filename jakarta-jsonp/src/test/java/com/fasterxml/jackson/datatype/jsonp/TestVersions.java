@@ -1,18 +1,18 @@
-package com.fasterxml.jackson.datatype.jsonorg;
+package com.fasterxml.jackson.datatype.jsonp;
 
 import java.io.*;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.Versioned;
 
-public class TestVersions extends ModuleTestBase
+public class TestVersions extends TestBase
 {
     public void testModuleVersionAndName() throws IOException
     {
-        JsonOrgModule module = new JsonOrgModule();
+        JSONPModule module = new JSONPModule();
         assertVersion(module);
         // just because name is assigned programmatically
-        assertEquals("jackson-datatype-json-org",
+        assertEquals("jackson-datatype-jakarta-jsonp",
                 module.getModuleName());
     }
 

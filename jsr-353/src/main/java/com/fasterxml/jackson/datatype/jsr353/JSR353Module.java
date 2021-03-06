@@ -17,12 +17,19 @@ public class JSR353Module extends SimpleModule
 
     protected final JsonBuilderFactory _builderFactory;
 
-    @SuppressWarnings("serial")
     public JSR353Module() {
-        super(PackageVersion.VERSION); //ModuleVersion.instance.version());
+        this(JsonProvider.provider());
+    }
 
-        final JsonProvider jp = JsonProvider.provider();
-        _builderFactory = jp.createBuilderFactory(Collections.<String, Object>emptyMap());
+    /**
+     * @since 2.13
+     */
+    @SuppressWarnings("serial")
+    public JSR353Module(JsonProvider jsonProvider)
+    {
+        super(PackageVersion.VERSION);
+
+        _builderFactory = jsonProvider.createBuilderFactory(Collections.<String, Object>emptyMap());
         final JsonValueDeserializer jsonValueDeser = new JsonValueDeserializer(JsonValue.class, _builderFactory);
         final JsonPatchDeserializer jsonPatchDeser = new JsonPatchDeserializer(jsonValueDeser);
         final JsonMergePatchDeserializer jsonMergePatchDeser = new JsonMergePatchDeserializer(jsonValueDeser);

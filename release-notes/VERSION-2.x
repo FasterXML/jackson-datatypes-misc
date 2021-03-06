@@ -11,10 +11,18 @@ Modules:
 2.13.0 (not yet released)
 
 #8: Improve error handling of "joda-money" `MoneyDeserializer`, `CurrencyUnitDeserializer`
+- Change module names declared to use artifact-id (for json-org, "JsonOrgModule" to
+  "jackson-datatype-json-org", for example)
+
+2.12.3 (not yet released)
+
+#12: (jsonp) Add alternate constructor in `JSONPModule`/`JSR353Module` to
+  take `JsonProvider`
+ (contributed by Thiago H)
 
 2.12.2 (03-Mar-2021 / 04-Mar-2021)
 
-#10: Add Jakarta JSON Processing module (`jackson-datatype-jsonp`)
+#10: (jsonp) Add Jakarta JSON Processing module (`jackson-datatype-jsonp`)
  (contributed by Thiago H)
 
 2.12.1 (08-Jan-2021)

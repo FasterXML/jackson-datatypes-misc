@@ -18,7 +18,10 @@ public class JodaMoneyModule extends Module
 
     @Override
     public String getModuleName() {
-        return getClass().getName();
+        // 05-Mar-2021, tatu: In 2.12 used fully-qualified class name
+        //    but standard seems to be moving towards just returning
+        //    artifact-id from Version (default by SimpleModule)
+        return version().getArtifactId();
     }
 
     @Override

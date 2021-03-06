@@ -14,6 +14,13 @@ public class TestVersions extends ModuleTestBase
         assertVersion(new JodaMoneyModule());
     }
 
+    // just because name is assigned programmatically
+    public void testModuleName()
+    {
+        assertEquals("jackson-datatype-joda-money",
+                new JodaMoneyModule().getModuleName());
+    }
+
     /*
     /**********************************************************
     /* Helper methods
