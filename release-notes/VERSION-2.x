@@ -8,7 +8,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.12.3 (not yet released)
+2.12.3 (12-Apr-2021)
 
 #12: (jsonp) Add alternate constructor in `JSONPModule`/`JSR353Module` to
   take `JsonProvider`
