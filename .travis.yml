@@ -8,19 +8,9 @@ jdk:
   - openjdk8
   - openjdk11
 
-# Not built very often, do not add caching
-
 branches:
   only:
-    - master
+    - "master"
+    - "3.0"
 
-# Below this line is configuration for deploying to the Sonatype OSS repo
-#   https://knowm.org/configure-travis-ci-to-deploy-snapshots/
-
-before_install: "git clone -b travis `git config --get remote.origin.url` target/travis"
-script: "[ ${TRAVIS_PULL_REQUEST} = 'false' ] && mvn clean deploy --settings target/travis/settings.xml || mvn clean verify --settings target/travis/settings.xml"
-
-env:
-  global:
-    - secure: "RFrIt87pToICKcBUSK+AB2ZP3/EXBCjop3ZMaQRV8j0Vr0WmUDwmFFfQkP7GNTHBQ2duTp1kycNdtqeFu4EiT4mMMkrGU7wUFRKNlksUBaDF8caI2Cav0//ibG0oZsDkbQ2uawVW7bDxy1s2kMWlnycJ9jFozvq48zxgGUAx1L1R7lL6w7ilxwldr3e5O5+kiy0IXEcbjGRXWtpBUtJbKMlk1GbnTlOCe75Bt8OoaLEY8WVUnomlMPYf6UBeyVEMcT/mRCoYO8cgM3DGw44pIkWgoGstOCFlTITX9nuDr7dhS8ZQBbX6yWCk9SJXQPZyV5a1XvCNJ1xYys2nXAkG0sK36AH2TRkw+VUpHcxfg+b28ZzVQeFACvSUP+pBuzJ56DdkVQIdCN63W/hcviYdSAT13Il6ZmP5nq1HCktTwLWbI6E2iTsTMCaNTEHoaVMjSvY0HkSmw4Wirtux9NNkqrtveW0nZu+dAAUm1IPyo4HdSYE/qIHl6sVUWp73SukbHqWQ1lZ3xFw+JbKU4z2XG2f18NDI4VBYWyYqvmrhgcn5Z2ds9E8kzsIIHRLSnvzEtVdwlVDz485rg+ZiTw2ObJ+cC40WUFnmiYKpJ7m8lC4iOGVCkxpBme1pMwcPlZXsTUhgBmVWQAQRWcSG7mK4L+9j7OWF83QF8d3mwK1pTVE="
-    - secure: "ZL4QMF/5kiLM2EaW/hun2VKVPOT3DKM69eJmmjBaI8osgDl265YG3+/A0eQdDQe/NI7o6viLU8sObqjzVYJDmdq+cRqh3yQzJTLTKaRBdR4vpLfXMCM27FVD/4Qzo6we1Fq7keaAiy1orrak+dud5fXwquOqKGSImcQ6VNQaqoNNvJZvvQxzfCLBYNNcmVW5PY/JDSFNMUUp7dwE2cSwADYWZxQQgINSlpJgSdm3pfOKiIn9YnmMhipTmFgUBPf20onDYgDWpUBTgs00nDMGkoL/vjnMiNGUCT/BuVKCbSgO5bzzKIDCIuiOZWbwDH90kDYAFiSYaLA2zuC+aSXyccm35Eo0NbSIUIgw6QmoIa/xDk70sCuH2hJUl1pmuHjFIJVeYOZ8rqVMRK/f1dlNZ7nFqIt2QfgZiY01G3ioeW980mhlspTegdGdvKt3u5dZNZ7yHg1EQru5n+8ywuRu0FikAor9DvFqX+f65rOYljDZBLeDp6f0NZLAI9iaYQz3kyOSGvGvqRXtzyUWWYdXN29Ve9/wr3wYVVy3ZD6JvJNme9RXUSw+YyCOanI9pF0YeMhqOS3EI2McEUqpEMvc/5CCNLZE2l6pDchXiHCfpYJmxjRYFl7HuttZxQLuDKGgnwJPyGfwzs+R1FQQ0HyBnmodGceRT0djsQueaoBIosQ="
+script: mvn -B clean verify
