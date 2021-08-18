@@ -19,6 +19,7 @@
     <module>jsr-353</module>
     <!-- since 2.12.2 -->
     <module>jakarta-jsonp</module>
+    <module>jakarta-mail</module>
   </modules>
 
   <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
