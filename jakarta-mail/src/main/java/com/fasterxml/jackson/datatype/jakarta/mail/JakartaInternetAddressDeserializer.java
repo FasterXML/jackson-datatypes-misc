@@ -23,7 +23,6 @@ import java.io.IOException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
@@ -33,6 +32,7 @@ import jakarta.mail.internet.InternetAddress;
  */
 public class JakartaInternetAddressDeserializer extends StdScalarDeserializer<InternetAddress>
 {
+    private static final long serialVersionUID = 1L;
 
     public JakartaInternetAddressDeserializer() {
         super(InternetAddress.class);
@@ -41,15 +41,15 @@ public class JakartaInternetAddressDeserializer extends StdScalarDeserializer<In
     @Override
     public InternetAddress deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         if (p.currentToken() != VALUE_STRING) {
-            ctxt.handleUnexpectedToken(InternetAddress.class, p);
+            return (InternetAddress) ctxt.handleUnexpectedToken(InternetAddress.class, p);
         }
 
-        String address = p.getText();
-
+        final String address = p.getText();
         try {
             return new InternetAddress(address);
         } catch (AddressException e) {
-            throw new InvalidFormatException(p, "could not parse value as address", p.getCurrentValue(), InternetAddress.class);
+            return (InternetAddress) ctxt.handleWeirdStringValue(InternetAddress.class, address,
+                     e.getMessage());
         }
     }
 }

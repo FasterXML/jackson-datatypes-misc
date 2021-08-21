@@ -10,6 +10,8 @@ Currently included are:
     * [jackson-datatype-jsr353](jsr-353/) for older "javax.json" [JSR-353](https://www.jcp.org/en/jsr/detail?id=353) (aka JSON-P) datatypes (package `javax.json`)
     * [jakson-datatype-jakarta-jsonp](jakarta-jsonp/) for newer "Jakarta" JSON-P datatypes (package `jakarta.json`)
 * [jackson-datatype-json-org](json-org/) for ([org.json](http://json.org/java)) JSON model datatypes (included in Android SDK, as well as stand-alone Java library)
+* [jackson-datatype-jakarta-mail](jakarta-mail/) for Jakarta Mail (ex-Java Mail) (starting with Jackson 2.13)
+    * Currently (2.13) just type `jakarta.mail.internet.InternetAddress`
 
 Note that this repo was created for Jackson 2.11: prior to this, individual datatype
 modules had their own repositories.
@@ -33,7 +35,7 @@ To use module (version 2.x) on Maven-based projects, use dependency like
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-json-org</artifactId>
-  <version>2.12.2</version>
+  <version>2.13.0</version>
 </dependency>
 ```
 

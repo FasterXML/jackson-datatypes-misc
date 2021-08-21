@@ -3,6 +3,8 @@ Modules:
   jackson-datatype-joda-money
   jackson-datatype-json-org
   jackson-datatype-jsr353
+  jackson-datatype-jakarta-jsonp (2.13 alt to -jsr353)
+  jackson-datatype-jakarta-mail (2.13)  
 
 ------------------------------------------------------------------------
 === Releases ===
@@ -11,6 +13,8 @@ Modules:
 2.13.0 (not yet released)
 
 #8: Improve error handling of "joda-money" `MoneyDeserializer`, `CurrencyUnitDeserializer`
+#16: Add datatype module for Jakarta Mail
+ (contributed by Christopher S)
 - Change module names declared to use artifact-id (for json-org, "JsonOrgModule" to
   "jackson-datatype-json-org", for example)
 

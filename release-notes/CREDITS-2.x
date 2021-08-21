@@ -7,6 +7,8 @@ Tatu Saloranta (tatu.saloranta@iki.fi): author of `org.json` (aka `json-org`),
 
 Iurii Ignatko (welandaz@github): author of `joda-money` module (added in 2.11)
 
+Christopher Smith (chrylis@github): author of `jakarta-mail` module (added in 2.13)
+
 ----------------------------------------------------------------------------
 
 Ryan Moquin
@@ -22,3 +24,6 @@ Thiago Henrique Hüpner (Thihup@github)
   to take `JsonProvider`
  (2.12.3)
 
+Christopher Smith (chrylis@github)
+
+* Contributed #16: Add datatype module for Jakarta Mail
