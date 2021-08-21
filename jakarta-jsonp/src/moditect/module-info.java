@@ -7,6 +7,6 @@ module com.fasterxml.jackson.datatype.jsonp {
 
     exports com.fasterxml.jackson.datatype.jakarta.jsonp;
 
-    provides com.fasterxml.jackson.databind.Module with
+    provides com.fasterxml.jackson.databind.JacksonModule with
         com.fasterxml.jackson.datatype.jsonp.JSONPModule;
 }

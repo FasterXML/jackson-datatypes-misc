@@ -7,6 +7,6 @@ module com.fasterxml.jackson.datatype.jakarta.mail {
 
     exports com.fasterxml.jackson.datatype.jakarta.mail;
 
-    provides com.fasterxml.jackson.databind.Module with
+    provides com.fasterxml.jackson.databind.JacksonModule with
         com.fasterxml.jackson.datatype.jakarta.mail.JakartaMailModule;
 }
