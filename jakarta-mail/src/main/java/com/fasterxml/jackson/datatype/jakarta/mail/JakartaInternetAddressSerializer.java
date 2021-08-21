@@ -16,9 +16,9 @@
 
 package com.fasterxml.jackson.datatype.jakarta.mail;
 
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
+
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
 
@@ -35,7 +35,9 @@ public class JakartaInternetAddressSerializer extends StdScalarSerializer<Intern
     }
 
     @Override
-    public void serialize(InternetAddress value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    public void serialize(InternetAddress value, JsonGenerator gen, SerializerProvider provider)
+        throws JacksonException
+    {
         gen.writeString(value.toString());
     }
 }

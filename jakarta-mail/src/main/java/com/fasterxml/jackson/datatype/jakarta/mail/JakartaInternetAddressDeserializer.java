@@ -18,8 +18,7 @@ package com.fasterxml.jackson.datatype.jakarta.mail;
 
 import static com.fasterxml.jackson.core.JsonToken.VALUE_STRING;
 
-import java.io.IOException;
-
+import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
@@ -32,14 +31,13 @@ import jakarta.mail.internet.InternetAddress;
  */
 public class JakartaInternetAddressDeserializer extends StdScalarDeserializer<InternetAddress>
 {
-    private static final long serialVersionUID = 1L;
-
     public JakartaInternetAddressDeserializer() {
         super(InternetAddress.class);
     }
 
     @Override
-    public InternetAddress deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public InternetAddress deserialize(JsonParser p, DeserializationContext ctxt) throws JacksonException
+    {
         if (p.currentToken() != VALUE_STRING) {
             return (InternetAddress) ctxt.handleUnexpectedToken(InternetAddress.class, p);
         }

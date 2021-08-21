@@ -7,7 +7,6 @@ import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import jakarta.mail.internet.AddressException;
@@ -55,7 +54,7 @@ public class SerDesTests extends TestBase {
 
 
     @Test(expected = InvalidFormatException.class)
-    public void invalidThrows() throws JsonProcessingException {
+    public void invalidThrows() throws Exception {
         String json = "\"alice at example\"";
         sharedMapper().readValue(json, InternetAddress.class);
     }
