@@ -18,6 +18,7 @@ Modules:
 - Change module names declared to use artifact-id (for json-org, "JsonOrgModule" to
   "jackson-datatype-json-org", for example)
 
+2.12.5 (27-Aug-2021)
 2.12.4 (06-Jul-2021)
 
 No changes since 2.12.3
