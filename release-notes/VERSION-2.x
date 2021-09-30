@@ -10,7 +10,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.13.0 (not yet released)
+2.13.0 (30-Sep-2021)
 
 #8: Improve error handling of "joda-money" `MoneyDeserializer`, `CurrencyUnitDeserializer`
 #16: Add datatype module for Jakarta Mail
