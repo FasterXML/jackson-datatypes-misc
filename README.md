@@ -43,23 +43,28 @@ To use module (version 2.x) on Maven-based projects, use dependency like
 
 ### Registering module
 
-To use the the datatype module(s) with Jackson, simply register it
+To use the datatype module(s) with Jackson, simply register it
 with the `ObjectMapper` instance:
 
 ```java
 // import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
+// ... and so on
 
 // Jackson 2.x before 2.10:
 ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(new JsonOrgModule());
-mapper.registerModule(new JSR353Module());
 mapper.registerModule(new JodaMoneyModule());
+// ONE of these (not both):
+mapper.registerModule(new JSR353Module()); // old (javax) json-p API
+mapper.registerModule(new JSONPModule()); // new (jakarta) json-P API
 
 // OR Jackson 2.10 and above
 ObjectMapper mapper = JsonMapper.builder()
     .addModule(new JsonOrgModule())
-    .addModule(new JSR353Module())
     .addModule(new JodaMoneyModule())
+    // ONE of these (not both):
+    .addModule(new JSR353Module()) // old (javax) json-p API
+    .addModule(new JSONPModule()) // new (jakarta) json-P API
     .build();
 ```
 
