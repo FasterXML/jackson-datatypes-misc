@@ -16,15 +16,19 @@ import com.fasterxml.jackson.databind.type.LogicalType;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
+import static java.util.Objects.requireNonNull;
+
 public class MoneyDeserializer extends StdDeserializer<Money>
 {
     private static final long serialVersionUID = 1L;
 
     private final String F_AMOUNT = "amount";
     private final String F_CURRENCY = "currency";
+    private final AmountRepresenter<?> amountRepresenter;
 
-    public MoneyDeserializer() {
+    public MoneyDeserializer(final AmountRepresenter<?> amountRepresenter) {
         super(Money.class);
+        this.amountRepresenter = requireNonNull(amountRepresenter, "amount writer cannot be null");
     }
 
     @Override
@@ -75,7 +79,7 @@ public class MoneyDeserializer extends StdDeserializer<Money>
         } else if (currencyUnit == null) {
             missingName = F_CURRENCY;
         } else {
-            return Money.of(currencyUnit, amount);
+            return amountRepresenter.read(currencyUnit, amount);
         }
 
         return ctxt.reportPropertyInputMismatch(getValueType(ctxt), missingName,
