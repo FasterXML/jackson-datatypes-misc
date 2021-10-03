@@ -14,7 +14,15 @@ public class JodaMoneyModule extends Module
 {
     private static final long serialVersionUID = 1L;
 
-    public JodaMoneyModule() { }
+    private final AmountRepresenter<?> amountRepresenter;
+
+    private JodaMoneyModule(AmountRepresenter<?> amountRepresenter) {
+        this.amountRepresenter = amountRepresenter;
+    }
+
+    public JodaMoneyModule() {
+        this(DecimalNumberAmountRepresenter.getInstance());
+    }
 
     @Override
     public String getModuleName() {
@@ -34,12 +42,24 @@ public class JodaMoneyModule extends Module
     {
         final SimpleDeserializers desers = new SimpleDeserializers();
         desers.addDeserializer(CurrencyUnit.class, new CurrencyUnitDeserializer());
-        desers.addDeserializer(Money.class, new MoneyDeserializer());
+        desers.addDeserializer(Money.class, new MoneyDeserializer(amountRepresenter));
         context.addDeserializers(desers);
 
         final SimpleSerializers sers = new SimpleSerializers();
         sers.addSerializer(CurrencyUnit.class, new CurrencyUnitSerializer());
-        sers.addSerializer(Money.class, new MoneySerializer());
+        sers.addSerializer(Money.class, new MoneySerializer(amountRepresenter));
         context.addSerializers(sers);
+    }
+
+    public JodaMoneyModule withAmountRepresentation(final AmountRepresentation representation) {
+        switch (representation) {
+            case DECIMAL_NUMBER:
+                return new JodaMoneyModule(DecimalNumberAmountRepresenter.getInstance());
+            case DECIMAL_STRING:
+                return new JodaMoneyModule(DecimalStringAmountRepresenter.getInstance());
+            case MINOR_CURRENCY_UNIT:
+                return new JodaMoneyModule(MinorCurrencyUnitAmountRepresenter.getInstance());
+        }
+        throw new IllegalArgumentException("Unrecognized amount representation: " + representation);
     }
 }
