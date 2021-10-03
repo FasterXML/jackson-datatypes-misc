@@ -9,47 +9,134 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import junitparams.naming.TestCaseName;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import static com.fasterxml.jackson.datatype.jodamoney.AmountRepresentation.*;
+
+@RunWith(JUnitParamsRunner.class)
 public final class MoneyDeserializerTest extends ModuleTestBase
 {
-    private final ObjectMapper MAPPER = mapperWithModule();
-    private final ObjectReader R = MAPPER.readerFor(Money.class);
 
     /*
     /**********************************************************************
     /* Tests, happy path
     /**********************************************************************
      */
-    
-    public void testShouldDeserialize() throws IOException
-    {
 
-        final String content = "{\"amount\":19.99,\"currency\":\"EUR\"}";
-        final Money actualAmount = R.readValue(content);
+    @Test
+    @Parameters({
+        "{'amount':19.99\\,'currency':'EUR'}, EUR, 19.99",
+        "{'amount':19.999\\,'currency':'KWD'}, KWD, 19.999",
+        "{'amount':19\\,'currency':'JPY'}, JPY, 19",
+        "{'amount':19.9\\,'currency':'EUR'}, EUR, 19.90",
+        "{'amount':-19.5\\,'currency':'EUR'}, EUR, -19.50",
+        "{'amount':0\\,'currency':'EUR'}, EUR, 0",
+        "{'amount':'19.99'\\,'currency':'EUR'}, EUR, 19.99",
+        "{'amount':'19.0'\\,'currency':'EUR'}, EUR, 19.00",
+        "{'amount':'19'\\,'currency':'EUR'}, EUR, 19.00",
+        "{'currency':'EUR'\\,'amount':'19.50'}, EUR, 19.50",
+    })
+    @TestCaseName("should deserialize {0} as {1} {2}")
+    public void testShouldDeserialize(
+        String json,
+        String currencyCode,
+        BigDecimal amount
+    ) throws Exception {
 
-        assertEquals(Money.of(CurrencyUnit.EUR, BigDecimal.valueOf(19.99)), actualAmount);
-        assertEquals(BigDecimal.valueOf(19.99), actualAmount.getAmount());
-        assertEquals(actualAmount.getCurrencyUnit().getCode(), "EUR");
+        final ObjectMapper mapper = mapperWithModule();
+        final ObjectReader reader = mapper.readerFor(Money.class);
+
+        final Money actual = reader.readValue(json(json));
+
+        assertEquals(Money.of(CurrencyUnit.of(currencyCode), amount), actual);
     }
 
-    public void testShouldDeserializeWhenAmountIsAStringValue() throws IOException
-    {
-        final String content = "{\"currency\":\"EUR\",\"amount\":\"19.99\"}";
-        final Money actualAmount = R.readValue(content);
+    @Test
+    @Parameters({
+        "{'amount':19.99\\,'currency':'EUR'}, EUR, 19.99",
+        "{'amount':19.999\\,'currency':'KWD'}, KWD, 19.999",
+        "{'amount':19\\,'currency':'JPY'}, JPY, 19",
+        "{'amount':19.9\\,'currency':'EUR'}, EUR, 19.90",
+        "{'amount':-19.5\\,'currency':'EUR'}, EUR, -19.50",
+        "{'amount':0\\,'currency':'EUR'}, EUR, 0",
+        "{'amount':'19.99'\\,'currency':'EUR'}, EUR, 19.99",
+        "{'amount':'19.0'\\,'currency':'EUR'}, EUR, 19.00",
+        "{'amount':'19'\\,'currency':'EUR'}, EUR, 19.00",
+        "{'currency':'EUR'\\,'amount':'19.50'}, EUR, 19.50",
+    })
+    @TestCaseName("should deserialize {0} as {1} {2}")
+    public void testShouldDeserializeDecimalNumberAmount(
+        String json,
+        String currencyCode,
+        BigDecimal amount
+    ) throws Exception {
 
-        assertEquals(BigDecimal.valueOf(19.99), actualAmount.getAmount());
-        assertEquals(actualAmount.getCurrencyUnit().getCode(), "EUR");
+        final ObjectMapper mapper = mapperWithModule(m -> m.withAmountRepresentation(DECIMAL_NUMBER));
+        final ObjectReader reader = mapper.readerFor(Money.class);
+
+        final Money actual = reader.readValue(json(json));
+
+        assertEquals(Money.of(CurrencyUnit.of(currencyCode), amount), actual);
     }
 
-    public void testShouldDeserializeWhenOrderIsDifferent() throws IOException
-    {
-        final String content = "{\"currency\":\"EUR\",\"amount\":19.99}";
-        final Money actualAmount = R.readValue(content);
+    @Test
+    @Parameters({
+        "{'amount':'19.99'\\,'currency':'EUR'}, EUR, 19.99",
+        "{'amount':'19.999'\\,'currency':'KWD'}, KWD, 19.999",
+        "{'amount':'19'\\,'currency':'JPY'}, JPY, 19",
+        "{'amount':'19.9'\\,'currency':'EUR'}, EUR, 19.90",
+        "{'amount':'-19.5'\\,'currency':'EUR'}, EUR, -19.50",
+        "{'amount':'0'\\,'currency':'EUR'}, EUR, 0",
+        "{'amount':'19.0'\\,'currency':'EUR'}, EUR, 19.00",
+        "{'amount':'19'\\,'currency':'EUR'}, EUR, 19.00",
+        "{'currency':'EUR'\\,'amount':'19.50'}, EUR, 19.50",
+    })
+    @TestCaseName("should deserialize {0} as {1} {2}")
+    public void testShouldDeserializeDecimalStringAmount(
+        String json,
+        String currencyCode,
+        BigDecimal amount
+    ) throws Exception {
 
-        assertEquals(BigDecimal.valueOf(19.99), actualAmount.getAmount());
-        assertEquals(actualAmount.getCurrencyUnit().getCode(), "EUR");
+        final ObjectMapper mapper = mapperWithModule(m -> m.withAmountRepresentation(DECIMAL_STRING));
+        final ObjectReader reader = mapper.readerFor(Money.class);
+
+        final Money actual = reader.readValue(json(json));
+
+        assertEquals(Money.of(CurrencyUnit.of(currencyCode), amount), actual);
+    }
+
+    @Test
+    @Parameters({
+        "{'amount':1999\\,'currency':'EUR'}, EUR, 19.99",
+        "{'amount':19999\\,'currency':'KWD'}, KWD, 19.999",
+        "{'amount':19\\,'currency':'JPY'}, JPY, 19",
+        "{'amount':1990\\,'currency':'EUR'}, EUR, 19.90",
+        "{'amount':-1950\\,'currency':'EUR'}, EUR, -19.50",
+        "{'amount':0\\,'currency':'EUR'}, EUR, 0",
+        "{'amount':'-1950'\\,'currency':'EUR'}, EUR, -19.50",
+        "{'amount':'1900.00'\\,'currency':'EUR'}, EUR, 19.00",
+        "{'currency':'EUR'\\,'amount':1950}, EUR, 19.50",
+    })
+    @TestCaseName("should deserialize {0} as {1} {2}")
+    public void testShouldDeserializeAmountInMinorCurrencyUnit(
+        String json,
+        String currencyCode,
+        BigDecimal amount
+    ) throws Exception {
+
+        final ObjectMapper mapper = mapperWithModule(m -> m.withAmountRepresentation(MINOR_CURRENCY_UNIT));
+        final ObjectReader reader = mapper.readerFor(Money.class);
+
+        final Money actual = reader.readValue(json(json));
+
+        assertEquals(Money.of(CurrencyUnit.of(currencyCode), amount), actual);
     }
 
     /*
@@ -57,6 +144,9 @@ public final class MoneyDeserializerTest extends ModuleTestBase
     /* Tests, fail handling
     /**********************************************************************
      */
+
+    private final ObjectMapper MAPPER = mapperWithModule();
+    private final ObjectReader R = MAPPER.readerFor(Money.class);
 
     public void testShouldFailDeserializationWithoutAmount() throws Exception
     {
@@ -101,7 +191,7 @@ public final class MoneyDeserializerTest extends ModuleTestBase
     {
         final ObjectReader r = MAPPER.readerFor(Money.class)
                 .without(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        final String content = a2q("{'amount':5000,'currency':'EUR','unknown':'test'}");
+        final String content = json("{'amount':5000,'currency':'EUR','unknown':'test'}");
         final Money actualAmount = r.readValue(content);
         assertEquals(Money.of(CurrencyUnit.EUR, BigDecimal.valueOf(5000)), actualAmount);
     }
