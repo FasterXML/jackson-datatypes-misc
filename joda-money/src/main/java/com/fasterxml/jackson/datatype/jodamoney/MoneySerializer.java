@@ -47,12 +47,12 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
         typeSer.writeTypeSuffix(g, typeIdDef);
     }
 
-    private final void _writeFields(final Money money,
+    private void _writeFields(final Money money,
             final JsonGenerator g,
             final SerializerProvider context)
         throws IOException
     {
-        g.writeObjectField("amount", amountConverter.fromMoney(money));
+        context.defaultSerializeField("amount", amountConverter.fromMoney(money), g);
         context.defaultSerializeField("currency", money.getCurrencyUnit(), g);
     }
 }
