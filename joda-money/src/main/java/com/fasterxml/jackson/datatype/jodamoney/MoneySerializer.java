@@ -15,11 +15,11 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
 {
     private static final long serialVersionUID = 1L;
 
-    private final AmountRepresenter<?> amountRepresenter;
+    private final AmountConverter<?> amountConverter;
 
-    public MoneySerializer(final AmountRepresenter<?> amountRepresenter) {
+    public MoneySerializer(final AmountConverter<?> amountConverter) {
         super(Money.class);
-        this.amountRepresenter = requireNonNull(amountRepresenter, "amount writer cannot be null");
+        this.amountConverter = requireNonNull(amountConverter, "amount converter cannot be null");
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
             final SerializerProvider context)
         throws IOException
     {
-        g.writeObjectField("amount", amountRepresenter.write(money));
+        g.writeObjectField("amount", amountConverter.fromMoney(money));
         context.defaultSerializeField("currency", money.getCurrencyUnit(), g);
     }
 }

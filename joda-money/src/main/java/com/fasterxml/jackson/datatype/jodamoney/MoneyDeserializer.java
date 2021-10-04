@@ -24,11 +24,11 @@ public class MoneyDeserializer extends StdDeserializer<Money>
 
     private final String F_AMOUNT = "amount";
     private final String F_CURRENCY = "currency";
-    private final AmountRepresenter<?> amountRepresenter;
+    private final AmountConverter<?> amountConverter;
 
-    public MoneyDeserializer(final AmountRepresenter<?> amountRepresenter) {
+    public MoneyDeserializer(final AmountConverter<?> amountConverter) {
         super(Money.class);
-        this.amountRepresenter = requireNonNull(amountRepresenter, "amount writer cannot be null");
+        this.amountConverter = requireNonNull(amountConverter, "amount converter cannot be null");
     }
 
     @Override
@@ -79,7 +79,7 @@ public class MoneyDeserializer extends StdDeserializer<Money>
         } else if (currencyUnit == null) {
             missingName = F_CURRENCY;
         } else {
-            return amountRepresenter.read(currencyUnit, amount);
+            return amountConverter.toMoney(currencyUnit, amount);
         }
 
         return ctxt.reportPropertyInputMismatch(getValueType(ctxt), missingName,

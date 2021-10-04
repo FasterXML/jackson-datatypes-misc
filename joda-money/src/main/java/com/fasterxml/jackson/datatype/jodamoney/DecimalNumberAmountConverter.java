@@ -6,19 +6,19 @@ import org.joda.money.Money;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public final class DecimalNumberAmountRepresenter implements AmountRepresenter<BigDecimal> {
+public final class DecimalNumberAmountConverter implements AmountConverter<BigDecimal> {
 
-    private static final DecimalNumberAmountRepresenter INSTANCE = new DecimalNumberAmountRepresenter();
+    private static final DecimalNumberAmountConverter INSTANCE = new DecimalNumberAmountConverter();
 
-    public static DecimalNumberAmountRepresenter getInstance() {
+    public static DecimalNumberAmountConverter getInstance() {
         return INSTANCE;
     }
 
-    private DecimalNumberAmountRepresenter() {
+    private DecimalNumberAmountConverter() {
     }
 
     @Override
-    public BigDecimal write(final Money money) {
+    public BigDecimal fromMoney(final Money money) {
         final BigDecimal decimal = money.getAmount();
         final int decimalPlaces = money.getCurrencyUnit().getDecimalPlaces();
         final int scale = Math.max(decimal.scale(), decimalPlaces);
@@ -26,7 +26,7 @@ public final class DecimalNumberAmountRepresenter implements AmountRepresenter<B
     }
 
     @Override
-    public Money read(final CurrencyUnit currencyUnit, final BigDecimal amount) {
+    public Money toMoney(final CurrencyUnit currencyUnit, final BigDecimal amount) {
         return Money.of(currencyUnit, amount);
     }
 }

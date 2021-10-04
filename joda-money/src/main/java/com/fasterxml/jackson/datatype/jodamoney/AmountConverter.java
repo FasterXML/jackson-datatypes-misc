@@ -5,9 +5,9 @@ import org.joda.money.Money;
 
 import java.math.BigDecimal;
 
-public interface AmountRepresenter<T> {
+public interface AmountConverter<T> {
 
-    T write(Money money);
+    T fromMoney(Money money);
 
-    Money read(CurrencyUnit currencyUnit, BigDecimal amount);
+    Money toMoney(CurrencyUnit currencyUnit, BigDecimal amount);
 }
