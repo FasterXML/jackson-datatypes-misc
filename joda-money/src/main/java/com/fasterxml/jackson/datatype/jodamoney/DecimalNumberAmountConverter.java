@@ -6,6 +6,11 @@ import org.joda.money.Money;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * An {@link AmountConverter} converting {@link Money} to its amount represented as
+ * {@link BigDecimal decimal number} (such as {@code 12.34} for {@code Money.parse("USD 12.34")}),
+ * and back to {@code Money} from this representation.
+ */
 final class DecimalNumberAmountConverter implements AmountConverter {
 
     private static final DecimalNumberAmountConverter INSTANCE = new DecimalNumberAmountConverter();
