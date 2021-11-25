@@ -6,11 +6,11 @@ import org.joda.money.Money;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public final class DecimalNumberAmountConverter implements AmountConverter {
+final class DecimalNumberAmountConverter implements AmountConverter {
 
     private static final DecimalNumberAmountConverter INSTANCE = new DecimalNumberAmountConverter();
 
-    public static DecimalNumberAmountConverter getInstance() {
+    static DecimalNumberAmountConverter getInstance() {
         return INSTANCE;
     }
 

@@ -5,7 +5,7 @@ import org.joda.money.Money;
 
 import java.math.BigDecimal;
 
-public interface AmountConverter {
+interface AmountConverter {
 
     Object fromMoney(Money money);
 
