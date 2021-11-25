@@ -17,6 +17,12 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
 
     private final AmountConverter amountConverter;
 
+    // Kept to maintain backward compatibility with 2.x
+    @SuppressWarnings("unused")
+    public MoneySerializer() {
+        this(DecimalNumberAmountConverter.getInstance());
+    }
+
     MoneySerializer(final AmountConverter amountConverter) {
         super(Money.class);
         this.amountConverter = requireNonNull(amountConverter, "amount converter cannot be null");
