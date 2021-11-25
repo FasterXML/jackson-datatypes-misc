@@ -5,7 +5,7 @@ import org.joda.money.Money;
 
 import java.math.BigDecimal;
 
-public final class DecimalStringAmountConverter implements AmountConverter<String> {
+public final class DecimalStringAmountConverter implements AmountConverter {
 
     private static final DecimalStringAmountConverter INSTANCE = new DecimalStringAmountConverter();
 

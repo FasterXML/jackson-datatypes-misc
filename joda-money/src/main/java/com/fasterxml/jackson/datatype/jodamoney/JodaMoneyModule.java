@@ -14,9 +14,9 @@ public class JodaMoneyModule extends Module
 {
     private static final long serialVersionUID = 1L;
 
-    private final AmountConverter<?> amountConverter;
+    private final AmountConverter amountConverter;
 
-    private JodaMoneyModule(AmountConverter<?> amountConverter) {
+    private JodaMoneyModule(AmountConverter amountConverter) {
         this.amountConverter = amountConverter;
     }
 

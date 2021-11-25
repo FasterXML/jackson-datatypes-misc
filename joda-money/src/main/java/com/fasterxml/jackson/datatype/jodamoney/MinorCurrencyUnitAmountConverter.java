@@ -6,7 +6,7 @@ import org.joda.money.Money;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public final class MinorCurrencyUnitAmountConverter implements AmountConverter<Long> {
+public final class MinorCurrencyUnitAmountConverter implements AmountConverter {
 
     private static final MinorCurrencyUnitAmountConverter INSTANCE = new MinorCurrencyUnitAmountConverter();
 
