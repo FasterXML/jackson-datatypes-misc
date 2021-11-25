@@ -24,9 +24,9 @@ public class MoneyDeserializer extends StdDeserializer<Money>
 
     private final String F_AMOUNT = "amount";
     private final String F_CURRENCY = "currency";
-    private final AmountConverter<?> amountConverter;
+    private final AmountConverter amountConverter;
 
-    public MoneyDeserializer(final AmountConverter<?> amountConverter) {
+    public MoneyDeserializer(final AmountConverter amountConverter) {
         super(Money.class);
         this.amountConverter = requireNonNull(amountConverter, "amount converter cannot be null");
     }

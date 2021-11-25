@@ -15,9 +15,9 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
 {
     private static final long serialVersionUID = 1L;
 
-    private final AmountConverter<?> amountConverter;
+    private final AmountConverter amountConverter;
 
-    public MoneySerializer(final AmountConverter<?> amountConverter) {
+    public MoneySerializer(final AmountConverter amountConverter) {
         super(Money.class);
         this.amountConverter = requireNonNull(amountConverter, "amount converter cannot be null");
     }
