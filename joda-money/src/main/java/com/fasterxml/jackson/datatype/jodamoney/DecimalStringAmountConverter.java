@@ -5,6 +5,11 @@ import org.joda.money.Money;
 
 import java.math.BigDecimal;
 
+/**
+ * An {@link AmountConverter} converting {@link Money} to its amount represented as decimal string
+ * (such as {@code "12.34"} for {@code Money.parse("USD 12.34")}), and back to {@code Money} from
+ * this representation.
+ */
 final class DecimalStringAmountConverter implements AmountConverter {
 
     private static final DecimalStringAmountConverter INSTANCE = new DecimalStringAmountConverter();
