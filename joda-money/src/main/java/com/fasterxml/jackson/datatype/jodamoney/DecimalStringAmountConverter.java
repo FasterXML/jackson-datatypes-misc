@@ -5,11 +5,11 @@ import org.joda.money.Money;
 
 import java.math.BigDecimal;
 
-public final class DecimalStringAmountConverter implements AmountConverter {
+final class DecimalStringAmountConverter implements AmountConverter {
 
     private static final DecimalStringAmountConverter INSTANCE = new DecimalStringAmountConverter();
 
-    public static DecimalStringAmountConverter getInstance() {
+    static DecimalStringAmountConverter getInstance() {
         return INSTANCE;
     }
 
