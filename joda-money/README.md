@@ -54,3 +54,11 @@ Representation of the amount for the (de)serialized `Money` instances can be con
 * `DECIMAL_NUMBER` - the default; amounts are (de)serialized as decimal numbers equal to the monetary amount, e.g. `12.34` for EUR 12.34,
 * `DECIMAL_STRING` - amounts are (de)serialized as strings containing decimal number equal to the monetary amount, e.g. `"12.34"` for EUR 12.34,
 * `MINOR_CURRENCY_UNIT` - amounts are (de)serialized as long integers equal to the monetary amount expressed in minor currency unit, e.g. `1234` for EUR 12.34, `12345` for KWD 12.345 or `12` for JPY 12.
+
+Example usage:
+
+```java
+ObjectMapper mapper = JsonMapper.builder()
+    .addModule(new JodaMoneyModule().withAmountRepresentation(AmountRepresentation.DECIMAL_STRING))
+    .build();
+```
