@@ -16,13 +16,23 @@ import com.fasterxml.jackson.databind.type.LogicalType;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
+import static java.util.Objects.requireNonNull;
+
 public class MoneyDeserializer extends StdDeserializer<Money>
 {
     private final String F_AMOUNT = "amount";
     private final String F_CURRENCY = "currency";
+    private final AmountConverter amountConverter;
 
+    // Kept to maintain backward compatibility with 2.x
+    @SuppressWarnings("unused")
     public MoneyDeserializer() {
+        this(DecimalNumberAmountConverter.getInstance());
+    }
+
+    MoneyDeserializer(final AmountConverter amountConverter) {
         super(Money.class);
+        this.amountConverter = requireNonNull(amountConverter, "amount converter cannot be null");
     }
 
     @Override
@@ -73,7 +83,7 @@ public class MoneyDeserializer extends StdDeserializer<Money>
         } else if (currencyUnit == null) {
             missingName = F_CURRENCY;
         } else {
-            return Money.of(currencyUnit, amount);
+            return amountConverter.toMoney(currencyUnit, amount);
         }
 
         return ctxt.reportPropertyInputMismatch(getValueType(ctxt), missingName,

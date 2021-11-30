@@ -1,17 +1,13 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.text.DateFormat;
-import java.util.Arrays;
-import java.util.TimeZone;
-
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.cfg.MapperBuilder;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-
 import junit.framework.TestCase;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
+import java.util.function.Function;
 
 public abstract class ModuleTestBase extends TestCase
 {
@@ -30,28 +26,14 @@ public abstract class ModuleTestBase extends TestCase
                 .addModule(new JodaMoneyModule());
     }
 
-    protected static MapperBuilder<?,?> jodaMapperBuilder(DateFormat df) {
-        return mapperWithModuleBuilder()
-                .defaultDateFormat(df);
-    }
-    
-    protected static MapperBuilder<?,?> jodaMapperBuilder(TimeZone tz) {
-        return mapperWithModuleBuilder()
-                .defaultTimeZone(tz);
-    }
-
     protected static ObjectMapper mapperWithModule() {
         return mapperWithModuleBuilder().build();
     }
 
-    protected static ObjectMapper mapperWithModule(DateFormat df) {
-        return jodaMapperBuilder(df)
-                .build();
-    }
-
-    protected static ObjectMapper mapperWithModule(TimeZone tz) {
-        return jodaMapperBuilder(tz)
-                .build();
+    protected static ObjectMapper mapperWithModule(Function<JodaMoneyModule, JodaMoneyModule> customizations) {
+        return JsonMapper.builder()
+            .addModule(customizations.apply(new JodaMoneyModule()))
+            .build();
     }
 
     /*
@@ -60,10 +42,6 @@ public abstract class ModuleTestBase extends TestCase
     /**********************************************************************
      */
 
-    protected void assertEquals(int[] exp, int[] act) {
-        assertArrayEquals(exp, act);
-    }
-    
     /*
     /**********************************************************************
     /* Helper methods
@@ -76,7 +54,7 @@ public abstract class ModuleTestBase extends TestCase
         String lmsg = (msg == null) ? "" : msg.toLowerCase();
         for (String match : matches) {
             String lmatch = match.toLowerCase();
-            if (lmsg.indexOf(lmatch) >= 0) {
+            if (lmsg.contains(lmatch)) {
                 return;
             }
         }
@@ -84,11 +62,7 @@ public abstract class ModuleTestBase extends TestCase
 +Arrays.asList(matches)+"): got one with message \""+msg+"\"");
     }
 
-    public String q(String str) {
-        return '"'+str+'"';
-    }
-
-    protected String a2q(String json) {
-        return json.replace("'", "\"");
+    protected String json(String format, Object... args) {
+        return String.format(format, args).replace('\'', '"');
     }
 }

@@ -1,8 +1,5 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import org.joda.money.Money;
 
 import com.fasterxml.jackson.core.JacksonException;
@@ -12,10 +9,20 @@ import com.fasterxml.jackson.core.type.WritableTypeId;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 
+import static java.util.Objects.requireNonNull;
+
 public class MoneySerializer extends JodaMoneySerializerBase<Money>
 {
+    private final AmountConverter amountConverter;
+
+    // Kept to maintain backward compatibility with 2.x
     public MoneySerializer() {
+        this(DecimalNumberAmountConverter.getInstance());
+    }
+
+    MoneySerializer(final AmountConverter amountConverter) {
         super(Money.class);
+        this.amountConverter = requireNonNull(amountConverter, "amount converter cannot be null");
     }
 
     @Override
@@ -45,14 +52,9 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
 
     private final void _writeProperties(final Money value,
             final JsonGenerator g, final SerializerProvider ctxt)
-        throws JacksonException
+                    throws JacksonException
     {
-        final BigDecimal decimal = value.getAmount();
-        final int decimalPlaces = value.getCurrencyUnit().getDecimalPlaces();
-        final int scale = Math.max(decimal.scale(), decimalPlaces);
-
-        g.writeNumberProperty("amount", decimal.setScale(scale, RoundingMode.UNNECESSARY));
-        g.writeName("currency");
-        ctxt.writeValue(g, value.getCurrencyUnit());
+        ctxt.defaultSerializeProperty("amount", amountConverter.fromMoney(value), g);
+        ctxt.defaultSerializeProperty("currency", value.getCurrencyUnit(), g);
     }
 }
