@@ -27,3 +27,9 @@ Thiago Henrique Hüpner (Thihup@github)
 Christopher Smith (chrylis@github)
 
 * Contributed #16: Add datatype module for Jakarta Mail
+ (2.13.0)
+
+Andrzej Pańkowski (apankowski@github)
+
+* Contributed #17: Add configurable amount representations for Joda Money module
+ (2.14.0)

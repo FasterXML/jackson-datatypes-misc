@@ -12,7 +12,8 @@ Modules:
 
 2.14.0 (not yet released)
 
-No changes since 2.13
+#17: Add configurable amount representations for Joda Money module
+ (contributed by Andrzej P)
 
 2.13.0 (30-Sep-2021)
 
