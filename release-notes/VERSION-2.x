@@ -15,6 +15,10 @@ Modules:
 #17: Add configurable amount representations for Joda Money module
  (contributed by Andrzej P)
 
+2.13.1 (19-Dec-2021)
+
+No changes since 2.13.0
+
 2.13.0 (30-Sep-2021)
 
 #8: Improve error handling of "joda-money" `MoneyDeserializer`, `CurrencyUnitDeserializer`
@@ -23,6 +27,7 @@ Modules:
 - Change module names declared to use artifact-id (for json-org, "JsonOrgModule" to
   "jackson-datatype-json-org", for example)
 
+2.12.6 (15-Dec-2021)
 2.12.5 (27-Aug-2021)
 2.12.4 (06-Jul-2021)
 
