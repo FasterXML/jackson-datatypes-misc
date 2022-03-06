@@ -6,6 +6,8 @@ import jakarta.json.JsonValue.ValueType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import java.beans.ConstructorProperties;
+
 public class JsonValueDeserializationTest extends TestBase
 {
     private final ObjectMapper MAPPER = newMapper();
@@ -108,5 +110,25 @@ public class JsonValueDeserializationTest extends TestBase
         assertEquals("null", serializedNull);
         final JsonValue deserializedNull = MAPPER.readValue(serializedNull, JsonValue.class);
         assertEquals(JsonValue.NULL, deserializedNull);
+    }
+
+    // for [datatype-jsr353#19]
+    public void testConstructorProperties() throws Exception
+    {
+        final String JSON = "{\"obj1\":{}}";
+        ObjectImpl ob = MAPPER.readValue(JSON, ObjectImpl.class);
+        assertTrue(ob.obj1 instanceof JsonObject);
+        assertNull(ob.obj2);
+    }
+
+    static class ObjectImpl {
+        JsonValue obj1;
+        JsonValue obj2;
+
+        @ConstructorProperties({"obj1", "obj2"})
+        public ObjectImpl(JsonValue obj1, JsonValue obj2) {
+            this.obj1 = obj1;
+            this.obj2 = obj2;
+        }
     }
 }
