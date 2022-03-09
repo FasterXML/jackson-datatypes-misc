@@ -14,6 +14,9 @@ Modules:
 
 #17: Add configurable amount representations for Joda Money module
  (contributed by Andrzej P)
+#19: `JsonValue.NULL` deserialization has different behaviours with constructor properties
+  vs public properties
+ (contributed by xdrsynapse@github)
 
 2.13.2 (06-Mar-2022)
 2.13.1 (19-Dec-2021)

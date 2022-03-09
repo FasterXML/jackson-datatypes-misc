@@ -69,6 +69,11 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
     }
 
     @Override
+    public JsonValue getAbsentValue(final DeserializationContext ctxt) {
+        return null;
+    }
+
+    @Override
     public Object deserializeWithType(JsonParser p,
             DeserializationContext ctxt, TypeDeserializer typeDeser)
         throws JacksonException
