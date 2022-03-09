@@ -10,6 +10,18 @@ import java.beans.ConstructorProperties;
 
 public class JsonValueDeserializationTest extends TestBase
 {
+    // for [datatype-jsr353#19]
+    static class ObjectImpl {
+        JsonValue obj1;
+        JsonValue obj2;
+
+        @ConstructorProperties({"obj1", "obj2"})
+        public ObjectImpl(JsonValue obj1, JsonValue obj2) {
+            this.obj1 = obj1;
+            this.obj2 = obj2;
+        }
+    }
+
     private final ObjectMapper MAPPER = newMapper();
 
     public void testSimpleArray() throws Exception
@@ -115,20 +127,12 @@ public class JsonValueDeserializationTest extends TestBase
     // for [datatype-jsr353#19]
     public void testConstructorProperties() throws Exception
     {
-        final String JSON = "{\"obj1\":{}}";
-        ObjectImpl ob = MAPPER.readValue(JSON, ObjectImpl.class);
+        ObjectImpl ob = MAPPER.readValue("{\"obj1\":{}}", ObjectImpl.class);
         assertTrue(ob.obj1 instanceof JsonObject);
         assertNull(ob.obj2);
-    }
 
-    static class ObjectImpl {
-        JsonValue obj1;
-        JsonValue obj2;
-
-        @ConstructorProperties({"obj1", "obj2"})
-        public ObjectImpl(JsonValue obj1, JsonValue obj2) {
-            this.obj1 = obj1;
-            this.obj2 = obj2;
-        }
+        ObjectImpl ob2 = MAPPER.readValue("{\"obj2\":null}", ObjectImpl.class);
+        assertNull(ob2.obj1);
+        assertSame(JsonValue.NULL, ob2.obj2);
     }
 }
