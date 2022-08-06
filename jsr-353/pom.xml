@@ -15,10 +15,17 @@
   <name>Jackson datatype: jsr-353</name>
   <version>2.14.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <description>Add-on module for Jackson (http://github.com/FasterXML/jackson) to support
+  <description>Add-on module for Jackson (https://github.com/FasterXML/jackson) to support
 working with JSR-353 (JSON-P) node types via data-binding
   </description>
-  <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
+  <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <properties>
     <!-- Generate PackageVersion.java into this directory. -->
     <packageVersion.dir>com/fasterxml/jackson/datatype/jsr353</packageVersion.dir>
