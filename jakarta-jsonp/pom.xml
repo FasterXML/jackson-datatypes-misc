@@ -15,10 +15,17 @@
   <name>Jackson datatype: JSON-P (Jakarta)</name>
   <version>2.14.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
-  <description>Add-on module for Jackson (http://github.com/FasterXML/jackson) to support
+  <description>Add-on module for Jackson (https://github.com/FasterXML/jackson) to support
 working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-binding
   </description>
-  <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
+  <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <properties>
     <!-- Generate PackageVersion.java into this directory. -->
     <packageVersion.dir>com/fasterxml/jackson/datatype/jsonp</packageVersion.dir>
