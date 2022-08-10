@@ -1,6 +1,6 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
-import com.fasterxml.jackson.databind.*;
+import tools.jackson.databind.*;
 
 import org.json.*;
 

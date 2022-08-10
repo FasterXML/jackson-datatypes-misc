@@ -2,7 +2,7 @@ package com.fasterxml.jackson.datatype.jodamoney;
 
 import java.io.*;
 
-import com.fasterxml.jackson.core.Versioned;
+import tools.jackson.core.Versioned;
 
 /**
  * Simple verification that version access works.

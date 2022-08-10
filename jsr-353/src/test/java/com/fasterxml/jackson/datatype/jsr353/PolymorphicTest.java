@@ -3,7 +3,7 @@ package com.fasterxml.jackson.datatype.jsr353;
 import javax.json.*;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class PolymorphicTest extends TestBase
 {

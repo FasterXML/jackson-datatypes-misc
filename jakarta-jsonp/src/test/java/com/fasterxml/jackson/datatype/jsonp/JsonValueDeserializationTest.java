@@ -3,8 +3,8 @@ package com.fasterxml.jackson.datatype.jsonp;
 import jakarta.json.*;
 import jakarta.json.JsonValue.ValueType;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ObjectNode;
 
 import java.beans.ConstructorProperties;
 

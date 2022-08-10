@@ -2,11 +2,11 @@ package com.fasterxml.jackson.datatype.jsonorg;
 
 import java.util.Iterator;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.core.type.WritableTypeId;
+import tools.jackson.core.*;
+import tools.jackson.core.type.WritableTypeId;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import tools.jackson.databind.*;
+import tools.jackson.databind.jsontype.TypeSerializer;
 
 import org.json.*;
 

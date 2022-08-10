@@ -16,12 +16,12 @@
 
 package com.fasterxml.jackson.datatype.jakarta.mail;
 
-import static com.fasterxml.jackson.core.JsonToken.VALUE_STRING;
+import static tools.jackson.core.JsonToken.VALUE_STRING;
 
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.deser.std.StdScalarDeserializer;
 
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;

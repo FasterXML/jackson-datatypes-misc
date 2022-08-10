@@ -1,6 +1,6 @@
 package com.fasterxml.jackson.datatype.jsonp;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import jakarta.json.JsonMergePatch;
 import jakarta.json.JsonObject;

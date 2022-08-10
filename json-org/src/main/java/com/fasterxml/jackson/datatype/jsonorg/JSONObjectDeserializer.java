@@ -1,10 +1,10 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
-import com.fasterxml.jackson.core.*;
+import tools.jackson.core.*;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.type.LogicalType;
+import tools.jackson.databind.*;
+import tools.jackson.databind.deser.std.StdDeserializer;
+import tools.jackson.databind.type.LogicalType;
 
 import org.json.JSONException;
 import org.json.JSONObject;

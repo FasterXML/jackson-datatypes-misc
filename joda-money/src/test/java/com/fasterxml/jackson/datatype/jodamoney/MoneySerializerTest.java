@@ -2,7 +2,7 @@ package com.fasterxml.jackson.datatype.jodamoney;
 
 import java.math.BigDecimal;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
