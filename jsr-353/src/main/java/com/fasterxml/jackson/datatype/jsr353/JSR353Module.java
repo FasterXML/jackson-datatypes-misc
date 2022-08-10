@@ -2,12 +2,12 @@ package com.fasterxml.jackson.datatype.jsr353;
 
 import java.util.Collections;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
-import com.fasterxml.jackson.databind.module.SimpleDeserializers;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.fasterxml.jackson.databind.type.MapType;
+import tools.jackson.databind.*;
+import tools.jackson.databind.jsontype.TypeDeserializer;
+import tools.jackson.databind.module.SimpleDeserializers;
+import tools.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.type.CollectionType;
+import tools.jackson.databind.type.MapType;
 
 import javax.json.*;
 import javax.json.spi.JsonProvider;

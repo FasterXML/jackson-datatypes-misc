@@ -2,8 +2,8 @@ package com.fasterxml.jackson.datatype.jsr353;
 
 import java.io.*;
 
-import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.core.Versioned;
+import tools.jackson.core.Version;
+import tools.jackson.core.Versioned;
 
 public class TestVersions extends TestBase
 {

@@ -1,13 +1,11 @@
-
-// Generated 27-Mar-2019 using Moditect maven plugin
-module com.fasterxml.jackson.datatype.joda {
+module tools.jackson.datatype.joda {
     requires com.fasterxml.jackson.annotation;
-    requires com.fasterxml.jackson.core;
-    requires com.fasterxml.jackson.databind;
+    requires tools.jackson.core;
+    requires tools.jackson.databind;
     requires joda.money;
 
-    exports com.fasterxml.jackson.datatype.jodamoney;
+    exports tools.jackson.datatype.jodamoney;
 
-    provides com.fasterxml.jackson.databind.JacksonModule with
-        com.fasterxml.jackson.datatype.jodamoney.JodaMoneyModule;
+    provides tools.jackson.databind.JacksonModule with
+        tools.jackson.datatype.jodamoney.JodaMoneyModule;
 }

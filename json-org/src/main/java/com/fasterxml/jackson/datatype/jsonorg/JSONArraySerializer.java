@@ -3,11 +3,11 @@ package com.fasterxml.jackson.datatype.jsonorg;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.core.type.WritableTypeId;
+import tools.jackson.core.*;
+import tools.jackson.core.type.WritableTypeId;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import tools.jackson.databind.*;
+import tools.jackson.databind.jsontype.TypeSerializer;
 
 public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
 {

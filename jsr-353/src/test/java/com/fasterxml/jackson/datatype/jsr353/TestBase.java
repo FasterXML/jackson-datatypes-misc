@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import javax.json.*;
 
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+import tools.jackson.databind.*;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.jsontype.PolymorphicTypeValidator;
 
 public abstract class TestBase extends junit.framework.TestCase
 {

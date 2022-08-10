@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 
 import org.junit.Test;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import tools.jackson.databind.exc.InvalidFormatException;
 
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;

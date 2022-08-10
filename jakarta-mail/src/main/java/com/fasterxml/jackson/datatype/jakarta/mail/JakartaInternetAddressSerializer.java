@@ -16,11 +16,11 @@
 
 package com.fasterxml.jackson.datatype.jakarta.mail;
 
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.core.JsonGenerator;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonGenerator;
 
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
+import tools.jackson.databind.SerializerProvider;
+import tools.jackson.databind.ser.std.StdScalarSerializer;
 
 import jakarta.mail.internet.InternetAddress;
 

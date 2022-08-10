@@ -3,11 +3,11 @@ package com.fasterxml.jackson.datatype.jodamoney;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
-import com.fasterxml.jackson.core.Version;
+import tools.jackson.core.Version;
 
-import com.fasterxml.jackson.databind.JacksonModule;
-import com.fasterxml.jackson.databind.module.SimpleDeserializers;
-import com.fasterxml.jackson.databind.module.SimpleSerializers;
+import tools.jackson.databind.JacksonModule;
+import tools.jackson.databind.module.SimpleDeserializers;
+import tools.jackson.databind.module.SimpleSerializers;
 
 public class JodaMoneyModule extends JacksonModule
     implements java.io.Serializable

@@ -1,6 +1,6 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.module.SimpleModule;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

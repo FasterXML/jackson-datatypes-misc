@@ -2,16 +2,16 @@ package com.fasterxml.jackson.datatype.jsr353;
 
 import javax.json.*;
 
-import com.fasterxml.jackson.core.JacksonException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonParser.NumberType;
-import com.fasterxml.jackson.core.JsonToken;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.JsonParser;
+import tools.jackson.core.JsonParser.NumberType;
+import tools.jackson.core.JsonToken;
 
-import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
-import com.fasterxml.jackson.databind.type.LogicalType;
-import com.fasterxml.jackson.databind.util.ClassUtil;
+import tools.jackson.databind.DeserializationContext;
+import tools.jackson.databind.deser.std.StdDeserializer;
+import tools.jackson.databind.jsontype.TypeDeserializer;
+import tools.jackson.databind.type.LogicalType;
+import tools.jackson.databind.util.ClassUtil;
 
 public class JsonValueDeserializer extends StdDeserializer<JsonValue>
 {

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
-import com.fasterxml.jackson.databind.*;
+import tools.jackson.databind.*;
 
 public class PolymorphicHandlingTest extends ModuleTestBase
 {

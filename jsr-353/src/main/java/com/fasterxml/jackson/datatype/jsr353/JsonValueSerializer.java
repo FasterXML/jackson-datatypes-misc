@@ -4,11 +4,11 @@ import java.util.Map;
 
 import javax.json.*;
 
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.core.type.WritableTypeId;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import tools.jackson.core.*;
+import tools.jackson.core.type.WritableTypeId;
+import tools.jackson.databind.SerializerProvider;
+import tools.jackson.databind.jsontype.TypeSerializer;
+import tools.jackson.databind.ser.std.StdSerializer;
 
 public class JsonValueSerializer extends StdSerializer<JsonValue>
 {

@@ -16,7 +16,7 @@
 
 package com.fasterxml.jackson.datatype.jakarta.mail;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.module.SimpleModule;
 
 import jakarta.mail.internet.InternetAddress;
 

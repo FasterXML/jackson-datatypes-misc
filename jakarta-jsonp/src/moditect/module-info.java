@@ -1,12 +1,12 @@
 // Copied+modified from jsr-353 ones on 04-Mar-2021
-module com.fasterxml.jackson.datatype.jsonp {
-    requires com.fasterxml.jackson.core;
-    requires com.fasterxml.jackson.databind;
+module tools.jackson.datatype.jsonp {
+    requires tools.jackson.core;
+    requires tools.jackson.databind;
 
     requires jakarta.json;
 
-    exports com.fasterxml.jackson.datatype.jakarta.jsonp;
+    exports tools.jackson.datatype.jakarta.jsonp;
 
-    provides com.fasterxml.jackson.databind.JacksonModule with
-        com.fasterxml.jackson.datatype.jsonp.JSONPModule;
+    provides tools.jackson.databind.JacksonModule with
+        tools.jackson.datatype.jsonp.JSONPModule;
 }
