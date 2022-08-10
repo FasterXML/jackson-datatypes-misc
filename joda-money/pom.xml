@@ -6,7 +6,7 @@
   <!-- do_not_remove: published-with-gradle-metadata -->
   <modelVersion>4.0.0</modelVersion> 
   <parent>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <groupId>tools.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
     <version>3.0.0-SNAPSHOT</version>
   </parent>
@@ -19,7 +19,7 @@
   <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
   <properties>
     <!-- Generate PackageVersion.java into this directory. -->
-    <packageVersion.dir>com/fasterxml/jackson/datatype/jodamoney</packageVersion.dir>
+    <packageVersion.dir>tools/jackson/datatype/jodamoney</packageVersion.dir>
     <packageVersion.package>${project.groupId}.jodamoney</packageVersion.package>
   </properties>
 
