@@ -10,7 +10,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.14.0 (not yet released)
+2.14.0-rc1 (25-Sep-2022)
 
 #17: Add configurable amount representations for Joda Money module
  (contributed by Andrzej P)
