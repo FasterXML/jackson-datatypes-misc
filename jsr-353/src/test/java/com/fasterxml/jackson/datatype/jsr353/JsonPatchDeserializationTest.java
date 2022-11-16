@@ -54,21 +54,6 @@ public class JsonPatchDeserializationTest extends TestBase {
         assertThat(patchedPerson, is(new Person("Json", "Smith")));
     }
 
-    public void testArrayWithOScalarDeserializationAndPatching()  {
-        final String json = "[" +
-            "{" +
-            "\"op\":\"replace\"," +
-            "\"path\":\"/name\"," +
-            "\"value\":\"Json\"" +
-            "}," +
-            "\"Jackson\"" +
-            "]";
-
-        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
-            () -> MAPPER.readValue(json, JsonPatch.class));
-        assertThat(ex.getMessage(), containsString(EXPECTED_MESSAGE));
-    }
-
     public void testObjectDeserializationAndPatching() {
         final String json = "{" +
             "\"op\":\"replace\"," +
