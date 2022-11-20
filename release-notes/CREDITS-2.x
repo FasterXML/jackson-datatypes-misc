@@ -27,3 +27,9 @@ Thiago Henrique Hüpner (Thihup@github)
 Christopher Smith (chrylis@github)
 
 * Contributed #16: Add datatype module for Jakarta Mail
+
+Pascal van Eck (patveck@github)
+
+* Contributed #27: Deserializing a JSON Merge Patch fails when the input is
+  not a JSON object
+ (2.13.5 / 2.14.1)
