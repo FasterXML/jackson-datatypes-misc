@@ -12,11 +12,20 @@ Modules:
 
 2.14.0 (05-Nov-2022)
 
-#17: Add configurable amount representations for Joda Money module
+#17: (joda-money) Add configurable amount representations for Joda Money module
  (contributed by Andrzej P)
-#19: `JsonValue.NULL` deserialization has different behaviours with constructor properties
-  vs public properties
+#19: (jsonp/jsr-353)`JsonValue.NULL` deserialization has different behaviours
+  with constructor properties vs public properties
  (contributed by xdrsynapse@github)
+#27: (jsonp/jsr-353) Deserializing a JSON Merge Patch fails when the input
+  is not a JSON object
+ (contributed by Pascal-V-E)
+
+2.13.5 (not yet released)
+
+#27: (jsonp/jsr-353) Deserializing a JSON Merge Patch fails when the input
+  is not a JSON object
+ (contributed by Pascal-V-E)
 
 2.13.4 (03-Sep-2022)
 2.13.3 (14-May-2022)

@@ -25,9 +25,7 @@ public class JsonMergePatchDeserializer extends StdDeserializer<JsonMergePatch>
     }
     
     @Override
-    public JsonMergePatch deserialize(JsonParser p, DeserializationContext ctxt)
-        throws JacksonException
-    {
-        return Json.createMergePatch(jsonValueDeser._deserializeObject(p, ctxt));
+    public JsonMergePatch deserialize(JsonParser p, DeserializationContext ctxt) throws JacksonException {
+        return Json.createMergePatch(jsonValueDeser.deserialize(p, ctxt));
     }
 }
