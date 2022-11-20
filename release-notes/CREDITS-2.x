@@ -29,6 +29,12 @@ Christopher Smith (chrylis@github)
 * Contributed #16: Add datatype module for Jakarta Mail
  (2.13.0)
 
+Pascal van Eck (patveck@github)
+
+* Contributed #27: Deserializing a JSON Merge Patch fails when the input is
+  not a JSON object
+ (2.13.5 / 2.14.1)
+
 Andrzej Pańkowski (apankowski@github)
 
 * Contributed #17: Add configurable amount representations for Joda Money module

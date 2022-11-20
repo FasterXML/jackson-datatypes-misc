@@ -31,6 +31,6 @@ public class JsonMergePatchDeserializer extends StdDeserializer<JsonMergePatch>
     public JsonMergePatch deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException
     {
-        return Json.createMergePatch(jsonValueDeser._deserializeObject(p, ctxt));
+        return Json.createMergePatch(jsonValueDeser.deserialize(p, ctxt));
     }
 }

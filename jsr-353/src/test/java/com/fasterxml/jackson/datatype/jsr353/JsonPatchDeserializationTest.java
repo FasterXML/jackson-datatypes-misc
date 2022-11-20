@@ -1,20 +1,25 @@
 package com.fasterxml.jackson.datatype.jsr353;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import javax.json.*;
 
 import java.util.Objects;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertThrows;
 
 public class JsonPatchDeserializationTest extends TestBase {
 
+    private static final String EXPECTED_MESSAGE = "JSON patch has to be an array of objects";
+
     private static final ObjectMapper MAPPER = newMapper();
 
-    public void testDeserializationAndPatching() throws Exception {
+    public void testArrayOfObjectsDeserializationAndPatching() throws Exception {
         final String json = "[" +
                 "{" +
                 "\"op\":\"replace\"," +
@@ -47,6 +52,26 @@ public class JsonPatchDeserializationTest extends TestBase {
         final JsonStructure patchedPersonJson = jsonPatch.apply(personJson);
         final Person patchedPerson = MAPPER.convertValue(patchedPersonJson, Person.class);
         assertThat(patchedPerson, is(new Person("Json", "Smith")));
+    }
+
+    public void testObjectDeserializationAndPatching() {
+        final String json = "{" +
+            "\"op\":\"replace\"," +
+            "\"path\":\"/name\"," +
+            "\"value\":\"Json\"" +
+            "}";
+
+        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+            () -> MAPPER.readValue(json, JsonPatch.class));
+        assertThat(ex.getMessage(), containsString(EXPECTED_MESSAGE));
+    }
+
+    public void testScalarDeserializationAndPatching() {
+        final String json = "\"op\"";
+
+        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+            () -> MAPPER.readValue(json, JsonPatch.class));
+        assertThat(ex.getMessage(), containsString(EXPECTED_MESSAGE));
     }
 
     static class Person {
