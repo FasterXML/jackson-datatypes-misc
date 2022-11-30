@@ -6,9 +6,11 @@ import tools.jackson.databind.*;
 import tools.jackson.databind.jsontype.TypeDeserializer;
 import tools.jackson.databind.module.SimpleDeserializers;
 import tools.jackson.databind.module.SimpleModule;
+import tools.jackson.databind.ser.std.StdDelegatingSerializer;
 import tools.jackson.databind.type.CollectionType;
 import tools.jackson.databind.type.MapType;
-
+import tools.jackson.databind.util.Converter;
+import tools.jackson.databind.util.StdConverter;
 import jakarta.json.*;
 import jakarta.json.spi.JsonProvider;
 
@@ -33,6 +35,10 @@ public class JSONPModule extends SimpleModule
         final JsonMergePatchDeserializer jsonMergePatchDeser = new JsonMergePatchDeserializer(jsonValueDeser);
 
         addSerializer(JsonValue.class, new JsonValueSerializer());
+        // Since 2.14.2
+        addSerializer(JsonPatch.class, new JsonPatchSerializer());
+        addSerializer(JsonMergePatch.class, new JsonMergePatchSerializer());
+
         setDeserializers(new SimpleDeserializers() {
             @Override
             public ValueDeserializer<?> findBeanDeserializer(
@@ -91,5 +97,63 @@ public class JSONPModule extends SimpleModule
                         JsonMergePatch.class.isAssignableFrom(valueType);
             }
         });
+    }
+
+    static class JsonPatchSerializer extends StdDelegatingSerializer
+    {
+        public JsonPatchSerializer() {
+            super(new PatchConverter());
+        }
+
+        protected JsonPatchSerializer(Converter<Object,?> converter,
+                JavaType delegateType, ValueSerializer<?> delegateSerialize,
+                BeanProperty prop) {
+            super(converter, delegateType, delegateSerialize, prop);
+        }
+
+        @Override
+        protected StdDelegatingSerializer withDelegate(Converter<Object,?> converter,
+                JavaType delegateType, ValueSerializer<?> delegateSerializer,
+                BeanProperty prop) {
+            return new JsonPatchSerializer(converter, delegateType, delegateSerializer, prop);
+        }
+
+        static class PatchConverter
+            extends StdConverter<JsonPatch,JsonArray>
+        {
+            @Override
+            public JsonArray convert(JsonPatch value) {
+                return value.toJsonArray();
+            }
+        }
+    }
+
+    static class JsonMergePatchSerializer extends StdDelegatingSerializer
+    {
+        public JsonMergePatchSerializer() {
+            super(new MergePatchConverter());
+        }
+
+        protected JsonMergePatchSerializer(Converter<Object,?> converter,
+                JavaType delegateType, ValueSerializer<?> delegateSerialize,
+                BeanProperty prop) {
+            super(converter, delegateType, delegateSerialize, prop);
+        }
+
+        @Override
+        protected StdDelegatingSerializer withDelegate(Converter<Object,?> converter,
+                JavaType delegateType, ValueSerializer<?> delegateSerializer,
+                BeanProperty prop) {
+            return new JsonMergePatchSerializer(converter, delegateType, delegateSerializer, prop);
+        }
+
+        static class MergePatchConverter
+            extends StdConverter<JsonMergePatch, JsonValue>
+        {
+            @Override
+            public JsonValue convert(JsonMergePatch value) {
+                return value.toJsonValue();
+            }
+        }
     }
 }
