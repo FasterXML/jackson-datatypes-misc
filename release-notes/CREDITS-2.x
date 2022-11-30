@@ -39,3 +39,8 @@ Andrzej Pańkowski (apankowski@github)
 
 * Contributed #17: Add configurable amount representations for Joda Money module
  (2.14.0)
+
+Matt Nelson (mattnelson@github)
+
+* Suggested #28: Add delegating serializers for `JsonPatch` and `JsonMergePatch`
+ (2.14.2)
