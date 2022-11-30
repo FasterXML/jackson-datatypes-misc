@@ -141,7 +141,7 @@ public class JSONPModule extends SimpleModule
         private static final long serialVersionUID = 1L;
 
         public JsonMergePatchSerializer() {
-            super(new PatchConverter());
+            super(new MergePatchConverter());
         }
 
         protected JsonMergePatchSerializer(Converter<Object,?> converter,
@@ -155,7 +155,7 @@ public class JSONPModule extends SimpleModule
             return new JsonMergePatchSerializer(converter, delegateType, delegateSerializer);
         }
 
-        static class PatchConverter
+        static class MergePatchConverter
             extends StdConverter<JsonMergePatch, JsonValue>
         {
             @Override
