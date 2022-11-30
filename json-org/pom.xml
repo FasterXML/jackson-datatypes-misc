@@ -12,7 +12,7 @@
   </parent>
   <artifactId>jackson-datatype-json-org</artifactId>
   <name>Jackson datatype: org.json</name>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <version>2.15.0-SNAPSHOT</version>
   <description>Support for datatypes of "org.json" JSON library (see https://json.org/java),
 mainly to make it easier to upgrade code to Jackson, using automated conversions.

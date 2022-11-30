@@ -14,7 +14,7 @@
   <artifactId>jackson-datatype-jakarta-jsonp</artifactId>
   <name>Jackson datatype: JSON-P (Jakarta)</name>
   <version>2.15.0-SNAPSHOT</version>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <description>Add-on module for Jackson (https://github.com/FasterXML/jackson) to support
 working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-binding
   </description>
