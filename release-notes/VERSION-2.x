@@ -14,7 +14,7 @@ Modules:
 
 No changes since 2.13
 
-2.13.5 (not yet released)
+2.13.5 (23-Jan-2023)
 
 #27: Deserializing a JSON Merge Patch fails when the input is not a JSON object
  (contributed by Pascal-V-E)
