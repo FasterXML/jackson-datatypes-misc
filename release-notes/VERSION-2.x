@@ -14,7 +14,7 @@ Modules:
 
 -
 
-2.14.2 (not yet released)
+2.14.2 (28-Jan-2023)
 
 #28: (jsonp/jsr-353) Add delegating serializers for `JsonPatch` and `JsonMergePatch`
  (requested by Matt N)
