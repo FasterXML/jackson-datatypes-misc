@@ -9,11 +9,11 @@
   <parent>
     <groupId>com.fasterxml.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>2.15.0-rc2</version>
+    <version>2.15.0-rc3-SNAPSHOT</version>
   </parent>
   <artifactId>jackson-datatype-jakarta-jsonp</artifactId>
   <name>Jackson datatype: JSON-P (Jakarta)</name>
-  <version>2.15.0-rc2</version>
+  <version>2.15.0-rc3-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>Add-on module for Jackson (https://github.com/FasterXML/jackson) to support
 working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-binding
