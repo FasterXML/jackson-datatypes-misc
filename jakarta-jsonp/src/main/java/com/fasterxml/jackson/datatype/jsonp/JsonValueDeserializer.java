@@ -115,11 +115,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     b.addNull(name);
                     break;
                 case VALUE_NUMBER_FLOAT:
-                    if (p.getNumberType() == NumberType.BIG_DECIMAL) {
-                        b.add(name, p.getDecimalValue());
-                    } else {
-                        b.add(name, p.getDoubleValue());
-                    }
+                    b.add(name, p.getDecimalValue());
                     break;
                 case VALUE_NUMBER_INT:
                     // very cumbersome... but has to be done
@@ -177,11 +173,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     b.addNull();
                     break;
                 case VALUE_NUMBER_FLOAT:
-                    if (p.getNumberType() == NumberType.BIG_DECIMAL) {
-                        b.add(p.getDecimalValue());
-                    } else {
-                        b.add(p.getDoubleValue());
-                    }
+                    b.add(p.getDecimalValue());
                     break;
                 case VALUE_NUMBER_INT:
                     // very cumbersome... but has to be done
@@ -224,13 +216,10 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
             // very cumbersome... but has to be done
             {
                 JsonArrayBuilder b = _builderFactory.createArrayBuilder();
-                if (p.getNumberType() == NumberType.BIG_DECIMAL) {
-                    return b.add(p.getDecimalValue()).build().get(0);
-                }
-                return b.add(p.getDoubleValue()).build().get(0);
+                return b.add(p.getDecimalValue()).build().get(0);
             }
-	case VALUE_NUMBER_INT:
-                // very cumbersome... but has to be done
+        case VALUE_NUMBER_INT:
+            // very cumbersome... but has to be done
             {
                 JsonArrayBuilder b = _builderFactory.createArrayBuilder();
                 switch (p.getNumberType()) {
@@ -242,16 +231,16 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                         return b.add(p.getBigIntegerValue()).build().get(0);
                 }
             }
-	case VALUE_STRING:
-	    return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
-	default: // errors, should never get here
+    case VALUE_STRING:
+        return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
+    default: // errors, should never get here
 //        case END_ARRAY:
 //        case END_OBJECT:
 //        case FIELD_NAME:
 //        case NOT_AVAILABLE:
 //        case START_ARRAY:
 //        case START_OBJECT:
-	    return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
+        return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
         }
     }
 }
