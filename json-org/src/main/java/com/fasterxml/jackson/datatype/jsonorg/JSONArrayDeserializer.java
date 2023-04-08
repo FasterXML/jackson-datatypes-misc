@@ -66,7 +66,7 @@ public class JSONArrayDeserializer extends StdDeserializer<JSONArray>
                 array.put(p.getNumberValue());
                 continue;
             case VALUE_NUMBER_FLOAT:
-                array.put(p.getNumberValue());
+                array.put(p.getDecimalValue());
                 continue;
             case VALUE_EMBEDDED_OBJECT:
                 array.put(p.getEmbeddedObject());

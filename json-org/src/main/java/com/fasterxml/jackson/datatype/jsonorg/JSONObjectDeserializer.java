@@ -63,7 +63,7 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
                     ob.put(fieldName, p.getNumberValue());
                     continue;
                 case VALUE_NUMBER_FLOAT:
-                    ob.put(fieldName, p.getNumberValue());
+                    ob.put(fieldName, p.getDecimalValue());
                     continue;
                 case VALUE_EMBEDDED_OBJECT:
                     ob.put(fieldName, p.getEmbeddedObject());
