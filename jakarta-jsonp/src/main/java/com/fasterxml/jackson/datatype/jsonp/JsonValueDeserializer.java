@@ -230,16 +230,16 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                         return b.add(p.getBigIntegerValue()).build().get(0);
                 }
             }
-    case VALUE_STRING:
-        return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
-    default: // errors, should never get here
+        case VALUE_STRING:
+            return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
+        default: // errors, should never get here
 //        case END_ARRAY:
 //        case END_OBJECT:
 //        case FIELD_NAME:
 //        case NOT_AVAILABLE:
 //        case START_ARRAY:
 //        case START_OBJECT:
-        return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
+            return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
         }
     }
 }
