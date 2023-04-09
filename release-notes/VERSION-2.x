@@ -12,6 +12,8 @@ Modules:
 
 #31/#32/#33: (jsonp/jsr-353) Fix issue with `BigInteger` handling
  (contributed by @pjfanning)
+#34: Upgrade `jakarta.json-api` dependency to 2.1.1 (from 2.0.0)
+ (contributed by @pjfanning)
 
 2.15.0-rc2 (28-Mar-2023)
 
