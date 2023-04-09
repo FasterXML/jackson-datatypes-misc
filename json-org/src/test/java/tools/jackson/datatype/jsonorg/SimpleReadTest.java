@@ -1,5 +1,7 @@
 package tools.jackson.datatype.jsonorg;
 
+import java.math.BigDecimal;
+
 import tools.jackson.databind.*;
 
 import org.json.*;
@@ -41,5 +43,22 @@ public class SimpleReadTest extends ModuleTestBase
         assertEquals(13, ob.getInt("a"));
         JSONArray array2 = array.getJSONArray(6);
         assertEquals(0, array2.length());
+    }
+
+    public void testBigInteger() throws Exception
+    {
+        ObjectMapper mapper = newMapper();
+
+        JSONObject val = mapper.readValue("{\"val\":2e308}", JSONObject.class);
+        assertEquals(new BigDecimal("2e308").toBigInteger(), val.getBigInteger("val"));
+    }
+
+    public void testBigIntegerArray() throws Exception
+    {
+        ObjectMapper mapper = newMapper();
+
+        JSONArray array = mapper.readValue("[2e308]", JSONArray.class);
+        assertEquals(1, array.length());
+        assertEquals(new BigDecimal("2e308").toBigInteger(), array.getBigInteger(0));
     }
 }
