@@ -49,3 +49,5 @@ PJ Fanning (@pjfanning)
 
 * Contributed #31/#32/#33: (jsonp/jsr-353) Fix issue with `BigInteger` handling
  (2.15.0)
+* Contributed #34: Upgrade `jakarta.json-api` dependency to 2.1.1 (from 2.0.0)
+ (2.15.0)
