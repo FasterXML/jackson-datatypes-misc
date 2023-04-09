@@ -47,5 +47,5 @@ Matt Nelson (mattnelson@github)
 
 PJ Fanning (@pjfanning)
 
-* Contributed #31: Fix issue with `BigInteger` handling
+* Contributed #31/#32: Fix issue with `BigInteger` handling
  (2.15.0)
