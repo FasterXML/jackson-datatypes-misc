@@ -7,6 +7,7 @@ import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ObjectNode;
 
 import java.beans.ConstructorProperties;
+import java.math.BigDecimal;
 
 public class JsonValueDeserializationTest extends TestBase
 {
@@ -134,5 +135,24 @@ public class JsonValueDeserializationTest extends TestBase
         ObjectImpl ob2 = MAPPER.readValue("{\"obj2\":null}", ObjectImpl.class);
         assertNull(ob2.obj1);
         assertSame(JsonValue.NULL, ob2.obj2);
+    }
+
+    public void testBigInteger() throws Exception
+    {
+        final String JSON = "[2e308]";
+        JsonValue v = MAPPER.readValue(JSON, JsonValue.class);
+        assertTrue(v instanceof JsonArray);
+        JsonArray a = (JsonArray) v;
+        assertEquals(1, a.size());
+        assertTrue(a.get(0) instanceof JsonNumber);
+        assertEquals(new BigDecimal("2e308").toBigInteger(), ((JsonNumber) a.get(0)).bigIntegerValue());
+
+
+        // also, should work with explicit type
+        JsonArray array = MAPPER.readValue(JSON, JsonArray.class);
+        assertEquals(1, array.size());
+
+        // and round-tripping ought to be ok:
+        assertEquals("[2E+308]", serializeAsString(v));
     }
 }

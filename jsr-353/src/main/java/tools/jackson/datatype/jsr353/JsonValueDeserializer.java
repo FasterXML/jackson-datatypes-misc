@@ -112,11 +112,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     b.addNull(name);
                     break;
                 case VALUE_NUMBER_FLOAT:
-                    if (p.getNumberType() == NumberType.BIG_DECIMAL) {
-                        b.add(name, p.getDecimalValue());
-                    } else {
-                        b.add(name, p.getDoubleValue());
-                    }
+                    b.add(name, p.getDecimalValue());
                     break;
                 case VALUE_NUMBER_INT:
                     // very cumbersome... but has to be done
@@ -174,11 +170,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     b.addNull();
                     break;
                 case VALUE_NUMBER_FLOAT:
-                    if (p.getNumberType() == NumberType.BIG_DECIMAL) {
-                        b.add(p.getDecimalValue());
-                    } else {
-                        b.add(p.getDoubleValue());
-                    }
+                    b.add(p.getDecimalValue());
                     break;
                 case VALUE_NUMBER_INT:
                     // very cumbersome... but has to be done
@@ -221,10 +213,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
             // very cumbersome... but has to be done
             {
                 JsonArrayBuilder b = _builderFactory.createArrayBuilder();
-                if (p.getNumberType() == NumberType.BIG_DECIMAL) {
-                    return b.add(p.getDecimalValue()).build().get(0);
-                }
-                return b.add(p.getDoubleValue()).build().get(0);
+                return b.add(p.getDecimalValue()).build().get(0);
             }
 	case VALUE_NUMBER_INT:
                 // very cumbersome... but has to be done
