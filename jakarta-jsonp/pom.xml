@@ -43,9 +43,9 @@ working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-b
 
     <!-- and for tests can use the CI -->
     <dependency>
-        <groupId>org.glassfish</groupId>
-        <artifactId>jakarta.json</artifactId>
-        <version>2.1.1</version>
+        <groupId>org.eclipse.parsson</groupId>
+        <artifactId>parsson</artifactId>
+        <version>1.1.1</version>
         <scope>test</scope>
     </dependency>
   </dependencies>
