@@ -44,3 +44,8 @@ Matt Nelson (mattnelson@github)
 
 * Suggested #28: Add delegating serializers for `JsonPatch` and `JsonMergePatch`
  (2.14.2)
+
+PJ Fanning (@pjfanning)
+
+* Contributed #31: Fix issue with `BigInteger` handling
+ (2.15.0)

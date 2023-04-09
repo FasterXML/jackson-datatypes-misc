@@ -10,6 +10,9 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
+#31: Fix issue with `BigInteger` handling
+ (contributed by @pjfanning)
+
 2.15.0-rc2 (28-Mar-2023)
 
 No changes since 2.14
