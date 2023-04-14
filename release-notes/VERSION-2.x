@@ -14,6 +14,7 @@ Modules:
  (contributed by @pjfanning)
 #34: Upgrade `jakarta.json-api` dependency to 2.1.1 (from 2.0.0)
  (contributed by @pjfanning)
+#35: Update `org.json` dependency from `20190722` to `20230227`
 
 2.15.0-rc2 (28-Mar-2023)
 
