@@ -10,7 +10,11 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.15.0-rc3 (14-Apr-2023)
+2.16.0 (not yet released)
+
+No changes since 2.15
+
+2.15.0 (23-Apr-2023)
 
 #31/#32/#33: (jsonp/jsr-353) Fix issue with `BigInteger` handling
  (contributed by @pjfanning)
