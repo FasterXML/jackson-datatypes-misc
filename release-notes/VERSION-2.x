@@ -18,6 +18,10 @@ Modules:
  (contributed by @pjfanning)
 #35: Update `org.json` dependency from `20190722` to `20230227`
 
+2.14.3 (05-May-2023)
+
+No changes since 2.14.2
+
 2.14.2 (28-Jan-2023)
 
 #28: (jsonp/jsr-353) Add delegating serializers for `JsonPatch` and `JsonMergePatch`
