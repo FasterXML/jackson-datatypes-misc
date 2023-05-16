@@ -14,6 +14,10 @@ Modules:
 
 No changes since 2.15
 
+2.15.1 (16-May-2023)
+
+No changes since 2.15.0
+
 2.15.0 (23-Apr-2023)
 
 #31/#32/#33: (jsonp/jsr-353) Fix issue with `BigInteger` handling
