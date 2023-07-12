@@ -7,8 +7,8 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.type.LogicalType;
 
-import jakarta.json.Json;
 import jakarta.json.JsonPatch;
+import jakarta.json.spi.JsonProvider;
 
 public class JsonPatchDeserializer extends StdDeserializer<JsonPatch>
 {
@@ -30,6 +30,8 @@ public class JsonPatchDeserializer extends StdDeserializer<JsonPatch>
     public JsonPatch deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException
     {
-        return Json.createPatch(jsonValueDeser._deserializeArray(p, ctxt));
+        return provider.createPatch(jsonValueDeser._deserializeArray(p, ctxt));
     }
+
+    private final static JsonProvider provider = JsonProvider.provider();
 }
