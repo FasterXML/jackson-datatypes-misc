@@ -4,7 +4,6 @@ import javax.json.*;
 
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonParser;
-import tools.jackson.core.JsonParser.NumberType;
 import tools.jackson.core.JsonToken;
 
 import tools.jackson.databind.DeserializationContext;

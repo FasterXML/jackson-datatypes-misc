@@ -6,8 +6,8 @@ import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.deser.std.StdDeserializer;
 import tools.jackson.databind.type.LogicalType;
 
-import jakarta.json.Json;
 import jakarta.json.JsonPatch;
+import jakarta.json.spi.JsonProvider;
 
 public class JsonPatchDeserializer extends StdDeserializer<JsonPatch>
 {
@@ -27,6 +27,8 @@ public class JsonPatchDeserializer extends StdDeserializer<JsonPatch>
     public JsonPatch deserialize(JsonParser p, DeserializationContext ctxt)
         throws JacksonException
     {
-        return Json.createPatch(jsonValueDeser._deserializeArray(p, ctxt));
+        return provider.createPatch(jsonValueDeser._deserializeArray(p, ctxt));
     }
+
+    private final static JsonProvider provider = JsonProvider.provider();
 }

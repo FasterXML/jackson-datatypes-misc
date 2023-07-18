@@ -8,8 +8,8 @@ import tools.jackson.databind.deser.std.StdDeserializer;
 import tools.jackson.databind.exc.InvalidFormatException;
 import tools.jackson.databind.type.LogicalType;
 
-import javax.json.Json;
 import javax.json.JsonPatch;
+import javax.json.spi.JsonProvider;
 
 public class JsonPatchDeserializer extends StdDeserializer<JsonPatch>
 {
@@ -31,6 +31,8 @@ public class JsonPatchDeserializer extends StdDeserializer<JsonPatch>
             throw InvalidFormatException.from(p, "JSON patch has to be an array of objects", p.getText(),
                 handledType());
         }
-        return Json.createPatch(jsonValueDeser._deserializeArray(p, ctxt));
+        return provider.createPatch(jsonValueDeser._deserializeArray(p, ctxt));
     }
+
+    private final static JsonProvider provider = JsonProvider.provider();
 }
