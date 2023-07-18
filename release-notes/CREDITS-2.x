@@ -51,3 +51,7 @@ PJ Fanning (@pjfanning)
  (2.15.0)
 * Contributed #34: Upgrade `jakarta.json-api` dependency to 2.1.1 (from 2.0.0)
  (2.15.0)
+
+Konstantin Volivach (@kostya05983)
+* Contributed #37: (jsonp/jsr-353): Fix class path scaning on each deserialization
+ (2.16.0)

@@ -10,7 +10,7 @@ import javax.json.JsonMergePatch;
 import java.io.IOException;
 
 public class JsonMergePatchDeserializer extends StdDeserializer<JsonMergePatch> {
-
+    private static final long serialVersionUID = 1L;
     protected final JsonValueDeserializer jsonValueDeser;
 
     public JsonMergePatchDeserializer(JsonValueDeserializer jsonValueDeser) {

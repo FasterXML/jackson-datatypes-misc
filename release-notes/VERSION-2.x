@@ -12,7 +12,8 @@ Modules:
 
 2.16.0 (not yet released)
 
-No changes since 2.15
+#37: (jsonp/jsr-353): Fix class path scaning on each deserialization
+ (contributed by Konstantin V)
 
 2.15.2 (30-May-2023)
 2.15.1 (16-May-2023)

@@ -29,6 +29,7 @@ import jakarta.mail.internet.InternetAddress;
  */
 public class JakartaInternetAddressSerializer extends StdScalarSerializer<InternetAddress>
 {
+    private static final long serialVersionUID = 1L;
 
     public JakartaInternetAddressSerializer() {
         super(InternetAddress.class);

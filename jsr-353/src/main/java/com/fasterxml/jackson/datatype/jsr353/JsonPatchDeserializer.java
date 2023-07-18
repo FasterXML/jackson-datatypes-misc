@@ -12,6 +12,7 @@ import javax.json.spi.JsonProvider;
 import java.io.IOException;
 
 public class JsonPatchDeserializer extends StdDeserializer<JsonPatch> {
+    private static final long serialVersionUID = 1L;
 
     protected final JsonValueDeserializer jsonValueDeser;
 
