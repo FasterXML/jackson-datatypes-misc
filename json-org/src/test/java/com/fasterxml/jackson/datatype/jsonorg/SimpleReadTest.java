@@ -47,6 +47,16 @@ public class SimpleReadTest extends ModuleTestBase
         assertEquals(0, array2.length());
     }
 
+    public void testDouble() throws Exception
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JsonOrgModule());
+
+        JSONObject val = mapper.readValue("{\"val\":0.5}", JSONObject.class);
+        assertEquals(0.5d, val.getDouble("val"));
+        assertEquals(new BigDecimal(0.5d), val.get("val"));
+    }
+
     public void testBigInteger() throws Exception
     {
         ObjectMapper mapper = new ObjectMapper();
