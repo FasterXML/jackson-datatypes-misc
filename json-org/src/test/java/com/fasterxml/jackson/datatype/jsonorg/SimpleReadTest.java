@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.*;
 
 import org.json.*;
 
-import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
+import java.math.BigDecimal;
 
 public class SimpleReadTest extends ModuleTestBase
 {
@@ -45,5 +45,34 @@ public class SimpleReadTest extends ModuleTestBase
         assertEquals(13, ob.getInt("a"));
         JSONArray array2 = array.getJSONArray(6);
         assertEquals(0, array2.length());
+    }
+
+    public void testDouble() throws Exception
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JsonOrgModule());
+
+        JSONObject val = mapper.readValue("{\"val\":0.5}", JSONObject.class);
+        assertEquals(0.5d, val.getDouble("val"));
+        assertEquals(new BigDecimal(0.5d), val.get("val"));
+    }
+
+    public void testBigInteger() throws Exception
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JsonOrgModule());
+
+        JSONObject val = mapper.readValue("{\"val\":2e308}", JSONObject.class);
+        assertEquals(new BigDecimal("2e308").toBigInteger(), val.getBigInteger("val"));
+    }
+
+    public void testBigIntegerArray() throws Exception
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JsonOrgModule());
+
+        JSONArray array = mapper.readValue("[2e308]", JSONArray.class);
+        assertEquals(1, array.length());
+        assertEquals(new BigDecimal("2e308").toBigInteger(), array.getBigInteger(0));
     }
 }
