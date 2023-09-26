@@ -8,12 +8,11 @@ import java.math.BigDecimal;
 
 public class SimpleReadTest extends ModuleTestBase
 {
+    private final ObjectMapper MAPPER = newMapper();
+
     public void testReadObject() throws Exception
     {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JsonOrgModule());
-
-        JSONObject ob = mapper.readValue("{\"a\":{\"b\":3}, \"c\":[9, -4], \"d\":null, \"e\":true}",
+        JSONObject ob = MAPPER.readValue("{\"a\":{\"b\":3}, \"c\":[9, -4], \"d\":null, \"e\":true}",
                 JSONObject.class);
         assertEquals(4, ob.length());
         JSONObject ob2 = ob.getJSONObject("a");
@@ -29,10 +28,7 @@ public class SimpleReadTest extends ModuleTestBase
 
     public void testReadArray() throws Exception
     {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JsonOrgModule());
-
-        JSONArray array = mapper.readValue("[null, 13, false, 1.25, \"abc\", {\"a\":13}, [ ] ]",
+        JSONArray array = MAPPER.readValue("[null, 13, false, 1.25, \"abc\", {\"a\":13}, [ ] ]",
                 JSONArray.class);
         assertEquals(7, array.length());
         assertTrue(array.isNull(0));
@@ -59,20 +55,20 @@ public class SimpleReadTest extends ModuleTestBase
 
     public void testBigInteger() throws Exception
     {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JsonOrgModule());
-
-        JSONObject val = mapper.readValue("{\"val\":2e308}", JSONObject.class);
+        JSONObject val = MAPPER.readValue("{\"val\":2e308}", JSONObject.class);
         assertEquals(new BigDecimal("2e308").toBigInteger(), val.getBigInteger("val"));
     }
 
     public void testBigIntegerArray() throws Exception
     {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JsonOrgModule());
-
-        JSONArray array = mapper.readValue("[2e308]", JSONArray.class);
+        JSONArray array = MAPPER.readValue("[2e308]", JSONArray.class);
         assertEquals(1, array.length());
         assertEquals(new BigDecimal("2e308").toBigInteger(), array.getBigInteger(0));
+    }
+
+    public void testDouble() throws Exception
+    {
+        JSONObject val = MAPPER.readValue("{\"val\": 0.5}", JSONObject.class);
+        assertEquals(0.5d, val.getDouble("val"));
     }
 }
