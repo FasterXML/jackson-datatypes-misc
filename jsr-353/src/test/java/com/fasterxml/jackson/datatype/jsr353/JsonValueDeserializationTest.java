@@ -155,4 +155,13 @@ public class JsonValueDeserializationTest extends TestBase
         // and round-tripping ought to be ok:
         assertEquals("[2E+308]", serializeAsString(v));
     }
+
+    public void testDouble() throws Exception
+    {
+        JsonValue val = MAPPER.readValue("{\"val\":0.5}", JsonValue.class);
+        JsonObject jsonObject = val.asJsonObject();
+        JsonNumber jsonNumber = jsonObject.getJsonNumber("val");
+        assertEquals(0.5d, jsonNumber.doubleValue());
+        assertEquals(new BigDecimal(0.5d), jsonNumber.numberValue());
+    }
 }
