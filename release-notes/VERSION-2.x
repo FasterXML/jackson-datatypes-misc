@@ -15,6 +15,7 @@ Modules:
 #37: (jsonp/jsr-353): Fix class path scaning on each deserialization
  (contributed by Konstantin V)
 
+2.15.3 (12-Oct-2023)
 2.15.2 (30-May-2023)
 2.15.1 (16-May-2023)
 
