@@ -14,6 +14,7 @@ Modules:
 
 #37: (jsonp/jsr-353): Fix class path scaning on each deserialization
  (contributed by Konstantin V)
+- Upgrade `org.json:json`` dependency to 20231013 (from 20230227)
 
 2.15.3 (12-Oct-2023)
 2.15.2 (30-May-2023)
