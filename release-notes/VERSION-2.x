@@ -10,7 +10,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.16.0-rc1 (20-Oct-2023)
+2.16.0 (15-Nov-2023)
 
 #37: (jsonp/jsr-353): Fix class path scanning on each deserialization
  (contributed by Konstantin V)
