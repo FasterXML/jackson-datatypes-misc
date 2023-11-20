@@ -12,7 +12,9 @@ Modules:
 
 2.17.0 (not yet released)
 
--
+
+#43: Update `jakarta.json:jakarta.json-api` dep to 2.1.3 (from 2.1.1)
+ (contributed by @pjfanning)
 
 2.16.0 (15-Nov-2023)
 
