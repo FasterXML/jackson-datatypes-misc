@@ -10,7 +10,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.17.0 (not yet released)
+2.17.0-rc1 (26-Feb-2024)
 
 #43: Update `jakarta.json:jakarta.json-api` dep to 2.1.3 (from 2.1.1)
  (contributed by @pjfanning)
@@ -25,6 +25,7 @@ No changes since 2.16.0
  (contributed by Konstantin V)
 - Upgrade `org.json:json`` dependency to 20231013 (from 20230227)
 
+2.15.4 (15-Feb-2024)
 2.15.3 (12-Oct-2023)
 2.15.2 (30-May-2023)
 2.15.1 (16-May-2023)
