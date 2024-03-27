@@ -23,7 +23,7 @@ public class JsonPatchDeserializationTest extends TestBase {
         final String json = "[" +
                 "{" +
                 "\"op\":\"replace\"," +
-                "\"path\":\"/name\"," +
+                "\"path\":\"\\/name\"," +
                 "\"value\":\"Json\"" +
                 "}" +
                 "]";
