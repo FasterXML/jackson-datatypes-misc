@@ -14,6 +14,10 @@ Modules:
 
 No changes since 2.17
 
+2.17.1 (04-May-2024)
+
+No changes since 2.17.0
+
 2.17.0 (12-Mar-2024)
 
 #43: Update `jakarta.json:jakarta.json-api` dep to 2.1.3 (from 2.1.1)
