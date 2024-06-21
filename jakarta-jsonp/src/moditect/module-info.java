@@ -5,7 +5,7 @@ module com.fasterxml.jackson.datatype.jsonp {
 
     requires jakarta.json;
 
-    exports com.fasterxml.jackson.datatype.jakarta.jsonp;
+    exports com.fasterxml.jackson.datatype.jsonp;
 
     provides com.fasterxml.jackson.databind.Module with
         com.fasterxml.jackson.datatype.jsonp.JSONPModule;

@@ -10,6 +10,10 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
+Not yet released
+
+#46: (jakarta-jsonp) Invalid module info for `jakarta-jsonp`
+
 2.15.4 (15-Feb-2024)
 
 - Upgrade `org.json:json`` dependency to 20231013 (from 20230227)
