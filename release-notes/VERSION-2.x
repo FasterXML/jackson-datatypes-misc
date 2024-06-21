@@ -14,6 +14,10 @@ Modules:
 
 No changes since 2.17
 
+2.17.2 (not yet released)
+
+#46: (jakarta-jsonp) Invalid module info for `jakarta-jsonp`
+
 2.17.1 (04-May-2024)
 
 No changes since 2.17.0
@@ -27,6 +31,8 @@ No changes since 2.17.0
 2.16.1 (24-Dec-2023)
 
 No changes since 2.16.0
+
+2.15.4 (15-Feb-2024)
 
 2.16.0 (15-Nov-2023)
 

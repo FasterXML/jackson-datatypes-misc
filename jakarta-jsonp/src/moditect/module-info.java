@@ -5,7 +5,7 @@ module tools.jackson.datatype.jsonp {
 
     requires jakarta.json;
 
-    exports tools.jackson.datatype.jakarta.jsonp;
+    exports tools.jackson.datatype.jsonp;
 
     provides tools.jackson.databind.JacksonModule with
         tools.jackson.datatype.jsonp.JSONPModule;
