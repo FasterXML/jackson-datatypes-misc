@@ -3,8 +3,7 @@ package com.fasterxml.jackson.datatype.money;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
+import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import org.junit.Test;
 
 import javax.money.MonetaryAmount;
@@ -17,12 +16,12 @@ public final class MonetaryAmountSchemaSerializerTest {
     public void shouldSerializeJsonSchema() throws Exception {
         final ObjectMapper unit = unit(module());
         final JsonSchemaGenerator generator = new JsonSchemaGenerator(unit);
-        final JsonSchema jsonSchema = generator.generateSchema(MonetaryAmount.class);
+        final JsonNode jsonSchema = generator.generateJsonSchema(MonetaryAmount.class);
         final String actual = unit.writeValueAsString(jsonSchema);
-        final String expected = "{\"type\":\"object\",\"id\":\"urn:jsonschema:javax:money:MonetaryAmount\",\"properties\":" +
-                "{\"amount\":{\"type\":\"number\",\"required\":true}," +
-                "\"currency\":{\"type\":\"string\",\"required\":true}," +
-                "\"formatted\":{\"type\":\"string\"}}}";
+        final String expected = "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"title\":\"Monetary Amount\"" +
+                ",\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"amount\":{\"type\":\"number\"}" +
+                ",\"currency\":{\"type\":\"string\"},\"formatted\":{\"type\":\"string\"}}" +
+                ",\"required\":[\"amount\",\"currency\"]}";
 
         assertThat(actual).isEqualTo(expected);
     }
@@ -33,12 +32,11 @@ public final class MonetaryAmountSchemaSerializerTest {
                                          .withCurrencyFieldName("unit")
                                          .withFormattedFieldName("pretty"));
         final JsonSchemaGenerator generator = new JsonSchemaGenerator(unit);
-        final JsonSchema jsonSchema = generator.generateSchema(MonetaryAmount.class);
+        final JsonNode jsonSchema = generator.generateJsonSchema(MonetaryAmount.class);
         final String actual = unit.writeValueAsString(jsonSchema);
-        final String expected = "{\"type\":\"object\",\"id\":\"urn:jsonschema:javax:money:MonetaryAmount\",\"properties\":" +
-                "{\"value\":{\"type\":\"number\",\"required\":true}," +
-                "\"unit\":{\"type\":\"string\",\"required\":true}," +
-                "\"pretty\":{\"type\":\"string\"}}}";
+        final String expected = "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"title\":\"Monetary Amount\"" +
+                ",\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"value\":{\"type\":\"number\"}" +
+                ",\"unit\":{\"type\":\"string\"},\"pretty\":{\"type\":\"string\"}},\"required\":[\"value\",\"unit\"]}";
 
         assertThat(actual).isEqualTo(expected);
     }
@@ -47,18 +45,17 @@ public final class MonetaryAmountSchemaSerializerTest {
     public void shouldSerializeJsonSchemaWithQuotedDecimalNumbers() throws Exception {
         final ObjectMapper unit = unit(module().withQuotedDecimalNumbers());
         final JsonSchemaGenerator generator = new JsonSchemaGenerator(unit);
-        final JsonSchema jsonSchema = generator.generateSchema(MonetaryAmount.class);
+        final JsonNode jsonSchema = generator.generateJsonSchema(MonetaryAmount.class);
         final String actual = unit.writeValueAsString(jsonSchema);
-        final String expected = "{\"type\":\"object\",\"id\":\"urn:jsonschema:javax:money:MonetaryAmount\",\"properties\":" +
-                "{\"amount\":{\"type\":\"string\",\"required\":true}," +
-                "\"currency\":{\"type\":\"string\",\"required\":true}," +
-                "\"formatted\":{\"type\":\"string\"}}}";
+        final String expected = "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"title\":\"Monetary Amount\"" +
+                ",\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"amount\":{\"type\":\"string\"}" +
+                ",\"currency\":{\"type\":\"string\"},\"formatted\":{\"type\":\"string\"}},\"required\":[\"amount\",\"currency\"]}";
 
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    public  void shouldSerializeJsonSchemaWithMultipleMonetayAmountsAndAlternativeGenerator() throws Exception {
+    public  void shouldSerializeJsonSchemaWithMultipleMonetayAmounts() throws Exception {
         final ObjectMapper unit = unit(module());
         final com.kjetland.jackson.jsonSchema.JsonSchemaGenerator generator =
                 new com.kjetland.jackson.jsonSchema.JsonSchemaGenerator(unit);

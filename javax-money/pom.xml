@@ -14,13 +14,13 @@
     <name>Jackson datatype: javax-money</name>
     <packaging>jar</packaging>
     <version>2.19.0-SNAPSHOT</version>
-    <description>Support for datatypes of Javax Money library (https://javamoney.github.io/)
+    <description>Support for datatypes of Money API spec from JSR 354 (https://javamoney.github.io/api.html)
     </description>
     <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
     <licenses>
         <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -80,11 +80,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>4.5.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-jsonSchema</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

@@ -1,25 +1,22 @@
 package com.fasterxml.jackson.datatype.money;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
-import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
+import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import org.junit.Test;
 
 import javax.money.CurrencyUnit;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public final class CurrencyUnitSchemaSerializerTest {
 
-    private final ObjectMapper unit = new ObjectMapper().findAndRegisterModules();
+    private final ObjectMapper unit = new ObjectMapper().registerModule(new MoneyModule());
 
     @Test
-    public void shouldSerializeJsonSchema() throws Exception {
+    public void shouldSerializeJsonSchema() {
         JsonSchemaGenerator generator = new JsonSchemaGenerator(unit);
-        JsonSchema jsonSchema = generator.generateSchema(CurrencyUnit.class);
-        final String actual = unit.writeValueAsString(jsonSchema);
-        final String expected = "{\"type\":\"string\"}";
-
-        assertThat(actual).isEqualTo(expected);
+        JsonNode schemaNode = generator.generateJsonSchema(CurrencyUnit.class);
+        assertThat(schemaNode.get("type")).isNotNull();
+        assertThat(schemaNode.get("type").asText()).isEqualTo("string");
     }
 }

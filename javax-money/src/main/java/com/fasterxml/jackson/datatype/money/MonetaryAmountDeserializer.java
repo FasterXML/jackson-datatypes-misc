@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 
@@ -14,6 +15,7 @@ import javax.money.MonetaryAmount;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static java.lang.String.format;
@@ -61,17 +63,18 @@ final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends JsonDes
             }
         }
 
-        checkPresent(parser, amount, names.getAmount());
-        checkPresent(parser, currency, names.getCurrency());
+        String missingName;
 
-        return factory.create(amount, currency);
-    }
-
-    private void checkPresent(final JsonParser parser, @Nullable final Object value, final String name)
-            throws JsonParseException {
-        if (value == null) {
-            throw new JsonParseException(parser, format("Missing property: '%s'", name));
+        if (Objects.isNull(currency)) {
+            missingName = names.getCurrency();
+        } else if (Objects.isNull(amount)) {
+            missingName = names.getAmount();
+        } else {
+            return factory.create(amount, currency);
         }
+
+        return context.reportPropertyInputMismatch(MonetaryAmount.class, missingName, format("Missing property: '%s'", missingName));
+
     }
 
 }

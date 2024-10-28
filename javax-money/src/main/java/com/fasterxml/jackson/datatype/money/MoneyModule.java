@@ -1,7 +1,6 @@
 package com.fasterxml.jackson.datatype.money;
 
 import com.fasterxml.jackson.core.Version;
-import com.fasterxml.jackson.core.util.VersionUtil;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleSerializers;
@@ -59,10 +58,8 @@ public final class MoneyModule extends Module {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public Version version() {
-        final ClassLoader loader = MoneyModule.class.getClassLoader();
-        return VersionUtil.mavenVersionFor(loader, "com.fasterxml.jackson.datatype.money", "jackson-datatype-money");
+        return PackageVersion.VERSION;
     }
 
     @Override

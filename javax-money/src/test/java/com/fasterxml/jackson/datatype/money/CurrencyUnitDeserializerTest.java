@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThrows;
 
 public final class CurrencyUnitDeserializerTest {
 
-    private final ObjectMapper unit = new ObjectMapper().findAndRegisterModules();
+    private final ObjectMapper unit = new ObjectMapper().registerModule(new MoneyModule());
 
     @Test
     public void shouldDeserialize() throws IOException {

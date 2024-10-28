@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import junitparams.JUnitParamsRunner;
@@ -209,8 +210,8 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
         final String content = "{\"amount\":29.95}";
 
-        final JsonProcessingException exception = assertThrows(
-                JsonProcessingException.class, () -> unit.readValue(content, type));
+        final MismatchedInputException exception = assertThrows(
+                MismatchedInputException.class, () -> unit.readValue(content, type));
 
         assertThat(exception.getMessage()).contains("Missing property: 'currency'");
     }
