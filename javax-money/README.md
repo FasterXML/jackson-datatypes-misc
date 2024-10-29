@@ -5,6 +5,8 @@ deserialization of [JavaMoney](https://github.com/JavaMoney/jsr354-api) data typ
 integrates JavaMoney and Jackson so that they work seamlessly together, without requiring additional
 developer effort. In doing so, it aims to perform a small but repetitive task — once and for all.
 
+This library reflects an opinionated API [representation of monetary amounts in JSON](MONEY.md)
+
 With this library, it is possible to represent monetary amounts in JSON as follows:
 
 ```json
