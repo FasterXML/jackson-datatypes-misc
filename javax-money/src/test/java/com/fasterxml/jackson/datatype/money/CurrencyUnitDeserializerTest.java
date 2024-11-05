@@ -1,6 +1,7 @@
 package com.fasterxml.jackson.datatype.money;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import org.javamoney.moneta.CurrencyUnitBuilder;
 import org.junit.Test;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertThrows;
 
 public final class CurrencyUnitDeserializerTest {
 
-    private final ObjectMapper unit = new ObjectMapper().registerModule(new MoneyModule());
+    private final ObjectMapper unit = JsonMapper.builder().addModule(new MoneyModule()).build();
 
     @Test
     public void shouldDeserialize() throws IOException {

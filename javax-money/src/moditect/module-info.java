@@ -1,5 +1,4 @@
-//TODO how is this generated
-// Generated 27-Mar-2019 using Moditect maven plugin
+// Hand-crafted 05-Nov-2024
 module com.fasterxml.jackson.datatype.money {
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.core;
