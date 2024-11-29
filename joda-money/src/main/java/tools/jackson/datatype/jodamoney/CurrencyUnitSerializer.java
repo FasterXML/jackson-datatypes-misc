@@ -5,7 +5,7 @@ import org.joda.money.CurrencyUnit;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonGenerator;
 
-import tools.jackson.databind.SerializerProvider;
+import tools.jackson.databind.SerializationContext;
 
 public class CurrencyUnitSerializer extends JodaMoneySerializerBase<CurrencyUnit>
 {
@@ -15,7 +15,7 @@ public class CurrencyUnitSerializer extends JodaMoneySerializerBase<CurrencyUnit
 
     @Override
     public void serialize(final CurrencyUnit currencyUnit,
-            final JsonGenerator g, final SerializerProvider ctxt)
+            final JsonGenerator g, final SerializationContext ctxt)
         throws JacksonException
     {
         g.writeString(currencyUnit.getCode());

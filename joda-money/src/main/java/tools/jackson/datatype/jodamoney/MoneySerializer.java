@@ -6,7 +6,7 @@ import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonGenerator;
 import tools.jackson.core.JsonToken;
 import tools.jackson.core.type.WritableTypeId;
-import tools.jackson.databind.SerializerProvider;
+import tools.jackson.databind.SerializationContext;
 import tools.jackson.databind.jsontype.TypeSerializer;
 
 import static java.util.Objects.requireNonNull;
@@ -27,7 +27,7 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
 
     @Override
     public void serialize(final Money value,
-            final JsonGenerator g, final SerializerProvider ctxt)
+            final JsonGenerator g, final SerializationContext ctxt)
         throws JacksonException
     {
         g.writeStartObject();
@@ -39,7 +39,7 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
     //    serialized as JSON Objects, unlike most other Joda types
     @Override
     public void serializeWithType(final Money value,
-            final JsonGenerator g, final SerializerProvider ctxt,
+            final JsonGenerator g, final SerializationContext ctxt,
             final TypeSerializer typeSer)
         throws JacksonException
     {
@@ -51,7 +51,7 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
     }
 
     private final void _writeProperties(final Money value,
-            final JsonGenerator g, final SerializerProvider ctxt)
+            final JsonGenerator g, final SerializationContext ctxt)
                     throws JacksonException
     {
         ctxt.defaultSerializeProperty("amount", amountConverter.fromMoney(value), g);
