@@ -6,7 +6,7 @@ import javax.json.*;
 
 import tools.jackson.core.*;
 import tools.jackson.core.type.WritableTypeId;
-import tools.jackson.databind.SerializerProvider;
+import tools.jackson.databind.SerializationContext;
 import tools.jackson.databind.jsontype.TypeSerializer;
 import tools.jackson.databind.ser.std.StdSerializer;
 
@@ -23,27 +23,27 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
      */
     
     @Override
-    public void serialize(JsonValue value, JsonGenerator g, SerializerProvider provider)
+    public void serialize(JsonValue value, JsonGenerator g, SerializationContext ctxt)
         throws JacksonException
     {
         switch (value.getValueType()) {
         case ARRAY:
             g.writeStartArray();
-            serializeArrayContents((JsonArray) value, g, provider);
+            serializeArrayContents((JsonArray) value, g, ctxt);
             g.writeEndArray();
             break;
         case OBJECT:
             g.writeStartObject(value);
-            serializeObjectContents((JsonObject) value, g, provider);
+            serializeObjectContents((JsonObject) value, g, ctxt);
             g.writeEndObject();
             break;
         default: // value type of some kind (scalar)
-            serializeScalar(value, g, provider);
+            serializeScalar(value, g, ctxt);
         }
     }
 
     @Override
-    public void serializeWithType(JsonValue value, JsonGenerator g, SerializerProvider ctxt,
+    public void serializeWithType(JsonValue value, JsonGenerator g, SerializationContext ctxt,
             TypeSerializer typeSer)
         throws JacksonException
     {
@@ -67,7 +67,7 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
      */
 
     protected void serializeScalar(JsonValue value,
-            JsonGenerator g, SerializerProvider provider)
+            JsonGenerator g, SerializationContext ctxt)
         throws JacksonException
     {
         switch (value.getValueType()) {
@@ -103,24 +103,24 @@ public class JsonValueSerializer extends StdSerializer<JsonValue>
     }
 
     protected void serializeArrayContents(JsonArray values,
-            JsonGenerator g, SerializerProvider provider)
+            JsonGenerator g, SerializationContext ctxt)
         throws JacksonException
     {
         if (!values.isEmpty()) {
             for (JsonValue value : values) {
-                serialize(value, g, provider);
+                serialize(value, g, ctxt);
             }
         }
     }
 
     protected void serializeObjectContents(JsonObject ob,
-            JsonGenerator g, SerializerProvider provider)
+            JsonGenerator g, SerializationContext ctxt)
         throws JacksonException
     {
         if (!ob.isEmpty()) {
             for (Map.Entry<String, JsonValue> entry : ob.entrySet()) {
                 g.writeName(entry.getKey());
-                serialize(entry.getValue(), g, provider);
+                serialize(entry.getValue(), g, ctxt);
             }
         }
     }

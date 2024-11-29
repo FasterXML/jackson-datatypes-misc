@@ -19,7 +19,7 @@ package tools.jackson.datatype.jakarta.mail;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonGenerator;
 
-import tools.jackson.databind.SerializerProvider;
+import tools.jackson.databind.SerializationContext;
 import tools.jackson.databind.ser.std.StdScalarSerializer;
 
 import jakarta.mail.internet.InternetAddress;
@@ -34,7 +34,7 @@ public class JakartaInternetAddressSerializer extends StdScalarSerializer<Intern
     }
 
     @Override
-    public void serialize(InternetAddress value, JsonGenerator gen, SerializerProvider provider)
+    public void serialize(InternetAddress value, JsonGenerator gen, SerializationContext ctxt)
         throws JacksonException
     {
         gen.writeString(value.toString());

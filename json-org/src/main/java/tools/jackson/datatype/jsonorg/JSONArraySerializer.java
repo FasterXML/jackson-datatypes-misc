@@ -19,21 +19,21 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
     }
 
     @Override
-    public boolean isEmpty(SerializerProvider provider, JSONArray value) {
+    public boolean isEmpty(SerializationContext ctxt, JSONArray value) {
         return (value == null) || value.length() == 0;
     }
     
     @Override
-    public void serialize(JSONArray value, JsonGenerator g, SerializerProvider provider)
+    public void serialize(JSONArray value, JsonGenerator g, SerializationContext ctxt)
         throws JacksonException
     {
         g.writeStartArray();
-        serializeContents(value, g, provider);
+        serializeContents(value, g, ctxt);
         g.writeEndArray();
     }
 
     @Override
-    public void serializeWithType(JSONArray value, JsonGenerator g, SerializerProvider ctxt,
+    public void serializeWithType(JSONArray value, JsonGenerator g, SerializationContext ctxt,
             TypeSerializer typeSer)
         throws JacksonException
     {
@@ -44,7 +44,7 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
         typeSer.writeTypeSuffix(g, ctxt, typeIdDef);
     }
 
-    protected void serializeContents(JSONArray value, JsonGenerator g, SerializerProvider provider)
+    protected void serializeContents(JSONArray value, JsonGenerator g, SerializationContext ctxt)
         throws JacksonException
     {
         for (int i = 0, len = value.length(); i < len; ++i) {
@@ -55,9 +55,9 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
             }
             Class<?> cls = ob.getClass();
             if (cls == JSONObject.class) {
-                JSONObjectSerializer.instance.serialize((JSONObject) ob, g, provider);
+                JSONObjectSerializer.instance.serialize((JSONObject) ob, g, ctxt);
             } else if (cls == JSONArray.class) {
-                serialize((JSONArray) ob, g, provider);
+                serialize((JSONArray) ob, g, ctxt);
             } else  if (cls == String.class) {
                 g.writeString((String) ob);
             } else  if (cls == Integer.class) {
@@ -69,11 +69,11 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
             } else  if (cls == Double.class) {
                 g.writeNumber(((Double) ob).doubleValue());
             } else if (JSONObject.class.isAssignableFrom(cls)) { // sub-class
-                JSONObjectSerializer.instance.serialize((JSONObject) ob, g, provider);
+                JSONObjectSerializer.instance.serialize((JSONObject) ob, g, ctxt);
             } else if (JSONArray.class.isAssignableFrom(cls)) { // sub-class
-                serialize((JSONArray) ob, g, provider);
+                serialize((JSONArray) ob, g, ctxt);
             } else {
-                provider.writeValue(g, ob);
+                ctxt.writeValue(g, ob);
             }
         }        
     }
