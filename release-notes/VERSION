@@ -4,8 +4,8 @@ Modules:
   jackson-datatype-joda-money
   jackson-datatype-json-org
   jackson-datatype-jsr353
-  jackson-datatype-jakarta-jsonp (2.13 alt to -jsr353)
-  jackson-datatype-jakarta-mail (2.13)
+  jackson-datatype-jakarta-jsonp (since 2.13 alt to -jsr353)
+  jackson-datatype-jakarta-mail (since 2.13)
 
 ------------------------------------------------------------------------
 === Releases ===
