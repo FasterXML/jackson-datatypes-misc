@@ -43,17 +43,17 @@ jobs:
       id: projectVersion
       run: echo "version=$(./mvnw org.apache.maven.plugins:maven-help-plugin:3.3.0:evaluate -DforceStdout -Dexpression=project.version -q)" >> $GITHUB_OUTPUT
     - name: Deploy snapshot
-      if: ${{ github.event_name != 'pull_request' && endsWith(steps.projectVersion.outputs.version, '-SNAPSHOT') }}
+      if: ${{ github.event_name != 'pull_request' && matrix.java_version == '17' && endsWith(steps.projectVersion.outputs.version, '-SNAPSHOT') }}
       env:
         CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME3 }}
         CI_DEPLOY_PASSWORD: ${{ secrets.CI_DEPLOY_PASSWORD3 }}
         # MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
       run: ./mvnw -B -q -ff -DskipTests -ntp source:jar deploy
     - name: Generate code coverage 
-      if: ${{ matrix.release_build && github.event_name != 'pull_request' }}
+      if: ${{ github.event_name != 'pull_request' && matrix.java_version == '17' }}
       run: ./mvnw -B -q -ff -ntp test
     - name: Publish code coverage 
-      if: ${{ matrix.release_build && github.event_name != 'pull_request' }}
+      if: ${{ github.event_name != 'pull_request' && matrix.java_version == '17' }}
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
