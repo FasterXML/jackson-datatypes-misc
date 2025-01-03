@@ -44,7 +44,7 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
                     ob.put(fieldName, deserialize(p, ctxt));
                     continue;
                 case VALUE_STRING:
-                    ob.put(fieldName, p.getText());
+                    ob.put(fieldName, p.getString());
                     continue;
                 case VALUE_NULL:
                     ob.put(fieldName, JSONObject.NULL);

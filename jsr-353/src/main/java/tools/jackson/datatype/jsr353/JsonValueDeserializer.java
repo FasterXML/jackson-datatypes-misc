@@ -127,7 +127,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     }
                     break;
                 case VALUE_STRING:
-                    b.add(name, p.getText());
+                    b.add(name, p.getString());
                     break;
                 case VALUE_EMBEDDED_OBJECT: {
                     // 26-Nov-2014, tatu: As per [issue#5], should be able to support
@@ -185,7 +185,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                     }
                     break;
                 case VALUE_STRING:
-                    b.add(p.getText());
+                    b.add(p.getString());
                     break;
                 default:
                     return (JsonArray) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
@@ -228,7 +228,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                 }
             }
 	case VALUE_STRING:
-	    return _builderFactory.createArrayBuilder().add(p.getText()).build().get(0);
+	    return _builderFactory.createArrayBuilder().add(p.getString()).build().get(0);
 	default: // errors, should never get here
 //        case END_ARRAY:
 //        case END_OBJECT:

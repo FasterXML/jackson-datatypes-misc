@@ -42,7 +42,7 @@ public class JakartaInternetAddressDeserializer extends StdScalarDeserializer<In
             return (InternetAddress) ctxt.handleUnexpectedToken(InternetAddress.class, p);
         }
 
-        final String address = p.getText();
+        final String address = p.getString();
         try {
             return new InternetAddress(address);
         } catch (AddressException e) {

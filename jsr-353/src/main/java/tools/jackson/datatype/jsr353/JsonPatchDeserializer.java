@@ -28,7 +28,7 @@ public class JsonPatchDeserializer extends StdDeserializer<JsonPatch>
     @Override
     public JsonPatch deserialize(JsonParser p, DeserializationContext ctxt) throws JacksonException {
         if (p.currentToken() != JsonToken.START_ARRAY) {
-            throw InvalidFormatException.from(p, "JSON patch has to be an array of objects", p.getText(),
+            throw InvalidFormatException.from(p, "JSON patch has to be an array of objects", p.getString(),
                 handledType());
         }
         return provider.createPatch(jsonValueDeser._deserializeArray(p, ctxt));

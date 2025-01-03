@@ -19,7 +19,7 @@ public class CurrencyUnitDeserializer extends StdScalarDeserializer<CurrencyUnit
             final DeserializationContext ctxt)
     {
         if (p.hasToken(JsonToken.VALUE_STRING)) {
-            final String currencyCode = p.getText();
+            final String currencyCode = p.getString();
             try {
                 return CurrencyUnit.of(currencyCode);
             } catch (Exception e) {

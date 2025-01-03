@@ -47,7 +47,7 @@ public class JSONArrayDeserializer extends StdDeserializer<JSONArray>
                 array.put(JSONObjectDeserializer.instance.deserialize(p, ctxt));
                 continue;
             case VALUE_STRING:
-                array.put(p.getText());
+                array.put(p.getString());
                 continue;
             case VALUE_NULL:
                 array.put(JSONObject.NULL);
