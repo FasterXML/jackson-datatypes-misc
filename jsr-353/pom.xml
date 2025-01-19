@@ -35,12 +35,19 @@ working with JSR-353 (JSON-P) node types via data-binding
     </dependency>
 
     <!-- and for tests can use the RI -->
+    <!-- 18-Jan-2025, tatu: Except, not with JPMS because that PoS component
+       decided to use Automatic Module Name of "java.json". Which it absolutely
+       cannot, being the _API_ module.
+       So. We cannot really run tests any more. And with deprecation by Jakarta JSONP
+       we may want to remove the module. But for now drop dep
     <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.json</artifactId>
         <version>1.1.4</version>
         <scope>test</scope>
     </dependency>
+      -->
+
   </dependencies>
 
   <build>
@@ -48,6 +55,16 @@ working with JSR-353 (JSON-P) node types via data-binding
       <plugin>
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
+      </plugin>
+      <!-- 18-Jan-2025, tatu: As per above, we cannot really run tests with JPMS.
+              So. Disable surefire plug-in altogether
+        -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
       </plugin>
     </plugins>
   </build>
