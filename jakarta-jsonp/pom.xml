@@ -49,10 +49,6 @@ working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-b
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
       </plugin>
-      <plugin>
-        <groupId>org.moditect</groupId>
-        <artifactId>moditect-maven-plugin</artifactId>
-      </plugin>
     </plugins>
   </build>
 

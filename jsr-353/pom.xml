@@ -49,10 +49,6 @@ working with JSR-353 (JSON-P) node types via data-binding
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
       </plugin>
-      <plugin>
-        <groupId>org.moditect</groupId>
-        <artifactId>moditect-maven-plugin</artifactId>
-      </plugin>
     </plugins>
   </build>
 

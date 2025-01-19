@@ -29,7 +29,7 @@ mainly to make it easier to upgrade code to Jackson, using automated conversions
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20231013</version>
+      <version>20250107</version>
     </dependency>
   </dependencies>
   
@@ -38,10 +38,6 @@ mainly to make it easier to upgrade code to Jackson, using automated conversions
       <plugin>
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.moditect</groupId>
-        <artifactId>moditect-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
