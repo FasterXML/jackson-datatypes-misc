@@ -1,11 +1,10 @@
-module tools.jackson.datatype.jsonorg {
+// Org.json module Main artifact Module descriptor
+module tools.jackson.datatype.jsonorg
+{
     requires tools.jackson.core;
-    requires tools.jackson.databind;
+    requires transitive tools.jackson.databind;
 
-    // is this the package name
-    requires static json;
-    //^2015
-    requires static org.json;
+    requires org.json;
 
     exports tools.jackson.datatype.jsonorg;
 

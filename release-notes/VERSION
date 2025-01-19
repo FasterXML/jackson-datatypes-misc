@@ -13,4 +13,5 @@ Modules:
 
 3.0.0 (not yet released)
 
+#52: Change 3.0 to use `module-info.java` directly [JSTEP-11]
 - Minimum Java baseline: Java 17
