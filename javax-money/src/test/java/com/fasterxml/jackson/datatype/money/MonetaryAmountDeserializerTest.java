@@ -32,14 +32,14 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
     @SuppressWarnings("unused")
     private Object[] data() {
         return $($(Money.class, (Configurer) module -> module),
-                $(FastMoney.class, (Configurer) module -> new MoneyModule().withFastMoney()),
-                $(Money.class, (Configurer) module -> new MoneyModule().withMoney()),
-                $(RoundedMoney.class, (Configurer) module -> new MoneyModule().withRoundedMoney()),
+                $(FastMoney.class, (Configurer) module -> new JavaxMoneyModule().withFastMoney()),
+                $(Money.class, (Configurer) module -> new JavaxMoneyModule().withMoney()),
+                $(RoundedMoney.class, (Configurer) module -> new JavaxMoneyModule().withRoundedMoney()),
                 $(RoundedMoney.class, (Configurer) module -> module.withRoundedMoney(Monetary.getDefaultRounding())));
     }
 
     private interface Configurer {
-        MoneyModule configure(MoneyModule module);
+        JavaxMoneyModule configure(JavaxMoneyModule module);
     }
 
     private ObjectMapper unit(final Configurer configurer) {
@@ -50,8 +50,8 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
         return new ObjectMapper().registerModule(module);
     }
 
-    private MoneyModule module(final Configurer configurer) {
-        return configurer.configure(new MoneyModule());
+    private JavaxMoneyModule module(final Configurer configurer) {
+        return configurer.configure(new JavaxMoneyModule());
     }
 
     @Test

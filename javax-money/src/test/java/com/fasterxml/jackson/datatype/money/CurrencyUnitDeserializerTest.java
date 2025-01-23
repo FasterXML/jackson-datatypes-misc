@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThrows;
 
 public final class CurrencyUnitDeserializerTest {
 
-    private final ObjectMapper unit = JsonMapper.builder().addModule(new MoneyModule()).build();
+    private final ObjectMapper unit = JsonMapper.builder().addModule(new JavaxMoneyModule()).build();
 
     @Test
     public void shouldDeserialize() throws IOException {

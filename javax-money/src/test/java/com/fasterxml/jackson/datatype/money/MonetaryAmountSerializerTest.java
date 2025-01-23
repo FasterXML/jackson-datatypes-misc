@@ -72,8 +72,8 @@ public final class MonetaryAmountSerializerTest {
                 .addModule(module);
     }
 
-    private MoneyModule module() {
-        return new MoneyModule();
+    private JavaxMoneyModule module() {
+        return new JavaxMoneyModule();
     }
 
     @Test
@@ -102,7 +102,7 @@ public final class MonetaryAmountSerializerTest {
     @Test
     @Parameters(method = "amounts")
     public void shouldSerializeWithFormattedGermanValue(final MonetaryAmount amount) throws JsonProcessingException {
-        final ObjectMapper unit = unit(new MoneyModule().withDefaultFormatting());
+        final ObjectMapper unit = unit(new JavaxMoneyModule().withDefaultFormatting());
 
         final String expected = "{\"amount\":29.95,\"currency\":\"EUR\",\"formatted\":\"29,95 EUR\"}";
 

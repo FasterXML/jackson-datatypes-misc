@@ -8,5 +8,5 @@ module com.fasterxml.jackson.datatype.money {
     exports com.fasterxml.jackson.datatype.money;
 
     provides com.fasterxml.jackson.databind.Module with
-        com.fasterxml.jackson.datatype.money.MoneyModule;
+        com.fasterxml.jackson.datatype.money.JavaxMoneyModule;
 }

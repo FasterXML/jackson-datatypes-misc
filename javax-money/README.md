@@ -53,8 +53,9 @@ actual version will be selected by a profile based on the current JDK version.
 Register the module with your `ObjectMapper`:
 
 ```java
-ObjectMapper mapper = new ObjectMapper()
-        .registerModule(new MoneyModule());
+ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaxMoneyModule())
+                .build();
 ```
 
 Alternatively, you can use the SPI capabilities:
@@ -81,8 +82,9 @@ and will, by default, serialize it as:
 To serialize number as a JSON string, you have to configure the quoted decimal number value serializer:
 
 ```java
-ObjectMapper mapper = new ObjectMapper()
-        .registerModule(new MoneyModule().withQuotedDecimalNumbers());
+ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaxMoneyModule().withQuotedDecimalNumbers())
+                .build();
 ```
 
 ```json
@@ -98,16 +100,18 @@ A special feature for serializing monetary amounts is *formatting*, which is **d
 have to either enable default formatting:
 
 ```java
-ObjectMapper mapper = new ObjectMapper()
-        .registerModule(new MoneyModule().withDefaultFormatting());
+ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaxMoneyModule().withDefaultFormatting())
+                .build();
 ```
 
-... or pass in a `MonetaryAmountFormatFactory` implementation to the `MoneyModule`:
+... or pass in a `MonetaryAmountFormatFactory` implementation to the `JavaxMoneyModule`:
 
 ```java
-ObjectMapper mapper = new ObjectMapper()
-        .registerModule(new MoneyModule()
-                .withFormatting(new CustomMonetaryAmountFormatFactory()));
+ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaxMoneyModule()
+                .withFormatting(new CustomMonetaryAmountFormatFactory()))
+                .build();
 ```
 
 The default formatting delegates directly to `MonetaryFormats.getAmountFormat(Locale, String...)`.
@@ -122,9 +126,7 @@ The first example serializes a monetary amount using the `de_DE` locale:
 
 ```java
 ObjectWriter writer = mapper.writer().with(Locale.GERMANY);
-writer.
-
-writeValueAsString(Money.of(29.95, "EUR"));
+writer.writeValueAsString(Money.of(29.95, "EUR"));
 ```
 
 ```json
@@ -139,9 +141,7 @@ The following example uses `en_US`:
 
 ```java
 ObjectWriter writer = mapper.writer().with(Locale.US);
-writer.
-
-writeValueAsString(Money.of(29.95, "USD"));
+writer.writeValueAsString(Money.of(29.95, "USD"));
 ```
 
 ```json
@@ -158,45 +158,48 @@ More sophisticated formatting rules can be supported by implementing `MonetaryAm
 
 This module will use `org.javamoney.moneta.Money` as an implementation for `javax.money.MonetaryAmount` by default when
 deserializing money values. If you need a different implementation, you can pass a different `MonetaryAmountFactory`
-to the `MoneyModule`:
+to the `JavaxMoneyModule`:
 
 ```java
-ObjectMapper mapper = new ObjectMapper()
-        .registerModule(new MoneyModule()
-                .withMonetaryAmount(new CustomMonetaryAmountFactory()));
+ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaxMoneyModule()
+                .withMonetaryAmount(new CustomMonetaryAmountFactory()))
+                .build();
 ```
 
 You can also pass in a method reference:
 
 ```java
-ObjectMapper mapper = new ObjectMapper()
-        .registerModule(new MoneyModule()
-                .withMonetaryAmount(FastMoney::of));
+ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaxMoneyModule()
+                .withMonetaryAmount(FastMoney::of))
+                .build();
 ```
 
 *Jackson Datatype Money* comes with support for all `MonetaryAmount` implementations from Moneta, the reference
 implementation of JavaMoney:
 
-| `MonetaryAmount` Implementation     | Factory                                                                                                               |
-|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| `org.javamoney.moneta.FastMoney`    | [`new MoneyModule().withFastMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/FastMoneyFactory.java)       |
-| `org.javamoney.moneta.Money`        | [`new MoneyModule().withMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/MoneyFactory.java)               |
-| `org.javamoney.moneta.RoundedMoney` | [`new MoneyModule().withRoundedMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/RoundedMoneyFactory.java) |                                                                                                                             |
+| `MonetaryAmount` Implementation     | Factory                                                                                                                    |
+|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| `org.javamoney.moneta.FastMoney`    | [`new JavaxMoneyModule().withFastMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/FastMoneyFactory.java)       |
+| `org.javamoney.moneta.Money`        | [`new JavaxMoneyModule().withMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/MoneyFactory.java)               |
+| `org.javamoney.moneta.RoundedMoney` | [`new JavaxMoneyModule().withRoundedMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/RoundedMoneyFactory.java) |                                                                                                                             |
 
 Module supports deserialization of amount number from JSON number as well as from JSON string without any special
 configuration required.
 
 ### Custom Field Names
 
-As you have seen in the previous examples the `MoneyModule` uses the field names `amount`, `currency` and `formatted`
+As you have seen in the previous examples the `JavaxMoneyModule` uses the field names `amount`, `currency` and `formatted`
 by default. Those names can be overridden if desired:
 
 ```java
-ObjectMapper mapper = new ObjectMapper()
-        .registerModule(new MoneyModule()
+ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaxMoneyModule()
                 .withAmountFieldName("value")
                 .withCurrencyFieldName("unit")
-                .withFormattedFieldName("pretty"));
+                .withFormattedFieldName("pretty"))
+                .build();
 ```
 
 ## Usage

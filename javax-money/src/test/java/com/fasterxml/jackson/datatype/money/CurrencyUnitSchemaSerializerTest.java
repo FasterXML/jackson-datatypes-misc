@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public final class CurrencyUnitSchemaSerializerTest {
 
-    private final ObjectMapper unit = new ObjectMapper().registerModule(new MoneyModule());
+    private final ObjectMapper unit = new ObjectMapper().registerModule(new JavaxMoneyModule());
 
     @Test
     public void shouldSerializeJsonSchema() {

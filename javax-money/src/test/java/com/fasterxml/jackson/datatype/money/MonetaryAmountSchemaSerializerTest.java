@@ -77,8 +77,8 @@ public final class MonetaryAmountSchemaSerializerTest {
         return new ObjectMapper().registerModule(module);
     }
 
-    private MoneyModule module() {
-        return new MoneyModule();
+    private JavaxMoneyModule module() {
+        return new JavaxMoneyModule();
     }
 
 }

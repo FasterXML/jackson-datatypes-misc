@@ -20,7 +20,7 @@ import static org.apiguardian.api.API.Status.STABLE;
 
 
 @API(status = STABLE)
-public final class MoneyModule extends Module {
+public final class JavaxMoneyModule extends Module {
 
     private final AmountWriter<?> writer;
     private final FieldNames names;
@@ -30,18 +30,18 @@ public final class MoneyModule extends Module {
     private final MonetaryAmountFactory<Money> moneyFactory;
     private final MonetaryAmountFactory<RoundedMoney> roundedMoneyFactory;
 
-    public MoneyModule() {
+    public JavaxMoneyModule() {
         this(new DecimalAmountWriter(), FieldNames.defaults(), MonetaryAmountFormatFactory.NONE,
                 Money::of, FastMoney::of, Money::of, RoundedMoney::of);
     }
 
-    private MoneyModule(final AmountWriter<?> writer,
-                        final FieldNames names,
-                        final MonetaryAmountFormatFactory formatFactory,
-                        final MonetaryAmountFactory<? extends MonetaryAmount> amountFactory,
-                        final MonetaryAmountFactory<FastMoney> fastMoneyFactory,
-                        final MonetaryAmountFactory<Money> moneyFactory,
-                        final MonetaryAmountFactory<RoundedMoney> roundedMoneyFactory) {
+    private JavaxMoneyModule(final AmountWriter<?> writer,
+                             final FieldNames names,
+                             final MonetaryAmountFormatFactory formatFactory,
+                             final MonetaryAmountFactory<? extends MonetaryAmount> amountFactory,
+                             final MonetaryAmountFactory<FastMoney> fastMoneyFactory,
+                             final MonetaryAmountFactory<Money> moneyFactory,
+                             final MonetaryAmountFactory<RoundedMoney> roundedMoneyFactory) {
 
         this.writer = writer;
         this.names = names;
@@ -54,7 +54,7 @@ public final class MoneyModule extends Module {
 
     @Override
     public String getModuleName() {
-        return MoneyModule.class.getSimpleName();
+        return JavaxMoneyModule.class.getSimpleName();
     }
 
     @Override
@@ -79,89 +79,89 @@ public final class MoneyModule extends Module {
         context.addDeserializers(deserializers);
     }
 
-    public MoneyModule withDecimalNumbers() {
+    public JavaxMoneyModule withDecimalNumbers() {
         return withNumbers(new DecimalAmountWriter());
     }
 
-    public MoneyModule withQuotedDecimalNumbers() {
+    public JavaxMoneyModule withQuotedDecimalNumbers() {
         return withNumbers(new QuotedDecimalAmountWriter());
     }
 
     @API(status = EXPERIMENTAL)
-    public MoneyModule withNumbers(final AmountWriter<?> writer) {
-        return new MoneyModule(writer, names, formatFactory, amountFactory,
+    public JavaxMoneyModule withNumbers(final AmountWriter<?> writer) {
+        return new JavaxMoneyModule(writer, names, formatFactory, amountFactory,
                 fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     /**
      * @see FastMoney
-     * @return new {@link MoneyModule} using {@link FastMoney}
+     * @return new {@link JavaxMoneyModule} using {@link FastMoney}
      */
-    public MoneyModule withFastMoney() {
+    public JavaxMoneyModule withFastMoney() {
         return withMonetaryAmount(fastMoneyFactory);
     }
 
     /**
      * @see Money
-     * @return new {@link MoneyModule} using {@link Money}
+     * @return new {@link JavaxMoneyModule} using {@link Money}
      */
-    public MoneyModule withMoney() {
+    public JavaxMoneyModule withMoney() {
         return withMonetaryAmount(moneyFactory);
     }
 
     /**
      * @see RoundedMoney
-     * @return new {@link MoneyModule} using {@link RoundedMoney}
+     * @return new {@link JavaxMoneyModule} using {@link RoundedMoney}
      */
-    public MoneyModule withRoundedMoney() {
+    public JavaxMoneyModule withRoundedMoney() {
         return withMonetaryAmount(roundedMoneyFactory);
     }
 
     /**
      * @see RoundedMoney
      * @param rounding the rounding operator
-     * @return new {@link MoneyModule} using {@link RoundedMoney} with the given {@link MonetaryRounding}
+     * @return new {@link JavaxMoneyModule} using {@link RoundedMoney} with the given {@link MonetaryRounding}
      */
-    public MoneyModule withRoundedMoney(final MonetaryOperator rounding) {
+    public JavaxMoneyModule withRoundedMoney(final MonetaryOperator rounding) {
         final MonetaryAmountFactory<RoundedMoney> factory = (amount, currency) ->
                 RoundedMoney.of(amount, currency, rounding);
 
-        return new MoneyModule(writer, names, formatFactory, factory,
+        return new JavaxMoneyModule(writer, names, formatFactory, factory,
                 fastMoneyFactory, moneyFactory, factory);
     }
 
-    public MoneyModule withMonetaryAmount(final MonetaryAmountFactory<? extends MonetaryAmount> amountFactory) {
-        return new MoneyModule(writer, names, formatFactory, amountFactory,
+    public JavaxMoneyModule withMonetaryAmount(final MonetaryAmountFactory<? extends MonetaryAmount> amountFactory) {
+        return new JavaxMoneyModule(writer, names, formatFactory, amountFactory,
                 fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
-    public MoneyModule withoutFormatting() {
+    public JavaxMoneyModule withoutFormatting() {
         return withFormatting(MonetaryAmountFormatFactory.NONE);
     }
 
-    public MoneyModule withDefaultFormatting() {
+    public JavaxMoneyModule withDefaultFormatting() {
         return withFormatting(MonetaryFormats::getAmountFormat);
     }
 
-    public MoneyModule withFormatting(final MonetaryAmountFormatFactory formatFactory) {
-        return new MoneyModule(writer, names, formatFactory, amountFactory,
+    public JavaxMoneyModule withFormatting(final MonetaryAmountFormatFactory formatFactory) {
+        return new JavaxMoneyModule(writer, names, formatFactory, amountFactory,
                 fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
-    public MoneyModule withAmountFieldName(final String name) {
+    public JavaxMoneyModule withAmountFieldName(final String name) {
         return withFieldNames(names.withAmount(name));
     }
 
-    public MoneyModule withCurrencyFieldName(final String name) {
+    public JavaxMoneyModule withCurrencyFieldName(final String name) {
         return withFieldNames(names.withCurrency(name));
     }
 
-    public MoneyModule withFormattedFieldName(final String name) {
+    public JavaxMoneyModule withFormattedFieldName(final String name) {
         return withFieldNames(names.withFormatted(name));
     }
 
-    private MoneyModule withFieldNames(final FieldNames names) {
-        return new MoneyModule(writer, names, formatFactory, amountFactory,
+    private JavaxMoneyModule withFieldNames(final FieldNames names) {
+        return new JavaxMoneyModule(writer, names, formatFactory, amountFactory,
                 fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 

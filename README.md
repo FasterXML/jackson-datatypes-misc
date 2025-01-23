@@ -64,7 +64,7 @@ mapper.registerModule(new JSONPModule()); // new (jakarta) json-P API
 ObjectMapper mapper = JsonMapper.builder()
     .addModule(new JsonOrgModule())
     .addModule(new JodaMoneyModule())
-    .addModule(new MoneyModule())
+    .addModule(new JavaxMoneyModule())
     // ONE of these (not both):
     .addModule(new JSR353Module()) // old (javax) json-p API
     .addModule(new JSONPModule()) // new (jakarta) json-P API
