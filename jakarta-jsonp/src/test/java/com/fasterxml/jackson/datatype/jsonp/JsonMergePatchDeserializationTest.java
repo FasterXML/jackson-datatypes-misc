@@ -2,8 +2,11 @@ package com.fasterxml.jackson.datatype.jsonp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import jakarta.json.*;
-
+import jakarta.json.JsonArray;
+import jakarta.json.JsonMergePatch;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonString;
+import jakarta.json.JsonValue;
 import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
