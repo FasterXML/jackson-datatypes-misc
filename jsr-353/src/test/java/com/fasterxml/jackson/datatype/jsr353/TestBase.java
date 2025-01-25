@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.cfg.MapperConfig;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 
-public abstract class TestBase extends junit.framework.TestCase
+public abstract class TestBase
 {
     static class NoCheckSubTypeValidator
         extends PolymorphicTypeValidator.Base

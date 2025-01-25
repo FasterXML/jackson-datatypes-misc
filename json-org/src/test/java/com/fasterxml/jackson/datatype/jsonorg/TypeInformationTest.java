@@ -1,10 +1,14 @@
 package com.fasterxml.jackson.datatype.jsonorg;
 
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.cfg.MapperConfig;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 
 import org.json.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests to verify that we can also use JSONObject and JSONArray
@@ -36,6 +40,7 @@ public class TypeInformationTest extends ModuleTestBase
             .activateDefaultTyping(new NoCheckSubTypeValidator())
             .build();
     
+    @Test
     public void testWrappedArray() throws Exception
     {
         JSONTokener tok = new JSONTokener("[13]");
@@ -51,6 +56,7 @@ public class TypeInformationTest extends ModuleTestBase
         assertEquals(13, resultArray.getInt(0));
     }
 
+    @Test
     public void testWrappedObject() throws Exception
     {
         JSONTokener tok = new JSONTokener("{\"a\":true}");

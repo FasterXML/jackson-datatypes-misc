@@ -1,17 +1,17 @@
 package com.fasterxml.jackson.datatype.jakarta.mail;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SerDesTests extends TestBase {
 
@@ -54,9 +54,10 @@ public class SerDesTests extends TestBase {
     }
 
 
-    @Test(expected = InvalidFormatException.class)
+    @Test
     public void invalidThrows() throws JsonProcessingException {
         String json = "\"alice at example\"";
-        sharedMapper().readValue(json, InternetAddress.class);
+        assertThrows(InvalidFormatException.class,
+                () -> sharedMapper().readValue(json, InternetAddress.class));
     }
 }

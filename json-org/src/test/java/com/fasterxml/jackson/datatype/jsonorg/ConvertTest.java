@@ -6,8 +6,12 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConvertTest extends ModuleTestBase
 {
@@ -24,6 +28,7 @@ public class ConvertTest extends ModuleTestBase
 
     private final ObjectMapper MAPPER = newMapper();
     
+    @Test
     public void testIssue15() throws Exception
     {
         Map<String,Object> map = new HashMap<>();
