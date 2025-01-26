@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.cfg.MapperBuilder;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import junit.framework.TestCase;
 
 import java.util.Arrays;
 import java.util.function.Function;
 
-public abstract class ModuleTestBase extends TestCase
+import static org.junit.jupiter.api.Assertions.*;
+
+public abstract class ModuleTestBase
 {
     // mix-in class for force polymorphic handling
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)

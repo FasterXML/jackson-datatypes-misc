@@ -2,8 +2,12 @@ package com.fasterxml.jackson.datatype.jsr353;
 
 import javax.json.*;
 
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PolymorphicTest extends TestBase
 {
@@ -17,6 +21,7 @@ public class PolymorphicTest extends TestBase
 
     private final ObjectMapper MAPPER = newMapper();
     
+    @Test
     public void testObjectAsTyped() throws Exception
     {
         final String INPUT = "{\"array\":[1,2],\"obj\":{\"first\":true}}";
@@ -34,6 +39,7 @@ public class PolymorphicTest extends TestBase
         assertEquals(1, arr.getInt(0));
     }
 
+    @Test
     public void testArrayAsTyped() throws Exception
     {
         final String INPUT = "[1,{\"a\":true}]";

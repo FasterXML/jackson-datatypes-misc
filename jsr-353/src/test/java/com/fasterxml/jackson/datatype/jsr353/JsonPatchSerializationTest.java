@@ -2,12 +2,17 @@ package com.fasterxml.jackson.datatype.jsr353;
 
 import javax.json.JsonPatch;
 
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonPatchSerializationTest extends TestBase
 {
     private static final ObjectMapper MAPPER = newMapper();
 
+    @Test
     public void testSimpleSerialization() throws Exception
     {
         // First need a patch so deserialization must work
