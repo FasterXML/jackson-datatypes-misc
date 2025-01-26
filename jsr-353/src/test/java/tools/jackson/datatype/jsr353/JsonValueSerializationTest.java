@@ -2,10 +2,15 @@ package tools.jackson.datatype.jsr353;
 
 import java.math.BigDecimal;
 
+import org.junit.jupiter.api.Test;
+
 import javax.json.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonValueSerializationTest extends TestBase
 {
+    @Test
     public void testSimpleArray() throws Exception
     {
         JsonArray arr = arrayBuilder()
@@ -17,6 +22,7 @@ public class JsonValueSerializationTest extends TestBase
         assertEquals("[true,null,123,15.25]", serializeAsString(arr));
     }
 
+    @Test
     public void testNestedArray() throws Exception
     {
         JsonArray arr = arrayBuilder()
@@ -27,6 +33,7 @@ public class JsonValueSerializationTest extends TestBase
         assertEquals("[1,[false,45],{\"foo\":13}]", serializeAsString(arr));
     }
     
+    @Test
     public void testSimpleObject() throws Exception
     {
         JsonObject ob = objectBuilder()
@@ -37,6 +44,7 @@ public class JsonValueSerializationTest extends TestBase
         assertEquals("{\"a\":123,\"b\":\"Text\"}", serializeAsString(ob));
     }
 
+    @Test
     public void testNestedObject() throws Exception
     {
         JsonObject ob = objectBuilder()

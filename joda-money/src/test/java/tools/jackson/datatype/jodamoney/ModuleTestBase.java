@@ -1,17 +1,17 @@
 package tools.jackson.datatype.jodamoney;
 
+import java.util.Arrays;
+import java.util.function.Function;
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.cfg.MapperBuilder;
 import tools.jackson.databind.json.JsonMapper;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-import java.util.function.Function;
-
-public abstract class ModuleTestBase extends TestCase
+public abstract class ModuleTestBase
 {
     // mix-in class for force polymorphic handling
     @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)

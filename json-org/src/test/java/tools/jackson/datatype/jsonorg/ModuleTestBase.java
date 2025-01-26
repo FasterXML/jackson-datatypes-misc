@@ -8,7 +8,7 @@ import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.jsontype.PolymorphicTypeValidator;
 
-public abstract class ModuleTestBase extends junit.framework.TestCase
+public abstract class ModuleTestBase
 {
     protected static class NoCheckSubTypeValidator
         extends PolymorphicTypeValidator.Base

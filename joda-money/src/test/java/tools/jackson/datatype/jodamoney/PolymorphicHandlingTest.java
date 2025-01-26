@@ -2,13 +2,18 @@ package tools.jackson.datatype.jodamoney;
 
 import java.math.BigDecimal;
 
+import org.junit.jupiter.api.Test;
+
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
 import tools.jackson.databind.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class PolymorphicHandlingTest extends ModuleTestBase
 {
+    @Test
     public void testPolymorphicMoney() throws Exception {
         ObjectMapper mapper = polyMapperFor(Money.class);
         final Money input = Money.of(CurrencyUnit.CAD, BigDecimal.valueOf(17.25));
@@ -22,6 +27,7 @@ public class PolymorphicHandlingTest extends ModuleTestBase
         assertEquals(1725, result.getAmountMinorInt());
     }
 
+    @Test
     public void testPolymorphicCurrency() throws Exception {
         ObjectMapper mapper = polyMapperFor(CurrencyUnit.class);
         String json = mapper.writeValueAsString(CurrencyUnit.EUR);

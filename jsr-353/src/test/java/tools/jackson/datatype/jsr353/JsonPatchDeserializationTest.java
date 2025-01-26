@@ -1,17 +1,16 @@
 package tools.jackson.datatype.jsr353;
 
-import javax.json.*;
-
 import java.util.Objects;
+
+import org.junit.jupiter.api.Test;
+
+import javax.json.*;
 
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.exc.InvalidFormatException;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonPatchDeserializationTest extends TestBase {
 
@@ -19,6 +18,7 @@ public class JsonPatchDeserializationTest extends TestBase {
 
     private static final ObjectMapper MAPPER = newMapper();
 
+    @Test
     public void testArrayOfObjectsDeserializationAndPatching() throws Exception {
         final String json = "[" +
                 "{" +
@@ -30,30 +30,31 @@ public class JsonPatchDeserializationTest extends TestBase {
 
         final JsonPatch jsonPatch = MAPPER.readValue(json, JsonPatch.class);
         final JsonArray jsonPatchAsJsonArray = jsonPatch.toJsonArray();
-        assertThat(jsonPatchAsJsonArray.get(0), instanceOf(JsonObject.class));
+        assertThat(jsonPatchAsJsonArray.get(0)).isInstanceOf(JsonObject.class);
 
         final JsonObject firstOperation = jsonPatchAsJsonArray.get(0).asJsonObject();
-        assertTrue(firstOperation.containsKey("op"));
-        assertThat(firstOperation.get("op"), instanceOf(JsonString.class));
-        assertThat(firstOperation.getString("op"), is("replace"));
+        assertThat(firstOperation).containsKey("op");
+        assertThat(firstOperation.get("op")).isInstanceOf(JsonString.class);
+        assertThat(firstOperation.getString("op")).isEqualTo("replace");
 
-        assertTrue(firstOperation.containsKey("path"));
-        assertThat(firstOperation.get("path"), instanceOf(JsonString.class));
-        assertThat(firstOperation.getString("path"), is("/name"));
+        assertThat(firstOperation).containsKey("path");
+        assertThat(firstOperation.get("path")).isInstanceOf(JsonString.class);
+        assertThat(firstOperation.getString("path")).isEqualTo("/name");
 
-        assertTrue(firstOperation.containsKey("value"));
-        assertThat(firstOperation.get("value"), instanceOf(JsonString.class));
-        assertThat(firstOperation.getString("value"), is("Json"));
+        assertThat(firstOperation).containsKey("value");
+        assertThat(firstOperation.get("value")).isInstanceOf(JsonString.class);
+        assertThat(firstOperation.getString("value")).isEqualTo("Json");
 
-        assertThat(serializeAsString(jsonPatchAsJsonArray), is(json));
+        assertThat(serializeAsString(jsonPatchAsJsonArray)).isEqualTo(json);
 
         final Person person = new Person("John", "Smith");
         final JsonStructure personJson = MAPPER.convertValue(person, JsonStructure.class);
         final JsonStructure patchedPersonJson = jsonPatch.apply(personJson);
         final Person patchedPerson = MAPPER.convertValue(patchedPersonJson, Person.class);
-        assertThat(patchedPerson, is(new Person("Json", "Smith")));
+        assertThat(patchedPerson).isEqualTo(new Person("Json", "Smith"));
     }
 
+    @Test
     public void testObjectDeserializationAndPatching() {
         final String json = "{" +
             "\"op\":\"replace\"," +
@@ -62,16 +63,17 @@ public class JsonPatchDeserializationTest extends TestBase {
             "}";
 
         final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
-            () -> MAPPER.readValue(json, JsonPatch.class));
-        assertThat(ex.getMessage(), containsString(EXPECTED_MESSAGE));
+                () -> MAPPER.readValue(json, JsonPatch.class));
+        assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
     }
 
+    @Test
     public void testScalarDeserializationAndPatching() {
         final String json = "\"op\"";
 
         final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
-            () -> MAPPER.readValue(json, JsonPatch.class));
-        assertThat(ex.getMessage(), containsString(EXPECTED_MESSAGE));
+                () -> MAPPER.readValue(json, JsonPatch.class));
+        assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
     }
 
     static class Person {

@@ -4,8 +4,13 @@ import tools.jackson.databind.*;
 
 import org.json.*;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class SimpleWriteTest extends ModuleTestBase
 {
+    @Test
     public void testWriteObject() throws Exception
     {
         final ObjectMapper mapper = newMapper();
@@ -23,6 +28,7 @@ public class SimpleWriteTest extends ModuleTestBase
         assertEquals(JSON, mapper.writeValueAsString(ob));
     }
 
+    @Test
     public void testWriteArray() throws Exception
     {
         final ObjectMapper mapper = newMapper();

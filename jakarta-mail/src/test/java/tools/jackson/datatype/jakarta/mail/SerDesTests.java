@@ -1,16 +1,14 @@
 package tools.jackson.datatype.jakarta.mail;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import tools.jackson.databind.exc.InvalidFormatException;
 
-import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SerDesTests extends TestBase {
 
@@ -28,23 +26,21 @@ public class SerDesTests extends TestBase {
 
 
     @Test
-    public void serializeAddress() throws IOException {
+    public void serializeAddress() throws Exception {
         InternetAddress addr = new InternetAddress(ADDRESS, PERSONAL);
 
         String json = sharedMapper().writeValueAsString(addr);
         assertEquals(QUOTED_MAILBOX, json);
     }
 
-
     @Test
-    public void deserializeAddress() throws IOException {
+    public void deserializeAddress() throws Exception {
         InternetAddress deserialized = sharedMapper().readValue(QUOTED_MAILBOX, InternetAddress.class);
         assertEquals(new InternetAddress(ADDRESS, PERSONAL), deserialized);
     }
 
-
     @Test
-    public void onlyAddress() throws IOException, AddressException {
+    public void onlyAddress() throws Exception {
         InternetAddress onlyAddress = new InternetAddress(ADDRESS);
         String json = sharedMapper().writeValueAsString(onlyAddress);
         InternetAddress roundTripped = sharedMapper().readValue(json, InternetAddress.class);
@@ -52,10 +48,10 @@ public class SerDesTests extends TestBase {
         assertEquals(onlyAddress, roundTripped);
     }
 
-
-    @Test(expected = InvalidFormatException.class)
+    @Test
     public void invalidThrows() throws Exception {
         String json = "\"alice at example\"";
-        sharedMapper().readValue(json, InternetAddress.class);
+        assertThrows(InvalidFormatException.class,
+                () -> sharedMapper().readValue(json, InternetAddress.class));
     }
 }

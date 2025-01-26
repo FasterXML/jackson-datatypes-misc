@@ -1,18 +1,16 @@
 package tools.jackson.datatype.jakarta.mail;
 
-import static org.junit.Assert.assertEquals;
-
-import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 import tools.jackson.core.Version;
 import tools.jackson.core.Versioned;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VersionTest
 {
     @Test
-    public void testModuleVersionAndName() throws IOException {
+    public void testModuleVersionAndName() throws Exception {
         JakartaMailModule module = new JakartaMailModule();
         assertVersion(module);
         // just because name is assigned programmatically

@@ -5,8 +5,13 @@ import java.io.*;
 import tools.jackson.core.Version;
 import tools.jackson.core.Versioned;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TestVersions extends ModuleTestBase
 {
+    @Test
     public void testModuleVersionAndName() throws IOException
     {
         JsonOrgModule module = new JsonOrgModule();

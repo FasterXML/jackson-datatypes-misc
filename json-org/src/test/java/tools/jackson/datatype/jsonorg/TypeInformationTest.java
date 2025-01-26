@@ -1,8 +1,12 @@
 package tools.jackson.datatype.jsonorg;
 
-import tools.jackson.databind.*;
+import org.junit.jupiter.api.Test;
 
 import org.json.*;
+
+import tools.jackson.databind.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests to verify that we can also use JSONObject and JSONArray
@@ -21,6 +25,7 @@ public class TypeInformationTest extends ModuleTestBase
             .activateDefaultTyping(new NoCheckSubTypeValidator())
             .build();
     
+    @Test
     public void testWrappedArray() throws Exception
     {
         JSONTokener tok = new JSONTokener("[13]");
@@ -36,6 +41,7 @@ public class TypeInformationTest extends ModuleTestBase
         assertEquals(13, resultArray.getInt(0));
     }
 
+    @Test
     public void testWrappedObject() throws Exception
     {
         JSONTokener tok = new JSONTokener("{\"a\":true}");

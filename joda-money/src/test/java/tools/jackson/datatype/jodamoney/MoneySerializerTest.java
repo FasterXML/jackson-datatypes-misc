@@ -1,24 +1,21 @@
 package tools.jackson.datatype.jodamoney;
 
-import static tools.jackson.datatype.jodamoney.AmountRepresentation.*;
-
 import java.math.BigDecimal;
+
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import tools.jackson.databind.ObjectMapper;
 
-import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
-import junitparams.naming.TestCaseName;
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.*;
+import static tools.jackson.datatype.jodamoney.AmountRepresentation.*;
 
-@RunWith(JUnitParamsRunner.class)
 public final class MoneySerializerTest extends ModuleTestBase
 {
-    @Test
-    @Parameters({
+
+    @CsvSource({
         "EUR, 19.99, 19.99",
         "KWD, 19.999, 19.999",
         "JPY, 19, 19",
@@ -26,7 +23,7 @@ public final class MoneySerializerTest extends ModuleTestBase
         "EUR, -19.5, -19.50",
         "EUR, 0, 0.00",
     })
-    @TestCaseName("should serialize {0} {1} with amount representation {2}")
+    @ParameterizedTest(name = "should serialize {0} {1} with amount representation {2}")
     public void testShouldSerialize(
         String currencyCode,
         BigDecimal amount,
@@ -38,8 +35,7 @@ public final class MoneySerializerTest extends ModuleTestBase
             mapper.writeValueAsString(Money.of(CurrencyUnit.of(currencyCode), amount)));
     }
 
-    @Test
-    @Parameters({
+    @CsvSource({
         "EUR, 19.99, 19.99",
         "KWD, 19.999, 19.999",
         "JPY, 19, 19",
@@ -47,7 +43,7 @@ public final class MoneySerializerTest extends ModuleTestBase
         "EUR, -19.5, -19.50",
         "EUR, 0, 0.00",
     })
-    @TestCaseName("should serialize {0} {1} with amount representation {2}")
+    @ParameterizedTest(name = "should serialize {0} {1} with amount representation {2}")
     public void testShouldSerializeAmountAsDecimalNumber(
         String currencyCode,
         BigDecimal amount,
@@ -60,8 +56,7 @@ public final class MoneySerializerTest extends ModuleTestBase
             mapper.writeValueAsString(Money.of(CurrencyUnit.of(currencyCode), amount)));
     }
 
-    @Test
-    @Parameters({
+    @CsvSource({
         "EUR, 19.99, 19.99",
         "KWD, 19.999, 19.999",
         "JPY, 19, 19",
@@ -69,7 +64,7 @@ public final class MoneySerializerTest extends ModuleTestBase
         "EUR, -19.5, -19.50",
         "EUR, 0, 0.00",
     })
-    @TestCaseName("should serialize {0} {1} with amount representation {2}")
+    @ParameterizedTest(name = "should serialize {0} {1} with amount representation {2}")
     public void testShouldSerializeAmountAsDecimalString(
         String currencyCode,
         BigDecimal amount,
@@ -82,8 +77,7 @@ public final class MoneySerializerTest extends ModuleTestBase
             mapper.writeValueAsString(Money.of(CurrencyUnit.of(currencyCode), amount)));
     }
 
-    @Test
-    @Parameters({
+    @CsvSource({
         "EUR, 19.99, 1999",
         "KWD, 19.999, 19999",
         "JPY, 19, 19",
@@ -91,7 +85,7 @@ public final class MoneySerializerTest extends ModuleTestBase
         "EUR, -19.5, -1950",
         "EUR, 0, 0",
     })
-    @TestCaseName("should serialize {0} {1} with amount representation {2}")
+    @ParameterizedTest(name = "should serialize {0} {1} with amount representation {2}")
     public void testShouldSerializeAmountInMinorCurrencyUnit(
         String currencyCode,
         BigDecimal amount,

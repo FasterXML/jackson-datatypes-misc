@@ -3,11 +3,15 @@ package tools.jackson.datatype.jsonorg;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.exc.MismatchedInputException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConvertTest extends ModuleTestBase
 {
@@ -24,6 +28,7 @@ public class ConvertTest extends ModuleTestBase
 
     private final ObjectMapper MAPPER = newMapper();
     
+    @Test
     public void testIssue15() throws Exception
     {
         Map<String,Object> map = new HashMap<>();
