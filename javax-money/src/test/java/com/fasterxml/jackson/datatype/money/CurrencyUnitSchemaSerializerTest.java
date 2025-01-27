@@ -3,6 +3,7 @@ package com.fasterxml.jackson.datatype.money;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
+import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 import javax.money.CurrencyUnit;

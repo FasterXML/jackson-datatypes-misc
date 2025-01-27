@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import org.javamoney.moneta.CurrencyUnitBuilder;
+import org.javamoney.moneta.Money;
 import org.junit.Test;
 
 import javax.money.CurrencyUnit;

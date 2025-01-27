@@ -1,8 +1,8 @@
 # Jackson Datatype Money
 
 *Jackson Datatype Money* is a [Jackson](https://github.com/codehaus/jackson) module to support JSON serialization and
-deserialization of [JavaMoney](https://github.com/JavaMoney/jsr354-api) data types. It fills a niche, in that it
-integrates JavaMoney and Jackson so that they work seamlessly together, without requiring additional
+deserialization of [JSR 354](https://github.com/JavaMoney/jsr354-api) data types. It fills a niche, in that it
+integrates [MonetaryAmount](https://javamoney.github.io/apidocs/javax/money/MonetaryAmount.html) and Jackson so that they work seamlessly together, without requiring additional
 developer effort. In doing so, it aims to perform a small but repetitive task — once and for all.
 
 This library reflects an opinionated API [representation of monetary amounts in JSON](MONEY.md)
@@ -30,7 +30,6 @@ With this library, it is possible to represent monetary amounts in JSON as follo
 - Java 8 or higher
 - Any build tool using Maven Central, or direct download
 - Jackson
-- JavaMoney
 
 ## Installation
 
@@ -45,8 +44,7 @@ Add the following dependency to your project:
 </dependency>
 ```
 
-For ultimate flexibility, this module is compatible with the official version as well as the backport of JavaMoney. The
-actual version will be selected by a profile based on the current JDK version.
+For ultimate flexibility, this module is compatible with any implementation of JSR 354 MonetaryAmount
 
 ## Configuration
 
@@ -156,14 +154,14 @@ More sophisticated formatting rules can be supported by implementing `MonetaryAm
 
 ### Deserialization
 
-This module will use `org.javamoney.moneta.Money` as an implementation for `javax.money.MonetaryAmount` by default when
-deserializing money values. If you need a different implementation, you can pass a different `MonetaryAmountFactory`
-to the `JavaxMoneyModule`:
+This module will not have a default deserialization feature. 
+In order to deserialize money values, one has to configure the module to use a specific implementation of `javax.money.MonetaryAmount`.
+This can be done by passing the required `MonetaryAmountFactory` to the `JavaxMoneyModule` along with the implementing class:
 
 ```java
 ObjectMapper mapper = JsonMapper.builder()
                 .addModule(new JavaxMoneyModule()
-                .withMonetaryAmount(new CustomMonetaryAmountFactory()))
+                .withMonetaryAmountFactory(implementationClass, new CustomMonetaryAmountFactory()))
                 .build();
 ```
 
@@ -172,18 +170,12 @@ You can also pass in a method reference:
 ```java
 ObjectMapper mapper = JsonMapper.builder()
                 .addModule(new JavaxMoneyModule()
-                .withMonetaryAmount(FastMoney::of))
+                .withMonetaryAmountFactory(FastMoney.class, FastMoney::of))
                 .build();
 ```
 
-*Jackson Datatype Money* comes with support for all `MonetaryAmount` implementations from Moneta, the reference
-implementation of JavaMoney:
-
-| `MonetaryAmount` Implementation     | Factory                                                                                                                    |
-|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| `org.javamoney.moneta.FastMoney`    | [`new JavaxMoneyModule().withFastMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/FastMoneyFactory.java)       |
-| `org.javamoney.moneta.Money`        | [`new JavaxMoneyModule().withMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/MoneyFactory.java)               |
-| `org.javamoney.moneta.RoundedMoney` | [`new JavaxMoneyModule().withRoundedMoney()`](src/main/java/com/fasterxml/jackson/datatype/money/RoundedMoneyFactory.java) |                                                                                                                             |
+Please note that, for Moneta implementations like Money, FastMoney and RoundedMoney, the sibling module `jackson-datatype-moneta` can be used.
+Refer to [javamoney-moneta](../moneta/Readme.md) for more information.
 
 Module supports deserialization of amount number from JSON number as well as from JSON string without any special
 configuration required.
