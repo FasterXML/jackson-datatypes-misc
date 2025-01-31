@@ -2,9 +2,13 @@ package com.fasterxml.jackson.datatype.jsr353;
 
 import javax.json.JsonObject;
 
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeserViaCreatorTest extends TestBase
 {
@@ -19,6 +23,7 @@ public class DeserViaCreatorTest extends TestBase
         }
     }
 
+    @Test
     public void testCreatorDeser() throws Exception
     {
         final ObjectMapper mapper = sharedMapper();

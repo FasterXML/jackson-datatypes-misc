@@ -5,8 +5,13 @@ import java.io.*;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.Versioned;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TestVersions extends TestBase
 {
+    @Test
     public void testModuleVersionAndName() throws IOException
     {
         JSONPModule module = new JSONPModule();

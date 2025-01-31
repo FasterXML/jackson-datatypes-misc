@@ -1,13 +1,13 @@
 package com.fasterxml.jackson.datatype.jakarta.mail;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.IOException;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.core.Versioned;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class VersionTest
 {

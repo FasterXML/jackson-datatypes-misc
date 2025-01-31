@@ -12,12 +12,16 @@ Modules:
 
 2.19.0 (not yet released)
 
--
+#51: Unify testing structure/tools to JUnit5 [JSTEP-10]
+ (contributed by Joo-Hyuk K)
 
+2.18.2 (27-Nov-2024)
+2.18.1 (28-Oct-2024)
 2.18.0 (26-Sep-2024)
 
 No changes since 2.17
 
+2.17.3 (01-Nov-2024)
 2.17.2 (05-Jul-2024)
 
 #46: (jakarta-jsonp) Invalid module info for `jakarta-jsonp`

@@ -4,10 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.json.JsonMergePatch;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class JsonMergePatchSerializationTest extends TestBase
 {
     private static final ObjectMapper MAPPER = newMapper();
 
+    @Test
     public void testSimpleSerialization() throws Exception
     {
         // First need a patch so deserialization must work

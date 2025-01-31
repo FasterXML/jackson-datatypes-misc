@@ -3,11 +3,15 @@ package com.fasterxml.jackson.datatype.jsr353;
 import javax.json.*;
 import javax.json.JsonValue.ValueType;
 
+import org.junit.jupiter.api.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.beans.ConstructorProperties;
 import java.math.BigDecimal;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonValueDeserializationTest extends TestBase
 {
@@ -25,6 +29,7 @@ public class JsonValueDeserializationTest extends TestBase
 
     private final ObjectMapper MAPPER = newMapper();
 
+    @Test
     public void testSimpleArray() throws Exception
     {
         final String JSON = "[1,true,\"foo\"]";
@@ -44,6 +49,7 @@ public class JsonValueDeserializationTest extends TestBase
         assertEquals(JSON, serializeAsString(v));
     }
 
+    @Test
     public void testNestedArray() throws Exception
     {
         final String JSON = "[1,[false,45],{\"foo\":13}]";
@@ -59,6 +65,7 @@ public class JsonValueDeserializationTest extends TestBase
         assertEquals(JSON, serializeAsString(v));
     }
 
+    @Test
     public void testSimpleObject() throws Exception
     {
         final String JSON = "{\"a\":12.5,\"b\":\"Text\"}";
@@ -80,6 +87,7 @@ public class JsonValueDeserializationTest extends TestBase
         assertEquals(JSON, serializeAsString(v));
     }
 
+    @Test
     public void testNestedObject() throws Exception
     {
         final String JSON = "{\"array\":[1,2],\"obj\":{\"first\":true}}";
@@ -102,6 +110,7 @@ public class JsonValueDeserializationTest extends TestBase
     }
 
     // for [datatype-jsr353#5]
+    @Test
     public void testBinaryNode() throws Exception
     {
         ObjectNode root = MAPPER.createObjectNode();
@@ -117,6 +126,7 @@ public class JsonValueDeserializationTest extends TestBase
     }
 
     // for [datatype-jsr353#16]
+    @Test
     public void testNullNode() throws Exception
     {
         final String serializedNull = MAPPER.writeValueAsString(JsonValue.NULL);
@@ -126,6 +136,7 @@ public class JsonValueDeserializationTest extends TestBase
     }
 
     // for [datatype-jsr353#19]
+    @Test
     public void testConstructorProperties() throws Exception
     {
         ObjectImpl ob = MAPPER.readValue("{\"obj1\":{}}", ObjectImpl.class);
@@ -137,6 +148,7 @@ public class JsonValueDeserializationTest extends TestBase
         assertSame(JsonValue.NULL, ob2.obj2);
     }
 
+    @Test
     public void testBigInteger() throws Exception
     {
         final String JSON = "[2e308]";
@@ -156,6 +168,7 @@ public class JsonValueDeserializationTest extends TestBase
         assertEquals("[2E+308]", serializeAsString(v));
     }
 
+    @Test
     public void testDouble() throws Exception
     {
         JsonValue val = MAPPER.readValue("{\"val\":0.5}", JsonValue.class);
