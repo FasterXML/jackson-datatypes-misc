@@ -123,9 +123,7 @@ The first example serializes a monetary amount using the `de_DE` locale:
 
 ```java
 ObjectWriter writer = mapper.writer().with(Locale.GERMANY);
-writer.
-
-writeValueAsString(Money.of(29.95, "EUR"));
+writer.writeValueAsString(Money.of(29.95, "EUR"));
 ```
 
 ```json
@@ -140,9 +138,7 @@ The following example uses `en_US`:
 
 ```java
 ObjectWriter writer = mapper.writer().with(Locale.US);
-writer.
-
-writeValueAsString(Money.of(29.95, "USD"));
+writer.writeValueAsString(Money.of(29.95, "USD"));
 ```
 
 ```json
@@ -160,7 +156,7 @@ More sophisticated formatting rules can be supported by implementing `MonetaryAm
 This module will use `org.javamoney.moneta.Money` as an implementation for `javax.money.MonetaryAmount` by default when
 deserializing money values.
 
-*Jackson Datatype Moneta* comes with support for all `MonetaryAmount` implementations from Moneta, the reference
+In addition, this module comes with support for all `MonetaryAmount` implementations from Moneta, the reference
 implementation of JavaMoney:
 
 | `MonetaryAmount` Implementation     | Factory                                      |
