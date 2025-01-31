@@ -2,6 +2,7 @@ package com.fasterxml.jackson.datatype.money.moneta;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public final class CurrencyUnitSchemaSerializerTest {
 
-    private final ObjectMapper unit = new ObjectMapper().registerModule(new MonetaMoneyModule());
+    private final ObjectMapper unit = JsonMapper.builder().addModule(new MonetaMoneyModule()).build();
 
     @Test
     public void shouldSerializeJsonSchema() {

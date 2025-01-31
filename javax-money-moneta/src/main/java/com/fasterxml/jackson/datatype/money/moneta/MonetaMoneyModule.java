@@ -2,7 +2,9 @@ package com.fasterxml.jackson.datatype.money.moneta;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.datatype.money.AmountWriter;
+import com.fasterxml.jackson.datatype.money.CurrencyUnitDeserializer;
 import com.fasterxml.jackson.datatype.money.JavaxMoneyModule;
 import com.fasterxml.jackson.datatype.money.MonetaryAmountFactory;
 import com.fasterxml.jackson.datatype.money.MonetaryAmountFormatFactory;
@@ -11,6 +13,8 @@ import org.javamoney.moneta.FastMoney;
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.RoundedMoney;
 
+import javax.money.CurrencyUnit;
+import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryRounding;
 import javax.money.format.MonetaryFormats;
@@ -20,14 +24,30 @@ import static org.apiguardian.api.API.Status.STABLE;
 
 @API(status = STABLE)
 public final class MonetaMoneyModule extends Module {
+
     private final JavaxMoneyModule baseModule;
+    private final FieldNames names;
+    private final MonetaryAmountFactory<? extends MonetaryAmount> amountFactory;
+    private final MonetaryAmountFactory<FastMoney> fastMoneyFactory;
+    private final MonetaryAmountFactory<Money> moneyFactory;
+    private final MonetaryAmountFactory<RoundedMoney> roundedMoneyFactory;
 
     public MonetaMoneyModule() {
-        this(new JavaxMoneyModule().withMonetaryAmountFactory(Money.class, Money::of));
+        this(new JavaxMoneyModule(), FieldNames.defaults(),
+                Money::of, FastMoney::of, Money::of, RoundedMoney::of);
     }
 
-    private MonetaMoneyModule(final JavaxMoneyModule baseModule) {
+    private MonetaMoneyModule(final JavaxMoneyModule baseModule, final FieldNames names,
+                              final MonetaryAmountFactory<? extends MonetaryAmount> amountFactory,
+                              final MonetaryAmountFactory<FastMoney> fastMoneyFactory,
+                              final MonetaryAmountFactory<Money> moneyFactory,
+                              final MonetaryAmountFactory<RoundedMoney> roundedMoneyFactory) {
         this.baseModule = baseModule;
+        this.names = names;
+        this.amountFactory = amountFactory;
+        this.fastMoneyFactory = fastMoneyFactory;
+        this.moneyFactory = moneyFactory;
+        this.roundedMoneyFactory = roundedMoneyFactory;
     }
 
     @Override
@@ -42,20 +62,30 @@ public final class MonetaMoneyModule extends Module {
 
     @Override
     public void setupModule(final SetupContext context) {
+
         this.baseModule.setupModule(context);
+
+        final SimpleDeserializers deserializers = new SimpleDeserializers();
+        deserializers.addDeserializer(CurrencyUnit.class, new CurrencyUnitDeserializer());
+        deserializers.addDeserializer(MonetaryAmount.class, new MonetaryAmountDeserializer<>(amountFactory, names));
+        // for reading into concrete implementation types
+        deserializers.addDeserializer(Money.class, new MonetaryAmountDeserializer<>(moneyFactory, names));
+        deserializers.addDeserializer(FastMoney.class, new MonetaryAmountDeserializer<>(fastMoneyFactory, names));
+        deserializers.addDeserializer(RoundedMoney.class, new MonetaryAmountDeserializer<>(roundedMoneyFactory, names));
+        context.addDeserializers(deserializers);
     }
 
     public MonetaMoneyModule withDecimalNumbers() {
-        return new MonetaMoneyModule(baseModule.withDecimalNumbers());
+        return new MonetaMoneyModule(baseModule.withDecimalNumbers(), names, amountFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     public MonetaMoneyModule withQuotedDecimalNumbers() {
-        return new MonetaMoneyModule(baseModule.withQuotedDecimalNumbers());
+        return new MonetaMoneyModule(baseModule.withQuotedDecimalNumbers(), names, amountFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     @API(status = EXPERIMENTAL)
     public MonetaMoneyModule withNumbers(final AmountWriter<?> writer) {
-        return new MonetaMoneyModule(baseModule.withNumbers(writer));
+        return new MonetaMoneyModule(baseModule.withNumbers(writer), names, amountFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     /**
@@ -63,7 +93,7 @@ public final class MonetaMoneyModule extends Module {
      * @see FastMoney
      */
     public MonetaMoneyModule withFastMoney() {
-        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(FastMoney.class, FastMoney::of));
+        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(FastMoney.class, FastMoney::of), names, fastMoneyFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     /**
@@ -71,7 +101,7 @@ public final class MonetaMoneyModule extends Module {
      * @see Money
      */
     public MonetaMoneyModule withMoney() {
-        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(Money.class, Money::of));
+        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(Money.class, Money::of), names, moneyFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     /**
@@ -79,7 +109,7 @@ public final class MonetaMoneyModule extends Module {
      * @see RoundedMoney
      */
     public MonetaMoneyModule withRoundedMoney() {
-        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(RoundedMoney.class, RoundedMoney::of));
+        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(RoundedMoney.class, RoundedMoney::of), names, roundedMoneyFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     /**
@@ -91,8 +121,14 @@ public final class MonetaMoneyModule extends Module {
         final MonetaryAmountFactory<RoundedMoney> factory = (amount, currency) ->
                 RoundedMoney.of(amount, currency, rounding);
 
-        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(RoundedMoney.class, factory));
+        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(RoundedMoney.class, factory), names, factory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
+
+
+//    private <T extends MonetaryAmount> MonetaMoneyModule withMonetaryAmountFactory(final Class<T> implementationClass,final MonetaryAmountFactory<T> amountFactory) {
+//        return new MoneyModule(writer, names, formatFactory, amountFactory,
+//                fastMoneyFactory, moneyFactory, roundedMoneyFactory);
+//    }
 
     public MonetaMoneyModule withoutFormatting() {
         return withFormatting(MonetaryAmountFormatFactory.NONE);
@@ -103,19 +139,19 @@ public final class MonetaMoneyModule extends Module {
     }
 
     public MonetaMoneyModule withFormatting(final MonetaryAmountFormatFactory formatFactory) {
-        return new MonetaMoneyModule(baseModule.withFormatting(formatFactory));
+        return new MonetaMoneyModule(baseModule.withFormatting(formatFactory), names, amountFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     public MonetaMoneyModule withAmountFieldName(final String name) {
-        return new MonetaMoneyModule(baseModule.withAmountFieldName(name));
+        return new MonetaMoneyModule(baseModule.withAmountFieldName(name), names.withAmount(name), amountFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     public MonetaMoneyModule withCurrencyFieldName(final String name) {
-        return new MonetaMoneyModule(baseModule.withCurrencyFieldName(name));
+        return new MonetaMoneyModule(baseModule.withCurrencyFieldName(name), names.withCurrency(name), amountFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
     public MonetaMoneyModule withFormattedFieldName(final String name) {
-        return new MonetaMoneyModule(baseModule.withFormattedFieldName(name));
+        return new MonetaMoneyModule(baseModule.withFormattedFieldName(name), names.withFormatted(name), amountFactory, fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
 

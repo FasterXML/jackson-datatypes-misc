@@ -3,6 +3,7 @@ package com.fasterxml.jackson.datatype.money.moneta;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import org.junit.Test;
 
@@ -74,7 +75,7 @@ public final class MonetaryAmountSchemaSerializerTest {
     }
 
     private ObjectMapper unit(final Module module) {
-        return new ObjectMapper().registerModule(module);
+        return JsonMapper.builder().addModule(module).build();
     }
 
     private MonetaMoneyModule module() {

@@ -357,15 +357,6 @@ public final class MonetaryAmountSerializerTest {
         MonetaryAmount amount;
     }
 
-//    @Test
-//    public void shouldHandleNullValueFromExpectObjectFormatInSchemaVisitor() throws Exception {
-//        final MonetaryAmountSerializer unit = new MonetaryAmountSerializer(FieldNames.defaults(),
-//                new DecimalAmountWriter(), MonetaryAmountFormatFactory.NONE);
-//
-//        final JsonFormatVisitorWrapper wrapper = mock(JsonFormatVisitorWrapper.class);
-//        unit.acceptJsonFormatVisitor(wrapper, SimpleType.constructUnsafe(MonetaryAmount.class));
-//    }
-
     @Value
     private static class PriceUnwrappedTransformedNames {
         @JsonUnwrapped(prefix = "Price-", suffix = "-Field")
