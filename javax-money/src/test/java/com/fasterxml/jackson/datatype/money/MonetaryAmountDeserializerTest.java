@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -33,6 +34,7 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
     @SuppressWarnings("unused")
     private Object[] data() {
         return $(
+                $(MonetaryAmount.class, (Configurer) module -> module),
                 $(FastMoney.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(FastMoney.class, FastMoney::of)),
                 $(Money.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(Money.class, Money::of)),
                 $(RoundedMoney.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(RoundedMoney.class, RoundedMoney::of)),
@@ -57,7 +59,18 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
     }
 
     private JavaxMoneyModule module(final Configurer configurer) {
-        return configurer.configure(new JavaxMoneyModule().withMonetaryAmountFactory(FastMoney.class, FastMoney::of));
+        return configurer.configure(new JavaxMoneyModule());
+    }
+
+
+    @Test
+    public void shouldDeserializeMoneyByDefault() throws IOException {
+        final ObjectMapper unit = JsonMapper.builder().addModule(new JavaxMoneyModule()).build();
+
+        final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
+
+        assertThat(amount).isInstanceOf(Money.class);
     }
 
     @Test
@@ -265,6 +278,33 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
         final M amount = unit.readValue(content, type);
 
         assertThat(amount).isInstanceOf(type);
+    }
+
+    @Test
+    public void shouldDeserializeToACustomImplementationWithProvidedFactory() throws JsonProcessingException {
+
+        final ObjectMapper unit = new ObjectMapper().registerModule(new JavaxMoneyModule().withMonetaryAmountFactory(CustomMonetaryAmount.class, (number, currency) -> new CustomMonetaryAmount(FastMoney.of(number, currency))));
+
+        final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
+        final CustomMonetaryAmount amount = unit.readValue(content, CustomMonetaryAmount.class);
+
+        assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo(new BigDecimal("29.95"));
+        assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo("EUR");
+
+    }
+
+    @Test
+    public void shouldDeserializeToAMonetaImplementationWithProvidedFactory() throws JsonProcessingException {
+
+        //Custom FastMoney factory that returns zero
+        final ObjectMapper unit = new ObjectMapper().registerModule(new JavaxMoneyModule().withMonetaryAmountFactory(FastMoney.class, (number, currency) -> (FastMoney.zero(currency))));
+
+        final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
+        final FastMoney amount = unit.readValue(content, FastMoney.class);
+
+        assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo(BigDecimal.ZERO);
+        assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo("EUR");
+
     }
 
 }

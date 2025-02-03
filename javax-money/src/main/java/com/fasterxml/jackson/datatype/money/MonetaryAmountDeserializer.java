@@ -1,15 +1,12 @@
 package com.fasterxml.jackson.datatype.money;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
 
-import javax.annotation.Nullable;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import java.io.IOException;
@@ -20,19 +17,19 @@ import java.util.Objects;
 import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static java.lang.String.format;
 
-public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends JsonDeserializer<M> {
+final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends JsonDeserializer<M> {
 
     private final MonetaryAmountFactory<M> factory;
     private final FieldNames names;
 
-    public MonetaryAmountDeserializer(final MonetaryAmountFactory<M> factory, final FieldNames names) {
+    MonetaryAmountDeserializer(final MonetaryAmountFactory<M> factory, final FieldNames names) {
         this.factory = factory;
         this.names = names;
     }
 
     @Override
     public Object deserializeWithType(final JsonParser parser, final DeserializationContext context,
-            final TypeDeserializer deserializer) throws IOException {
+                                      final TypeDeserializer deserializer) throws IOException {
 
         // effectively assuming no type information at all
         return deserialize(parser, context);

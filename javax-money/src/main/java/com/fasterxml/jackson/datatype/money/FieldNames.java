@@ -6,7 +6,7 @@ import lombok.With;
 
 @AllArgsConstructor(staticName = "valueOf")
 @Getter
-public final class FieldNames {
+final class FieldNames {
 
     static final FieldNames DEFAULT = FieldNames.valueOf("amount", "currency", "formatted");
 
@@ -19,7 +19,7 @@ public final class FieldNames {
     @With
     private final String formatted;
 
-    public static FieldNames defaults() {
+    static FieldNames defaults() {
         return DEFAULT;
     }
 

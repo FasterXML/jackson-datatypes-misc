@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.module.SimpleSerializers;
 import org.apiguardian.api.API;
 
 import javax.money.CurrencyUnit;
+import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import javax.money.format.MonetaryFormats;
 import java.util.Objects;
@@ -59,11 +60,29 @@ public final class JavaxMoneyModule extends Module {
 
         final SimpleDeserializers deserializers = new SimpleDeserializers();
         deserializers.addDeserializer(CurrencyUnit.class, new CurrencyUnitDeserializer());
-        if (Objects.nonNull(this.amountFactory) && Objects.nonNull(this.implementationClass)) {
+
+        //If there is a default MonetaryAmountFactory in classpath, then use it for deserializing to MonetaryAmount
+        deserializers.addDeserializer(MonetaryAmount.class, new MonetaryAmountDeserializer<>((amount, currency) -> Monetary.getDefaultAmountFactory()
+                .setNumber(amount)
+                .setCurrency(currency)
+                .create(),
+                names));
+
+        //Scan all registered MonetaryAmount types and add a default deserializer for them
+        for (Class c : Monetary.getAmountTypes()) {
+            deserializers.addDeserializer(c, new MonetaryAmountDeserializer<>((amount, currency) -> Monetary.getAmountFactory(c)
+                    .setNumber(amount)
+                    .setCurrency(currency)
+                    .create(),
+                    names));
+        }
+
+        //If a custom MonetaryAmountFactory is provided, then use it for deserializing to MonetaryAmount and provided implementation class
+        if (Objects.nonNull(implementationClass) && Objects.nonNull(amountFactory)) {
             deserializers.addDeserializer(MonetaryAmount.class, new MonetaryAmountDeserializer<>(amountFactory, names));
-            // for reading into concrete implementation types
             deserializers.addDeserializer(implementationClass, new MonetaryAmountDeserializer<>(amountFactory, names));
         }
+
         context.addDeserializers(deserializers);
     }
 

@@ -155,7 +155,10 @@ More sophisticated formatting rules can be supported by implementing `MonetaryAm
 ### Deserialization
 
 This module will not have a default deserialization feature. 
-In order to deserialize money values, one has to configure the module to use a specific implementation of `javax.money.MonetaryAmount`.
+At the same time, if the [Moneta](https://javamoney.github.io/ri.html) library is found in the class path, the module will use `org.javamoney.moneta.Money` as an implementation for `javax.money.MonetaryAmount` by default when deserializing monetary amounts.
+In addition, all deserialization capabilities will be supported for the reference implementations of `MonetaryAmount` from Moneta.
+
+Alternatively, in order to deserialize money values, one has to configure the module to use a specific implementation of `javax.money.MonetaryAmount`.
 This can be done by passing the required `MonetaryAmountFactory` to the `JavaxMoneyModule` along with the implementing class:
 
 ```java
@@ -174,11 +177,8 @@ ObjectMapper mapper = JsonMapper.builder()
                 .build();
 ```
 
-Please note that, for Moneta implementations like Money, FastMoney and RoundedMoney, the sibling module `jackson-datatype-moneta` can be used.
-Refer to [javamoney-moneta](../moneta/Readme.md) for more information.
-
-Module supports deserialization of amount number from JSON number as well as from JSON string without any special
-configuration required.
+Please note that, for Moneta implementations like Money, FastMoney and RoundedMoney, the sibling module `jackson-datatype-moneta` can also be used.
+Refer to [javax-money-moneta](../javax-money-moneta/README.md) for more information.
 
 ### Custom Field Names
 

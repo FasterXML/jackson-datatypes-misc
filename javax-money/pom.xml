@@ -90,9 +90,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.javamoney.moneta</groupId>
-            <artifactId>moneta-core</artifactId>
-            <version>1.4.2</version>
+            <groupId>org.javamoney</groupId>
+            <artifactId>moneta</artifactId>
+            <version>1.4.4</version>
+            <type>pom</type>
             <scope>test</scope>
         </dependency>
         <dependency>
