@@ -156,7 +156,6 @@ More sophisticated formatting rules can be supported by implementing `MonetaryAm
 
 This module will not have a default deserialization feature. 
 At the same time, if the [Moneta](https://javamoney.github.io/ri.html) library is found in the class path, the module will use `org.javamoney.moneta.Money` as an implementation for `javax.money.MonetaryAmount` by default when deserializing monetary amounts.
-In addition, all deserialization capabilities will be supported for the reference implementations of `MonetaryAmount` from Moneta.
 
 Alternatively, in order to deserialize money values, one has to configure the module to use a specific implementation of `javax.money.MonetaryAmount`.
 This can be done by passing the required `MonetaryAmountFactory` to the `JavaxMoneyModule`:

@@ -35,11 +35,11 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
     @SuppressWarnings("unused")
     private static List<Arguments> data() {
         return Arrays.asList(
-                arguments(MonetaryAmount.class, (Configurer) module -> module),
-                arguments(FastMoney.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(FastMoney::of)),
-                arguments(Money.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(Money::of)),
-                arguments(RoundedMoney.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(RoundedMoney::of)),
-                arguments(RoundedMoney.class, (Configurer) module ->
+                arguments((Configurer) module -> module),
+                arguments((Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(FastMoney::of)),
+                arguments((Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(Money::of)),
+                arguments((Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(RoundedMoney::of)),
+                arguments((Configurer) module ->
                         new JavaxMoneyModule().withMonetaryAmountFactory((amount, currency) ->
                                 RoundedMoney.of(amount, currency, Monetary.getDefaultRounding()))
 
@@ -76,22 +76,11 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldDeserializeToCorrectType(final Class<M> type, final Configurer configurer) throws IOException {
+    public void shouldDeserialize(final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
-        final MonetaryAmount amount = unit.readValue(content, type);
-
-        assertThat(amount).isInstanceOf(type);
-    }
-
-    @ParameterizedTest
-    @MethodSource("data")
-    public void shouldDeserialize(final Class<M> type, final Configurer configurer) throws IOException {
-        final ObjectMapper unit = unit(configurer);
-
-        final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
-        final MonetaryAmount amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo(new BigDecimal("29.95"));
         assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo("EUR");
@@ -99,12 +88,12 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldDeserializeWithHighNumberOfFractionDigits(final Class<M> type,
-                                                                final Configurer configurer) throws IOException {
+    public void shouldDeserializeWithHighNumberOfFractionDigits(
+            final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"amount\":29.9501,\"currency\":\"EUR\"}";
-        final MonetaryAmount amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo(new BigDecimal("29.9501"));
         assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo("EUR");
@@ -112,12 +101,12 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldDeserializeCorrectlyWhenAmountIsAStringValue(final Class<M> type,
-                                                                   final Configurer configurer) throws IOException {
+    public void shouldDeserializeCorrectlyWhenAmountIsAStringValue(
+            final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"currency\":\"EUR\",\"amount\":\"29.95\"}";
-        final MonetaryAmount amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo(new BigDecimal("29.95"));
         assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo(("EUR"));
@@ -125,12 +114,12 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldDeserializeCorrectlyWhenPropertiesAreInDifferentOrder(final Class<M> type,
-                                                                            final Configurer configurer) throws IOException {
+    public void shouldDeserializeCorrectlyWhenPropertiesAreInDifferentOrder(
+            final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"currency\":\"EUR\",\"amount\":29.95}";
-        final MonetaryAmount amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo((new BigDecimal("29.95")));
         assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo(("EUR"));
@@ -138,13 +127,13 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldDeserializeWithCustomNames(final Class<M> type, final Configurer configurer) throws IOException {
+    public void shouldDeserializeWithCustomNames(final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(module(configurer)
                 .withAmountFieldName("value")
                 .withCurrencyFieldName("unit"));
 
         final String content = "{\"value\":29.95,\"unit\":\"EUR\"}";
-        final MonetaryAmount amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo((new BigDecimal("29.95")));
         assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo(("EUR"));
@@ -152,11 +141,11 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldIgnoreFormattedValue(final Class<M> type, final Configurer configurer) throws IOException {
+    public void shouldIgnoreFormattedValue(final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"amount\":29.95,\"currency\":\"EUR\",\"formatted\":\"30.00 EUR\"}";
-        final MonetaryAmount amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo((new BigDecimal("29.95")));
         assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo(("EUR"));
@@ -164,12 +153,12 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldUpdateExistingValueUsingTreeTraversingParser(final Class<M> type,
-                                                                   final Configurer configurer) throws IOException {
+    public void shouldUpdateExistingValueUsingTreeTraversingParser(
+            final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
-        final MonetaryAmount amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         assertThat(amount).isNotNull();
 
@@ -202,40 +191,40 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldFailToDeserializeWithoutAmount(final Class<M> type, final Configurer configurer) {
+    public void shouldFailToDeserializeWithoutAmount(final Configurer configurer) {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"currency\":\"EUR\"}";
 
         final JsonProcessingException exception = assertThrows(
-                JsonProcessingException.class, () -> unit.readValue(content, type));
+                JsonProcessingException.class, () -> unit.readValue(content, MonetaryAmount.class));
 
         assertThat(exception.getMessage()).contains("Missing property: 'amount'");
     }
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldFailToDeserializeWithoutCurrency(final Class<M> type, final Configurer configurer) {
+    public void shouldFailToDeserializeWithoutCurrency(final Configurer configurer) {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"amount\":29.95}";
 
         final MismatchedInputException exception = assertThrows(
-                MismatchedInputException.class, () -> unit.readValue(content, type));
+                MismatchedInputException.class, () -> unit.readValue(content, MonetaryAmount.class));
 
         assertThat(exception.getMessage()).contains("Missing property: 'currency'");
     }
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldFailToDeserializeWithAdditionalProperties(final Class<M> type,
-                                                                final Configurer configurer) {
+    public void shouldFailToDeserializeWithAdditionalProperties(
+            final Configurer configurer) {
         final ObjectMapper unit = unit(configurer);
 
         final String content = "{\"amount\":29.95,\"currency\":\"EUR\",\"version\":\"1\"}";
 
         final JsonProcessingException exception = assertThrows(
-                UnrecognizedPropertyException.class, () -> unit.readValue(content, type));
+                UnrecognizedPropertyException.class, () -> unit.readValue(content, MonetaryAmount.class));
 
         assertThat(exception.getMessage()).startsWith(
                 "Unrecognized field \"version\" (class javax.money.MonetaryAmount), " +
@@ -244,17 +233,17 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldNotFailToDeserializeWithAdditionalProperties(final Class<M> type,
-                                                                   final Configurer configurer) throws IOException {
+    public void shouldNotFailToDeserializeWithAdditionalProperties(
+            final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer).disable(FAIL_ON_UNKNOWN_PROPERTIES);
 
         final String content = "{\"source\":{\"provider\":\"ECB\",\"date\":\"2016-09-29\"},\"amount\":29.95,\"currency\":\"EUR\",\"version\":\"1\"}";
-        unit.readValue(content, type);
+        unit.readValue(content, MonetaryAmount.class);
     }
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldDeserializeWithTypeInformation(final Class<M> type, final Configurer configurer) throws IOException {
+    public void shouldDeserializeWithTypeInformation(final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer)
                 .activateDefaultTyping(
                         BasicPolymorphicTypeValidator.builder().build(),
@@ -263,22 +252,22 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
                 .disable(FAIL_ON_UNKNOWN_PROPERTIES);
 
         final String content = "{\"type\":\"org.javamoney.moneta.Money\",\"amount\":29.95,\"currency\":\"EUR\"}";
-        final M amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         // type information is ignored?!
-        assertThat(amount).isInstanceOf(type);
+        assertThat(amount).isInstanceOf(MonetaryAmount.class);
     }
 
     @ParameterizedTest
     @MethodSource("data")
-    public void shouldDeserializeWithoutTypeInformation(final Class<M> type, final Configurer configurer) throws IOException {
+    public void shouldDeserializeWithoutTypeInformation(final Configurer configurer) throws IOException {
         final ObjectMapper unit = unit(configurer).activateDefaultTyping(
                 BasicPolymorphicTypeValidator.builder().build());
 
         final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
-        final M amount = unit.readValue(content, type);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
-        assertThat(amount).isInstanceOf(type);
+        assertThat(amount).isInstanceOf(MonetaryAmount.class);
     }
 
     @Test

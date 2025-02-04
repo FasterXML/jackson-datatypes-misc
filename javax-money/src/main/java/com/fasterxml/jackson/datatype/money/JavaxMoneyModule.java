@@ -59,11 +59,6 @@ public final class JavaxMoneyModule extends Module {
         //Use provided amountFactory to deserialize a MonetaryAmount
         deserializers.addDeserializer(MonetaryAmount.class, new MonetaryAmountDeserializer<>(amountFactory, names));
 
-        //Scan all registered MonetaryAmount types and add a default deserializer for them
-        for (Class c : Monetary.getAmountTypes()) {
-            deserializers.addDeserializer(c, new MonetaryAmountDeserializer<>((amount, currency) -> Monetary.getAmountFactory(c).setNumber(amount).setCurrency(currency).create(), names));
-        }
-
         context.addDeserializers(deserializers);
     }
 
