@@ -159,12 +159,12 @@ At the same time, if the [Moneta](https://javamoney.github.io/ri.html) library i
 In addition, all deserialization capabilities will be supported for the reference implementations of `MonetaryAmount` from Moneta.
 
 Alternatively, in order to deserialize money values, one has to configure the module to use a specific implementation of `javax.money.MonetaryAmount`.
-This can be done by passing the required `MonetaryAmountFactory` to the `JavaxMoneyModule` along with the implementing class:
+This can be done by passing the required `MonetaryAmountFactory` to the `JavaxMoneyModule`:
 
 ```java
 ObjectMapper mapper = JsonMapper.builder()
                 .addModule(new JavaxMoneyModule()
-                .withMonetaryAmountFactory(implementationClass, new CustomMonetaryAmountFactory()))
+                .withMonetaryAmountFactory(new CustomMonetaryAmountFactory()))
                 .build();
 ```
 
@@ -173,7 +173,7 @@ You can also pass in a method reference:
 ```java
 ObjectMapper mapper = JsonMapper.builder()
                 .addModule(new JavaxMoneyModule()
-                .withMonetaryAmountFactory(FastMoney.class, FastMoney::of))
+                .withMonetaryAmountFactory(FastMoney::of))
                 .build();
 ```
 

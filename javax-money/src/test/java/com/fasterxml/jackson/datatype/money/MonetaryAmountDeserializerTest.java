@@ -35,11 +35,11 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
     private Object[] data() {
         return $(
                 $(MonetaryAmount.class, (Configurer) module -> module),
-                $(FastMoney.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(FastMoney.class, FastMoney::of)),
-                $(Money.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(Money.class, Money::of)),
-                $(RoundedMoney.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(RoundedMoney.class, RoundedMoney::of)),
+                $(FastMoney.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(FastMoney::of)),
+                $(Money.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(Money::of)),
+                $(RoundedMoney.class, (Configurer) module -> new JavaxMoneyModule().withMonetaryAmountFactory(RoundedMoney::of)),
                 $(RoundedMoney.class, (Configurer) module ->
-                        new JavaxMoneyModule().withMonetaryAmountFactory(RoundedMoney.class, (amount, currency) ->
+                        new JavaxMoneyModule().withMonetaryAmountFactory((amount, currency) ->
                                 RoundedMoney.of(amount, currency, Monetary.getDefaultRounding()))
 
                 )
@@ -281,26 +281,13 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
     }
 
     @Test
-    public void shouldDeserializeToACustomImplementationWithProvidedFactory() throws JsonProcessingException {
-
-        final ObjectMapper unit = new ObjectMapper().registerModule(new JavaxMoneyModule().withMonetaryAmountFactory(CustomMonetaryAmount.class, (number, currency) -> new CustomMonetaryAmount(FastMoney.of(number, currency))));
-
-        final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
-        final CustomMonetaryAmount amount = unit.readValue(content, CustomMonetaryAmount.class);
-
-        assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo(new BigDecimal("29.95"));
-        assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo("EUR");
-
-    }
-
-    @Test
     public void shouldDeserializeToAMonetaImplementationWithProvidedFactory() throws JsonProcessingException {
 
         //Custom FastMoney factory that returns zero
-        final ObjectMapper unit = new ObjectMapper().registerModule(new JavaxMoneyModule().withMonetaryAmountFactory(FastMoney.class, (number, currency) -> (FastMoney.zero(currency))));
+        final ObjectMapper unit = new ObjectMapper().registerModule(new JavaxMoneyModule().withMonetaryAmountFactory((number, currency) -> (FastMoney.zero(currency))));
 
         final String content = "{\"amount\":29.95,\"currency\":\"EUR\"}";
-        final FastMoney amount = unit.readValue(content, FastMoney.class);
+        final MonetaryAmount amount = unit.readValue(content, MonetaryAmount.class);
 
         assertThat(amount.getNumber().numberValueExact(BigDecimal.class)).isEqualTo(BigDecimal.ZERO);
         assertThat(amount.getCurrency().getCurrencyCode()).isEqualTo("EUR");

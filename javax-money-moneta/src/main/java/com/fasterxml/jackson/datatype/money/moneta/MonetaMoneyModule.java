@@ -83,7 +83,7 @@ public final class MonetaMoneyModule extends Module {
      * @see FastMoney
      */
     public MonetaMoneyModule withFastMoney() {
-        return withMonetaryAmountFactory(FastMoney.class, fastMoneyFactory);
+        return withMonetaryAmountFactory(fastMoneyFactory);
     }
 
     /**
@@ -91,7 +91,7 @@ public final class MonetaMoneyModule extends Module {
      * @see Money
      */
     public MonetaMoneyModule withMoney() {
-        return withMonetaryAmountFactory(Money.class, moneyFactory);
+        return withMonetaryAmountFactory(moneyFactory);
     }
 
     /**
@@ -99,7 +99,7 @@ public final class MonetaMoneyModule extends Module {
      * @see RoundedMoney
      */
     public MonetaMoneyModule withRoundedMoney() {
-        return withMonetaryAmountFactory(RoundedMoney.class, roundedMoneyFactory);
+        return withMonetaryAmountFactory(roundedMoneyFactory);
     }
 
     /**
@@ -111,12 +111,12 @@ public final class MonetaMoneyModule extends Module {
         final MonetaryAmountFactory<RoundedMoney> factory = (amount, currency) ->
                 RoundedMoney.of(amount, currency, rounding);
 
-        return withMonetaryAmountFactory(RoundedMoney.class, factory);
+        return withMonetaryAmountFactory(factory);
     }
 
 
-    private <T extends MonetaryAmount> MonetaMoneyModule withMonetaryAmountFactory(final Class<T> implementationClass, final MonetaryAmountFactory<T> amountFactory) {
-        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(implementationClass, amountFactory), amountFactory,
+    private <T extends MonetaryAmount> MonetaMoneyModule withMonetaryAmountFactory(final MonetaryAmountFactory<T> amountFactory) {
+        return new MonetaMoneyModule(baseModule.withMonetaryAmountFactory(amountFactory), amountFactory,
                 fastMoneyFactory, moneyFactory, roundedMoneyFactory);
     }
 
