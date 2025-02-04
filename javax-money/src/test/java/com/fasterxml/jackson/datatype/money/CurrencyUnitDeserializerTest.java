@@ -4,15 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import org.javamoney.moneta.CurrencyUnitBuilder;
-import org.javamoney.moneta.Money;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.money.CurrencyUnit;
 import javax.money.UnknownCurrencyException;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class CurrencyUnitDeserializerTest {
 

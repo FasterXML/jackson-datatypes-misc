@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
-import org.javamoney.moneta.Money;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.money.MonetaryAmount;
 
