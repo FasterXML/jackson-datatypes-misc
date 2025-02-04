@@ -38,7 +38,7 @@ working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-b
     <dependency>
         <groupId>org.eclipse.parsson</groupId>
         <artifactId>parsson</artifactId>
-        <version>1.1.5</version>
+        <version>1.1.7</version>
         <scope>test</scope>
     </dependency>
   </dependencies>

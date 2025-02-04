@@ -4,7 +4,8 @@ module tools.jackson.datatype.jsonp
     requires tools.jackson.core;
     requires transitive tools.jackson.databind;
 
-    requires jakarta.json;
+    // let's actually expose JSONP-specific types
+    requires transitive jakarta.json;
 
     exports tools.jackson.datatype.jsonp;
 
