@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
 import com.fasterxml.jackson.datatype.money.AmountWriter;
-import com.fasterxml.jackson.datatype.money.CurrencyUnitDeserializer;
 import com.fasterxml.jackson.datatype.money.FieldNames;
 import com.fasterxml.jackson.datatype.money.JavaxMoneyModule;
 import com.fasterxml.jackson.datatype.money.MonetaryAmountDeserializer;
@@ -15,7 +14,6 @@ import org.javamoney.moneta.FastMoney;
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.RoundedMoney;
 
-import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import javax.money.MonetaryOperator;
 import javax.money.MonetaryRounding;
@@ -64,7 +62,6 @@ public final class MonetaMoneyModule extends Module {
 
         this.baseModule.setupModule(context);
         final SimpleDeserializers deserializers = new SimpleDeserializers();
-        deserializers.addDeserializer(CurrencyUnit.class, new CurrencyUnitDeserializer());
 
         //Register deserializers for Moneta types
         deserializers.addDeserializer(FastMoney.class, new MonetaryAmountDeserializer<>(fastMoneyFactory, names));
