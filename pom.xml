@@ -3,12 +3,12 @@
   <parent>
     <groupId>tools.jackson</groupId>
     <artifactId>jackson-base</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-rc1-SNAPSHOT</version>
   </parent>
   <groupId>tools.jackson.datatype</groupId>
   <artifactId>jackson-datatypes-misc-parent</artifactId>
   <name>Jackson datatypes: misc (parent pom)</name>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.0.0-rc1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <description>Parent pom for Jackson misc datatype modules
   </description>
@@ -31,12 +31,7 @@
 
   <properties>
     <!-- for Reproducible Builds -->
-    <project.build.outputTimestamp>2022-11-28T00:00:00Z</project.build.outputTimestamp>
-
-    <!-- [databind#4820]: Java 17 baseline -->
-    <javac.src.version>17</javac.src.version>
-    <javac.target.version>17</javac.target.version>
-
+    <project.build.outputTimestamp>2025-02-27T00:26:20Z</project.build.outputTimestamp>
   </properties>
   
   <dependencies>
@@ -102,16 +97,6 @@
               <phase>generate-sources</phase>
             </execution>
           </executions>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <configuration>
-            <excludes>
-              <exclude>tools/jackson/**/failing/*.java</exclude>
-            </excludes>
-          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
