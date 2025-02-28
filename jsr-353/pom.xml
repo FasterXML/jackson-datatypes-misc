@@ -52,10 +52,6 @@ working with JSR-353 (JSON-P) node types via data-binding
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>com.google.code.maven-replacer-plugin</groupId>
-        <artifactId>replacer</artifactId>
-      </plugin>
       <!-- 18-Jan-2025, tatu: As per above, we cannot really run tests with JPMS.
               So. Disable surefire plug-in altogether
         -->
@@ -65,6 +61,16 @@ working with JSR-353 (JSON-P) node types via data-binding
         <configuration>
           <skipTests>true</skipTests>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+      </plugin>
+      <!-- 05-Jul-2020, tatu: Add generation of Gradle Module Metadata -->
+      <!-- 28-Feb-2025, jjohannes: Apply plugin last as it has to be the last of all 'package phase' plugins -->
+      <plugin>
+        <groupId>org.gradlex</groupId>
+        <artifactId>gradle-module-metadata-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
