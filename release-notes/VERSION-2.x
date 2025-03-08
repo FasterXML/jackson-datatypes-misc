@@ -15,6 +15,7 @@ Modules:
 #51: Unify testing structure/tools to JUnit5 [JSTEP-10]
  (contributed by Joo-Hyuk K)
 
+2.18.3 (28-Feb-2025)
 2.18.2 (27-Nov-2024)
 2.18.1 (28-Oct-2024)
 2.18.0 (26-Sep-2024)
