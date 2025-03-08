@@ -8,12 +8,12 @@
   <parent>
     <groupId>tools.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>3.0.0-rc1</version>
+    <version>3.0.0-rc2-SNAPSHOT</version>
   </parent>
   <artifactId>jackson-datatype-joda-money</artifactId>
   <name>Jackson datatype: joda-money</name>
   <packaging>jar</packaging>
-  <version>3.0.0-rc1</version>
+  <version>3.0.0-rc2-SNAPSHOT</version>
   <description>Support for datatypes of Joda-Money library (https://www.joda.org/joda-money/)
   </description>
   <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    

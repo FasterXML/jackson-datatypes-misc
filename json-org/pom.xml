@@ -8,12 +8,12 @@
   <parent>
     <groupId>tools.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>3.0.0-rc1</version>
+    <version>3.0.0-rc2-SNAPSHOT</version>
   </parent>
   <artifactId>jackson-datatype-json-org</artifactId>
   <name>Jackson datatype: org.json</name>
   <packaging>jar</packaging>
-  <version>3.0.0-rc1</version>
+  <version>3.0.0-rc2-SNAPSHOT</version>
   <description>Support for datatypes of "org.json" JSON library (see http://json.org/java),
 mainly to make it easier to upgrade code to Jackson, using automated conversions.
   </description>

@@ -9,7 +9,7 @@
   <parent>
     <groupId>tools.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>3.0.0-rc1</version>
+    <version>3.0.0-rc2-SNAPSHOT</version>
   </parent>
   <artifactId>jackson-datatype-jakarta-mail</artifactId>
   <name>Jackson datatype: Jakarta Mail</name>
