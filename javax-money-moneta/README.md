@@ -1,4 +1,4 @@
-# Jackson Datatype Money
+# Jackson Datatype Moneta
 
 *Jackson Datatype Moneta* is a [Jackson](https://github.com/codehaus/jackson) module to support JSON serialization and
 deserialization of [JavaMoney](https://github.com/JavaMoney/jsr354-api) data types with special support for JavaMoney's
