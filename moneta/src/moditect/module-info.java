@@ -1,8 +1,10 @@
 // Hand-crafted 29-Jan-2025
-module com.fasterxml.jackson.datatype.moneta {
+module com.fasterxml.jackson.datatype.moneta
+{
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.datatype.javax.money;
     requires javax.money;
 
     exports com.fasterxml.jackson.datatype.moneta;

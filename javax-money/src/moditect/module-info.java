@@ -1,5 +1,6 @@
 // Hand-crafted 05-Nov-2024
-module com.fasterxml.jackson.datatype.money {
+module com.fasterxml.jackson.datatype.javax.money
+{
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
