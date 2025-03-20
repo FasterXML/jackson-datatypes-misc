@@ -4,7 +4,8 @@ module com.fasterxml.jackson.datatype.javax.money
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
-    requires javax.money;
+
+    requires java.money;
 
     exports com.fasterxml.jackson.datatype.javax.money;
 
