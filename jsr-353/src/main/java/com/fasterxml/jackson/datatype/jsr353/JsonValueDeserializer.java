@@ -101,7 +101,7 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue> {
     {
         JsonObjectBuilder b = _builderFactory.createObjectBuilder();
         while (p.nextToken() != JsonToken.END_OBJECT) {
-            String name = p.getCurrentName();
+            String name = p.currentName();
             JsonToken t = p.nextToken();
             switch (t) {
                 case START_ARRAY:

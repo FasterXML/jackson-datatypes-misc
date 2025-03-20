@@ -37,7 +37,7 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
             t = p.nextToken();
         }
         for (; t == JsonToken.FIELD_NAME; t = p.nextToken()) {
-            String fieldName = p.getCurrentName();
+            String fieldName = p.currentName();
             t = p.nextToken();
             try {
                 switch (t) {

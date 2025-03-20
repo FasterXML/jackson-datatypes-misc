@@ -11,8 +11,8 @@ import java.math.RoundingMode;
  * {@link Money#getAmountMinorLong() minor units as a long} (such as {@code 1234} for
  * {@code Money.parse("USD 12.34")}), and back to {@code Money} from this representation.
  */
-final class MinorCurrencyUnitAmountConverter implements AmountConverter {
-
+final class MinorCurrencyUnitAmountConverter implements AmountConverter
+{
     private static final MinorCurrencyUnitAmountConverter INSTANCE = new MinorCurrencyUnitAmountConverter();
 
     static MinorCurrencyUnitAmountConverter getInstance() {

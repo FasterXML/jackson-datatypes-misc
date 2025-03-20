@@ -40,7 +40,7 @@ public class JSONObjectSerializer extends JSONBaseSerializer<JSONObject>
     public void serializeWithType(JSONObject value, JsonGenerator g, SerializerProvider provider,
             TypeSerializer typeSer) throws IOException
     {
-        g.setCurrentValue(value);
+        g.assignCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g,
                 typeSer.typeId(value, JsonToken.START_OBJECT));
         serializeContents(value, g, provider);
