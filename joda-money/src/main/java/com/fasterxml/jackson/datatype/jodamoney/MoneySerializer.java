@@ -1,13 +1,14 @@
 package com.fasterxml.jackson.datatype.jodamoney;
 
+import java.io.IOException;
+
+import org.joda.money.Money;
+
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.type.WritableTypeId;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
-import org.joda.money.Money;
-
-import java.io.IOException;
 
 import static java.util.Objects.requireNonNull;
 
@@ -46,7 +47,7 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
             SerializerProvider context,
             TypeSerializer typeSer) throws IOException
     {
-        g.setCurrentValue(value);
+        g.assignCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g,
                 typeSer.typeId(value, JsonToken.START_OBJECT));
         _writeFields(value, g, context);
