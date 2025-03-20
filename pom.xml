@@ -41,9 +41,21 @@
   </scm>
 
   <properties>
+    <version.lombok>1.18.36</version.lombok>
+
     <!-- for Reproducible Builds -->
     <project.build.outputTimestamp>2024-09-27T04:03:56Z</project.build.outputTimestamp>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${version.lombok}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   
   <dependencies>
     <dependency>
