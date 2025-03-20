@@ -5,13 +5,15 @@ Modules:
   jackson-datatype-jsr353
   jackson-datatype-jakarta-jsonp (2.13 alt to -jsr353)
   jackson-datatype-jakarta-mail (2.13)  
-
+  jackson-datatype-javax-money (2.19)
+  jackson-datatype-moneta (2.19)
 ------------------------------------------------------------------------
 === Releases ===
 ------------------------------------------------------------------------
 
 2.19.0 (not yet released)
 
+#48: Add new "javax.money" (JSR-354) and "moneta" (JSR-354 ref impl) modules
 #51: Unify testing structure/tools to JUnit5 [JSTEP-10]
  (contributed by Joo-Hyuk K)
 

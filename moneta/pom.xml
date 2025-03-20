@@ -12,7 +12,7 @@
         <version>2.19.0-SNAPSHOT</version>
     </parent>
     <artifactId>jackson-datatype-moneta</artifactId>
-    <name>Jackson datatype: javax-money-moneta</name>
+    <name>Jackson datatype: moneta (javax.money ref. impl)</name>
     <packaging>jar</packaging>
     <version>2.19.0-SNAPSHOT</version>
     <description>Support for datatypes of Money API spec from JSR 354 (https://javamoney.github.io/api.html)
@@ -35,7 +35,7 @@
     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
-            <artifactId>jackson-datatype-money</artifactId>
+            <artifactId>jackson-datatype-javax-money</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

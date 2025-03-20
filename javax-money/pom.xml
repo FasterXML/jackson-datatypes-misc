@@ -10,7 +10,7 @@
         <artifactId>jackson-datatypes-misc-parent</artifactId>
         <version>2.19.0-SNAPSHOT</version>
     </parent>
-    <artifactId>jackson-datatype-money</artifactId>
+    <artifactId>jackson-datatype-javax-money</artifactId>
     <name>Jackson datatype: javax-money</name>
     <packaging>jar</packaging>
     <version>2.19.0-SNAPSHOT</version>

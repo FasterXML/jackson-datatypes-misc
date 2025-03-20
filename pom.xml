@@ -29,7 +29,7 @@
     <module>jakarta-mail</module>
     <!-- since 2.19.0 -->
     <module>javax-money</module>
-    <module>javax-money-moneta</module>
+    <module>moneta</module>
   </modules>
 
   <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
