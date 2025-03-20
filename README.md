@@ -26,7 +26,6 @@ All modules are licensed under [Apache License 2.0](http://www.apache.org/licens
 | ---- | ------ |
 | Build (CI) | [![Build (github)](https://github.com/FasterXML/jackson-datatypes-misc/actions/workflows/main.yml/badge.svg)](https://github.com/FasterXML/jackson-datatypes-misc/actions/workflows/main.yml) |
 | Code coverage (2.18) | [![codecov.io](https://codecov.io/github/FasterXML/jackson-datatypes-misc/coverage.svg?branch=2.18)](https://codecov.io/github/FasterXML/jackson-datatypes-misc?branch=2.18) |
-| OpenSSF Score | [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/FasterXML/jackson-datatypes-misc/badge)](https://securityscorecards.dev/viewer/?uri=github.com/FasterXML/jackson-datatypes-misc) |
 
 
 ## Usage
