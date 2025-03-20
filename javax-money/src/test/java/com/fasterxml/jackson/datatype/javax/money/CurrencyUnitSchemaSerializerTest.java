@@ -1,12 +1,13 @@
 package com.fasterxml.jackson.datatype.javax.money;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.javax.money.JavaxMoneyModule;
-import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
+import javax.money.CurrencyUnit;
+
 import org.junit.jupiter.api.Test;
 
-import javax.money.CurrencyUnit;
+import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -8,8 +8,6 @@ import javax.money.MonetaryAmount;
 @AllArgsConstructor
 @Getter
 public class SchemaTestClass {
-
     private final MonetaryAmount moneyOne;
     private final MonetaryAmount moneyTwo;
-
 }
