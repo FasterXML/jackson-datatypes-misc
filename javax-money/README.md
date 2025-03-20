@@ -1,8 +1,7 @@
-# Jackson Datatype Money
+# Jackson Datatype Javax-Money
 
-*Jackson Datatype Money* is a [Jackson](https://github.com/codehaus/jackson) module to support JSON serialization and
-deserialization of [JSR 354](https://github.com/JavaMoney/jsr354-api) data types. It fills a niche, in that it
-integrates [MonetaryAmount](https://javamoney.github.io/apidocs/javax/money/MonetaryAmount.html) and Jackson so that they work seamlessly together, without requiring additional
+*Jackson Datatype Javax-Money* is a [Jackson](https://github.com/FasterXML/jackson) module to support JSON serialization and deserialization of [JSR 354](https://github.com/JavaMoney/jsr354-api) data types.
+It fills a niche, in that it integrates [MonetaryAmount](https://javamoney.github.io/apidocs/javax/money/MonetaryAmount.html) and Jackson so that they work seamlessly together, without requiring additional
 developer effort. In doing so, it aims to perform a small but repetitive task — once and for all.
 
 This library reflects an opinionated API [representation of monetary amounts in JSON](MONEY.md)
@@ -39,7 +38,7 @@ Add the following dependency to your project:
 
 <dependency>
     <groupId>com.fasterxml.jackson.datatype</groupId>
-    <artifactId>jackson-datatype-money</artifactId>
+    <artifactId>jackson-datatype-javax-money</artifactId>
     <version>${jackson-datatype-money.version}</version>
 </dependency>
 ```
