@@ -5,6 +5,8 @@ datatype modules to support 3rd party libraries.
 
 Currently included are:
 
+* [jackson-datatype-jakarta-mail](jakarta-mail/) for Jakarta Mail (ex-Java Mail) (starting with Jackson 2.13)
+    * Currently (2.13) just type `jakarta.mail.internet.InternetAddress`
 * [jackson-datatype-javax-money](javax-money/) for [JSR 354](https://github.com/JavaMoney/jsr354-api) datatypes (starting with Jackson 2.19)
 * [jackson-datatype-moneta](moneta/) for [JavaMoney Moneta RI](https://javamoney.github.io/) datatypes (jsr354 reference implementation) (starting with Jackson 2.19)
 * [jackson-datatype-joda-money](joda-money/) for [Joda-Money](https://www.joda.org/joda-money/) datatypes
@@ -12,12 +14,9 @@ Currently included are:
     * [jackson-datatype-jsr353](jsr-353/) for older "javax.json" [JSR-353](https://www.jcp.org/en/jsr/detail?id=353) (aka JSON-P) datatypes (package `javax.json`)
     * [jackson-datatype-jakarta-jsonp](jakarta-jsonp/) for newer "Jakarta" JSON-P datatypes (package `jakarta.json`)
 * [jackson-datatype-json-org](json-org/) for ([org.json](http://json.org/java)) JSON model datatypes (included in Android SDK, as well as stand-alone Java library)
-* [jackson-datatype-jakarta-mail](jakarta-mail/) for Jakarta Mail (ex-Java Mail) (starting with Jackson 2.13)
-    * Currently (2.13) just type `jakarta.mail.internet.InternetAddress`
 
 Note that this repo was created for Jackson 2.11: prior to this, individual datatype
 modules had their own repositories.
-
 
 ## License
 
