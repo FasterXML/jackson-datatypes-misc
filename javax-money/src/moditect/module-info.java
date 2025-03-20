@@ -4,7 +4,8 @@ module tools.jackson.datatype.javax.money
     requires com.fasterxml.jackson.annotation;
     requires tools.jackson.core;
     requires tools.jackson.databind;
-    requires javax.money;
+
+    requires java.money;
 
     exports tools.jackson.datatype.javax.money;
 
