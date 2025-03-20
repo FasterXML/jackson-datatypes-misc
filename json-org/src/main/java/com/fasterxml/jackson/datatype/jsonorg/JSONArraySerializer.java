@@ -39,7 +39,7 @@ public class JSONArraySerializer extends JSONBaseSerializer<JSONArray>
     public void serializeWithType(JSONArray value, JsonGenerator g, SerializerProvider provider,
             TypeSerializer typeSer) throws IOException
     {
-        g.setCurrentValue(value);
+        g.assignCurrentValue(value);
         WritableTypeId typeIdDef = typeSer.writeTypePrefix(g,
                 typeSer.typeId(value, JsonToken.START_ARRAY));
         serializeContents(value, g, provider);
