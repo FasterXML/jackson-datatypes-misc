@@ -1,1 +1,1 @@
-com.fasterxml.jackson.datatype.money.moneta.MonetaMoneyModule
+com.fasterxml.jackson.datatype.moneta.MonetaMoneyModule

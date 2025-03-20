@@ -5,8 +5,8 @@ module com.fasterxml.jackson.datatype.money {
     requires com.fasterxml.jackson.databind;
     requires javax.money;
 
-    exports com.fasterxml.jackson.datatype.money;
+    exports com.fasterxml.jackson.datatype.javax.money;
 
     provides com.fasterxml.jackson.databind.Module with
-        com.fasterxml.jackson.datatype.money.JavaxMoneyModule;
+        com.fasterxml.jackson.datatype.javax.money.JavaxMoneyModule;
 }
