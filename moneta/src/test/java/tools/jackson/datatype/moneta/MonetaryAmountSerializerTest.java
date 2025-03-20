@@ -297,7 +297,7 @@ public final class MonetaryAmountSerializerTest {
     public void shouldSerializeWithType(final MonetaryAmount amount) throws Exception {
         final ObjectMapper unit = builder(module())
                 .activateDefaultTyping(BasicPolymorphicTypeValidator.builder().build())
-                .build();)
+                .build();
 
         final String expected = "{\"amount\":{\"amount\":29.95,\"currency\":\"EUR\"}}";
         final String actual = unit.writeValueAsString(new Price(amount));
@@ -310,7 +310,7 @@ public final class MonetaryAmountSerializerTest {
     public void shouldSerializeWithTypeUnwrapped(final MonetaryAmount amount) throws Exception {
         final ObjectMapper unit = builder(module())
                 .activateDefaultTyping(BasicPolymorphicTypeValidator.builder().build())
-                .build();)
+                .build();
 
         final String expected = "{\"amount\":29.95,\"currency\":\"EUR\"}";
         final String actual = unit.writeValueAsString(new PriceUnwrapped(amount));
@@ -354,18 +354,18 @@ public final class MonetaryAmountSerializerTest {
     }
 
     @Value
-    private static class Price {
+    static class Price {
         MonetaryAmount amount;
     }
 
     @Value
-    private static class PriceUnwrapped {
+    static class PriceUnwrapped {
         @JsonUnwrapped
         MonetaryAmount amount;
     }
 
     @Value
-    private static class PriceUnwrappedTransformedNames {
+    static class PriceUnwrappedTransformedNames {
         @JsonUnwrapped(prefix = "Price-", suffix = "-Field")
         MonetaryAmount amount;
     }

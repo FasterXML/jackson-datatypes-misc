@@ -212,7 +212,9 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
     @MethodSource("data")
     public void shouldFailToDeserializeWithAdditionalProperties(final Class<M> type,
             final Configurer configurer) {
-        final ObjectMapper unit = unit(configurer);
+        final ObjectMapper unit = builder(configurer)
+                .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .build();
 
         final String content = "{\"amount\":29.95,\"currency\":\"EUR\",\"version\":\"1\"}";
 
@@ -220,7 +222,7 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
                 UnrecognizedPropertyException.class, () -> unit.readValue(content, type));
 
         assertThat(exception.getMessage()).startsWith(
-                "Unrecognized field \"version\" (class javax.money.MonetaryAmount), " +
+                "Unrecognized property \"version\" (class javax.money.MonetaryAmount), " +
                         "not marked as ignorable (3 known properties: \"amount\", \"currency\", \"formatted\"])");
     }
 
@@ -228,7 +230,8 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
     @MethodSource("data")
     public void shouldNotFailToDeserializeWithAdditionalProperties(final Class<M> type,
             final Configurer configurer) throws Exception {
-        final ObjectMapper unit = builder(configurer).disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        final ObjectMapper unit = builder(configurer)
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                 .build();
 
         final String content = "{\"source\":{\"provider\":\"ECB\",\"date\":\"2016-09-29\"},\"amount\":29.95,\"currency\":\"EUR\",\"version\":\"1\"}";
