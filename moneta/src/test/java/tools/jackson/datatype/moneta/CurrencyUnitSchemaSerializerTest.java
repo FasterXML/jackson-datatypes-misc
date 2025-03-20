@@ -13,9 +13,9 @@ import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public final class CurrencyUnitSchemaSerializerTest {
-
-    private final ObjectMapper unit = JsonMapper.builder().addModule(new MonetaMoneyModule()).build();
+public final class CurrencyUnitSchemaSerializerTest
+{
+    final ObjectMapper unit = JsonMapper.builder().addModule(new MonetaMoneyModule()).build();
 
     @Test
     public void shouldSerializeJsonSchema() {

@@ -1,9 +1,9 @@
 package tools.jackson.datatype.javax.money;
 
+import javax.money.MonetaryAmount;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import javax.money.MonetaryAmount;
 
 @AllArgsConstructor
 @Getter

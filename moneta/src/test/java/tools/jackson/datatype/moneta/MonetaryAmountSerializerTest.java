@@ -124,7 +124,7 @@ public final class MonetaryAmountSerializerTest {
 
     @ParameterizedTest
     @MethodSource("amounts")
-    public void shouldSerializeWithCustomName(final MonetaryAmount amount) throws IOException {
+    public void shouldSerializeWithCustomName(final MonetaryAmount amount) throws Exception {
         final ObjectMapper unit = unit(module().withDefaultFormatting()
                 .withAmountFieldName("value")
                 .withCurrencyFieldName("unit")

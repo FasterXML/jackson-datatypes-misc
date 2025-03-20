@@ -1,23 +1,21 @@
 package tools.jackson.datatype.moneta;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
-import java.math.BigDecimal;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import tools.jackson.core.JacksonException;
 
 import tools.jackson.databind.*;
-import tools.jackson.databind.cfg.MapperBuilder;
 import tools.jackson.databind.exc.MismatchedInputException;
 import tools.jackson.databind.exc.UnrecognizedPropertyException;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
-import tools.jackson.datatype.moneta.MonetaMoneyModule;
 
 import org.javamoney.moneta.FastMoney;
 import org.javamoney.moneta.Money;
@@ -27,7 +25,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;

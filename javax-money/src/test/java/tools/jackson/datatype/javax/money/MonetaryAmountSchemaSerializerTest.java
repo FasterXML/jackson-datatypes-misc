@@ -1,15 +1,15 @@
 package tools.jackson.datatype.javax.money;
 
+import javax.money.MonetaryAmount;
+
+import org.junit.jupiter.api.Test;
+
 import tools.jackson.databind.*;
 import tools.jackson.databind.json.JsonMapper;
 
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 
 import tools.jackson.datatype.javax.money.JavaxMoneyModule;
-
-import org.junit.jupiter.api.Test;
-
-import javax.money.MonetaryAmount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -87,5 +87,4 @@ public final class MonetaryAmountSchemaSerializerTest
     private JavaxMoneyModule module() {
         return new JavaxMoneyModule();
     }
-
 }

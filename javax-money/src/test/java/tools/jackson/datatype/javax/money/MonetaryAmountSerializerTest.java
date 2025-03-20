@@ -1,6 +1,5 @@
 package tools.jackson.datatype.javax.money;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.stream.Stream;

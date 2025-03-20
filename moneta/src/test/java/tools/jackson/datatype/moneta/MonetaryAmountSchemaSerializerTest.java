@@ -1,13 +1,13 @@
 package tools.jackson.datatype.moneta;
 
-import tools.jackson.databind.*;
-import tools.jackson.databind.json.JsonMapper;
-import tools.jackson.datatype.moneta.MonetaMoneyModule;
+import javax.money.MonetaryAmount;
 
-import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 import org.junit.jupiter.api.Test;
 
-import javax.money.MonetaryAmount;
+import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
+
+import tools.jackson.databind.*;
+import tools.jackson.databind.json.JsonMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -85,5 +85,4 @@ public final class MonetaryAmountSchemaSerializerTest
     MonetaMoneyModule module() {
         return new MonetaMoneyModule();
     }
-
 }
