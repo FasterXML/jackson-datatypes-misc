@@ -22,9 +22,13 @@ modules had their own repositories.
 
 All modules are licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.txt).
 
-## Build Status
+## Status
 
-[![Build Status](https://travis-ci.org/FasterXML/jackson-datatypes-misc.svg)](https://travis-ci.org/FasterXML/jackson-datatypes-misc)
+| Type | Status |
+| ---- | ------ |
+| Build (CI) | [![Build (github)](https://github.com/FasterXML/jackson-datatypes-misc/actions/workflows/main.yml/badge.svg)](https://github.com/FasterXML/jackson-datatypes-misc/actions/workflows/main.yml) |
+| Code coverage (2.18) | [![codecov.io](https://codecov.io/github/FasterXML/jackson-datatypes-misc/coverage.svg?branch=2.18)](https://codecov.io/github/FasterXML/jackson-datatypes-misc?branch=2.18) |
+
 
 ## Usage
 
@@ -37,7 +41,7 @@ To use module (version 2.x) on Maven-based projects, use dependency like
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatype-json-org</artifactId>
-  <version>2.13.0</version>
+  <version>2.18.3</version>
 </dependency>
 ```
 
@@ -73,4 +77,4 @@ ObjectMapper mapper = JsonMapper.builder()
     .build();
 ```
 
-after which datatype read/write support is available for all normal Jackson operations,
+after which datatype read/write support is available for all normal Jackson operations.
