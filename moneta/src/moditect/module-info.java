@@ -12,5 +12,5 @@ module com.fasterxml.jackson.datatype.moneta
     exports com.fasterxml.jackson.datatype.moneta;
 
     provides com.fasterxml.jackson.databind.Module with
-            com.fasterxml.jackson.datatype.moneta.MonetaMoneyModule;
+        com.fasterxml.jackson.datatype.moneta.MonetaMoneyModule;
 }

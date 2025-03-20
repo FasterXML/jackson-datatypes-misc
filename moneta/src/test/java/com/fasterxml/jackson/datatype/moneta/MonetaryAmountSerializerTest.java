@@ -1,5 +1,11 @@
 package com.fasterxml.jackson.datatype.moneta;
 
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Locale;
+
+import javax.money.MonetaryAmount;
+
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,12 +26,6 @@ import org.javamoney.moneta.RoundedMoney;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import javax.money.MonetaryAmount;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Locale;
 
 import static javax.money.Monetary.getDefaultRounding;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -125,7 +125,7 @@ public final class MonetaryAmountSerializerTest {
 
     @ParameterizedTest
     @MethodSource("amounts")
-    public void shouldSerializeWithCustomName(final MonetaryAmount amount) throws IOException {
+    public void shouldSerializeWithCustomName(final MonetaryAmount amount) throws Exception {
         final ObjectMapper unit = unit(module().withDefaultFormatting()
                 .withAmountFieldName("value")
                 .withCurrencyFieldName("unit")
@@ -347,7 +347,7 @@ public final class MonetaryAmountSerializerTest {
     }
 
     @Value
-    private static class Price {
+    static class Price {
         MonetaryAmount amount;
     }
 

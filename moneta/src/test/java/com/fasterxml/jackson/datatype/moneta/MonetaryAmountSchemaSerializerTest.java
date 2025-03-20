@@ -1,14 +1,15 @@
 package com.fasterxml.jackson.datatype.moneta;
 
+import javax.money.MonetaryAmount;
+
+import org.junit.jupiter.api.Test;
+
+import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.moneta.MonetaMoneyModule;
-import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
-import org.junit.jupiter.api.Test;
-
-import javax.money.MonetaryAmount;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -82,5 +83,4 @@ public final class MonetaryAmountSchemaSerializerTest {
     private MonetaMoneyModule module() {
         return new MonetaMoneyModule();
     }
-
 }

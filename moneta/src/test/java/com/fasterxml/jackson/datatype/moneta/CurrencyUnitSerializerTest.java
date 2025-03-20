@@ -1,17 +1,15 @@
 package com.fasterxml.jackson.datatype.moneta;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.moneta.MonetaMoneyModule;
+import javax.money.CurrencyUnit;
 
 import org.javamoney.moneta.CurrencyUnitBuilder;
 import org.junit.jupiter.api.Test;
 
-import javax.money.CurrencyUnit;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 public final class CurrencyUnitSerializerTest {
 

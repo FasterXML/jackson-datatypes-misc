@@ -16,8 +16,8 @@ import static org.apiguardian.api.API.Status.EXPERIMENTAL;
 import static org.apiguardian.api.API.Status.STABLE;
 
 @API(status = STABLE)
-public final class JavaxMoneyModule extends Module {
-
+public final class JavaxMoneyModule extends Module
+{
     private final AmountWriter<?> writer;
     private final FieldNames names;
     private final MonetaryAmountFormatFactory formatFactory;

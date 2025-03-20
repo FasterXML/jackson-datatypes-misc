@@ -1,6 +1,5 @@
 package com.fasterxml.jackson.datatype.javax.money;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.stream.Stream;
@@ -364,7 +363,6 @@ public final class MonetaryAmountSerializerTest {
      * </code>
      *
      * @param amount
-     * @throws JsonProcessingException
      */
     @ParameterizedTest
     @MethodSource("amounts")

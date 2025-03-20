@@ -41,7 +41,7 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
         CurrencyUnit currency = null;
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
-            final String field = parser.getCurrentName();
+            final String field = parser.currentName();
 
             parser.nextToken();
 
@@ -71,7 +71,5 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
         }
 
         return context.reportPropertyInputMismatch(MonetaryAmount.class, missingName, format("Missing property: '%s'", missingName));
-
     }
-
 }
