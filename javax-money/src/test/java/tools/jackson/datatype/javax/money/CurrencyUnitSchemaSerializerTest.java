@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
 
-import tools.jackson.datatype.javax.money.JavaxMoneyModule;
-
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
