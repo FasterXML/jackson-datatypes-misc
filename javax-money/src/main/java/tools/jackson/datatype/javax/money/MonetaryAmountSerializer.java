@@ -3,7 +3,6 @@ package tools.jackson.datatype.javax.money;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.annotation.Nullable;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import javax.money.format.MonetaryAmountFormat;
@@ -27,7 +26,7 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
     private final NameTransformer nameTransformer;
 
     MonetaryAmountSerializer(final FieldNames names, final AmountWriter<?> writer,
-            final MonetaryAmountFormatFactory factory, boolean isUnwrapping, @Nullable final NameTransformer nameTransformer) {
+            final MonetaryAmountFormatFactory factory, boolean isUnwrapping, final NameTransformer nameTransformer) {
         super(MonetaryAmount.class);
         this.writer = writer;
         this.factory = factory;
@@ -44,7 +43,7 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
     @Override
     public void acceptJsonFormatVisitor(final JsonFormatVisitorWrapper wrapper, final JavaType hint)
     {
-        @Nullable final JsonObjectFormatVisitor visitor = wrapper.expectObjectFormat(hint);
+        final JsonObjectFormatVisitor visitor = wrapper.expectObjectFormat(hint);
 
         if (visitor == null) {
             return;
@@ -78,7 +77,7 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
             final SerializationContext ctxt)
     {
         final CurrencyUnit currency = value.getCurrency();
-        @Nullable final String formatted = format(value, ctxt);
+        final String formatted = format(value, ctxt);
 
         if (!isUnwrapping) {
             json.writeStartObject();
@@ -102,7 +101,6 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
         return (nameTransformer != null) ? nameTransformer.transform(name) : name;
     }
 
-    @Nullable
     private String format(final MonetaryAmount value, final SerializationContext ctxt) {
         final Locale locale = ctxt.getConfig().getLocale();
         final MonetaryAmountFormat format = factory.create(locale);
@@ -115,7 +113,7 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
     }
 
     @Override
-    public ValueSerializer<MonetaryAmount> unwrappingSerializer(@Nullable final NameTransformer nameTransformer) {
+    public ValueSerializer<MonetaryAmount> unwrappingSerializer(final NameTransformer nameTransformer) {
         return new MonetaryAmountSerializer(names, writer, factory, true, nameTransformer);
     }
 }

@@ -2,7 +2,6 @@ package tools.jackson.datatype.javax.money;
 
 import org.apiguardian.api.API;
 
-import javax.annotation.Nullable;
 import javax.money.format.MonetaryAmountFormat;
 import java.util.Locale;
 
@@ -14,6 +13,5 @@ public interface MonetaryAmountFormatFactory
 {
     MonetaryAmountFormatFactory NONE = locale -> null;
 
-    @Nullable
     MonetaryAmountFormat create(final Locale defaultLocale);
 }
