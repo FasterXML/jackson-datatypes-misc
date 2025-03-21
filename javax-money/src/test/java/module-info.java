@@ -15,7 +15,10 @@ module tools.jackson.datatype.javax.money
     requires static lombok;
 
     // Additional test lib/framework dependencies
+    requires org.assertj.core;
+    requires org.mockito;
     requires org.junit.jupiter.api;
+    requires org.junit.jupiter.params;
 
     requires org.javamoney.moneta;
 
