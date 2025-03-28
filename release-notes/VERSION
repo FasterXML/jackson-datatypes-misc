@@ -4,12 +4,18 @@ Modules:
   jackson-datatype-joda-money
   jackson-datatype-json-org
   jackson-datatype-jsr353 (may be deprecated for 3.x)
-  jackson-datatype-jakarta-jsonp (since 2.13 alt to -jsr353)
-  jackson-datatype-jakarta-mail (since 2.13)
+  jackson-datatype-jakarta-jsonp
+  jackson-datatype-jakarta-mail
+  jackson-datatype-javax-money
+  jackson-datatype-moneta
 
 ------------------------------------------------------------------------
 === Releases ===
 ------------------------------------------------------------------------
+
+3.0.0-rc2 (28-Mar-2025)
+
+No changes since rc1
 
 3.0.0-rc1 (07-Mar-2025)
 
