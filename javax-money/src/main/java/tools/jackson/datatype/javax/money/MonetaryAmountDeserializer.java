@@ -1,11 +1,11 @@
 package tools.jackson.datatype.javax.money;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Objects;
+
+import javax.money.CurrencyUnit;
+import javax.money.MonetaryAmount;
 
 import tools.jackson.core.JsonParser;
 import tools.jackson.core.JsonToken;
