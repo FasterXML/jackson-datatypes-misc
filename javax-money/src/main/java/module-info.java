@@ -1,4 +1,4 @@
-// Hand-crafted 05-Nov-2024
+// Javax-money module Main artifact Module descriptor
 module tools.jackson.datatype.javax.money
 {
     requires com.fasterxml.jackson.annotation;
@@ -7,6 +7,10 @@ module tools.jackson.datatype.javax.money
 
     requires java.money;
 
+    // compile-time only dependencies
+    requires static org.apiguardian.api;
+    requires static lombok;
+    
     exports tools.jackson.datatype.javax.money;
 
     provides tools.jackson.databind.JacksonModule with
