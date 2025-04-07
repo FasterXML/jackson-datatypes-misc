@@ -2,15 +2,13 @@ name: Build and Deploy Snapshot
 on:
   push:
     branches:
-    - master
-    - "3.0"
+    - 3.x
     paths-ignore:
     - "README.md"
     - "release-notes/*"
   pull_request:
     branches:
-    - master
-    - "3.0"
+    - 3.x
     paths-ignore:
     - "README.md"
     - "release-notes/*"
@@ -57,5 +55,5 @@ jobs:
       uses: codecov/codecov-action@0565863a31f2c772f9f0395002a31e3f06189574 # v5.4.0
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./target/site/jacoco/jacoco.xml
+        files: ./target/site/jacoco/jacoco.xml
         flags: unittests
