@@ -11,7 +11,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.19.0 (not yet released)
+2.19.0-rc2 (07-Apr-2025)
 
 #48: Add new "javax.money" (JSR-354) and "moneta" (JSR-354 ref impl) modules
 #51: Unify testing structure/tools to JUnit5 [JSTEP-10]
