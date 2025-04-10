@@ -1,21 +1,23 @@
-package tools.jackson.datatype.javax.money;
+package com.fasterxml.jackson.datatype.javax.money;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
+import com.fasterxml.jackson.databind.jsontype.TypeDeserializer;
+
+import javax.money.CurrencyUnit;
+import javax.money.MonetaryAmount;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Objects;
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
 
-import tools.jackson.core.JsonParser;
-import tools.jackson.core.JsonToken;
-import tools.jackson.databind.DeserializationContext;
-import tools.jackson.databind.ValueDeserializer;
-import tools.jackson.databind.exc.UnrecognizedPropertyException;
-import tools.jackson.databind.jsontype.TypeDeserializer;
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+import static java.lang.String.format;
 
-import static tools.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
-
-public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends ValueDeserializer<M> {
+public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends JsonDeserializer<M> {
 
     private final MonetaryAmountFactory<M> factory;
     private final FieldNames names;
@@ -27,15 +29,14 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
 
     @Override
     public Object deserializeWithType(final JsonParser parser, final DeserializationContext context,
-            final TypeDeserializer deserializer) {
+                                      final TypeDeserializer deserializer) throws IOException {
 
         // effectively assuming no type information at all
         return deserialize(parser, context);
     }
 
     @Override
-    public M deserialize(final JsonParser parser, final DeserializationContext context)
-    {
+    public M deserialize(final JsonParser parser, final DeserializationContext context) throws IOException {
         BigDecimal amount = null;
         CurrencyUnit currency = null;
 
@@ -69,7 +70,6 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
             return factory.create(amount, currency);
         }
 
-        return context.reportPropertyInputMismatch(MonetaryAmount.class, missingName,
-                String.format("Missing property: '%s'", missingName));
+        return context.reportPropertyInputMismatch(MonetaryAmount.class, missingName, format("Missing property: '%s'", missingName));
     }
 }

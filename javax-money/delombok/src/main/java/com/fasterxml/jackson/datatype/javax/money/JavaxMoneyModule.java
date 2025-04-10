@@ -1,4 +1,4 @@
-package tools.jackson.datatype.javax.money;
+package com.fasterxml.jackson.datatype.javax.money;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
@@ -7,16 +7,16 @@ import javax.money.format.MonetaryFormats;
 
 import org.apiguardian.api.API;
 
-import tools.jackson.core.Version;
-import tools.jackson.databind.JacksonModule;
-import tools.jackson.databind.module.SimpleDeserializers;
-import tools.jackson.databind.module.SimpleSerializers;
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleDeserializers;
+import com.fasterxml.jackson.databind.module.SimpleSerializers;
 
 import static org.apiguardian.api.API.Status.EXPERIMENTAL;
 import static org.apiguardian.api.API.Status.STABLE;
 
 @API(status = STABLE)
-public final class JavaxMoneyModule extends JacksonModule
+public final class JavaxMoneyModule extends Module
 {
     private final AmountWriter<?> writer;
     private final FieldNames names;
@@ -106,4 +106,5 @@ public final class JavaxMoneyModule extends JacksonModule
     private JavaxMoneyModule withFieldNames(final FieldNames names) {
         return new JavaxMoneyModule(writer, names, formatFactory, amountFactory);
     }
+
 }
