@@ -1,23 +1,27 @@
-package tools.jackson.datatype.javax.money;
+package com.fasterxml.jackson.datatype.javax.money;
 
-import java.util.Locale;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import com.fasterxml.jackson.databind.util.NameTransformer;
 
+import javax.annotation.Nullable;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 import javax.money.format.MonetaryAmountFormat;
-
-import tools.jackson.core.JsonGenerator;
-import tools.jackson.databind.JavaType;
-import tools.jackson.databind.ValueSerializer;
-import tools.jackson.databind.SerializationContext;
-import tools.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
-import tools.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
-import tools.jackson.databind.jsontype.TypeSerializer;
-import tools.jackson.databind.ser.std.StdSerializer;
-import tools.jackson.databind.util.NameTransformer;
+import java.io.IOException;
+import java.util.Locale;
 
 final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
 {
+    private static final long serialVersionUID = 1L;
+
     private final FieldNames names;
     private final AmountWriter<?> writer;
     private final MonetaryAmountFormatFactory factory;
@@ -25,7 +29,7 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
     private final NameTransformer nameTransformer;
 
     MonetaryAmountSerializer(final FieldNames names, final AmountWriter<?> writer,
-            final MonetaryAmountFormatFactory factory, boolean isUnwrapping, final NameTransformer nameTransformer) {
+            final MonetaryAmountFormatFactory factory, boolean isUnwrapping, @Nullable final NameTransformer nameTransformer) {
         super(MonetaryAmount.class);
         this.writer = writer;
         this.factory = factory;
@@ -41,14 +45,15 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
 
     @Override
     public void acceptJsonFormatVisitor(final JsonFormatVisitorWrapper wrapper, final JavaType hint)
-    {
-        final JsonObjectFormatVisitor visitor = wrapper.expectObjectFormat(hint);
+            throws JsonMappingException {
+
+        @Nullable final JsonObjectFormatVisitor visitor = wrapper.expectObjectFormat(hint);
 
         if (visitor == null) {
             return;
         }
 
-        final SerializationContext provider = wrapper.getContext();
+        final SerializerProvider provider = wrapper.getProvider();
 
         visitor.property(names.getAmount(),
                 provider.findValueSerializer(writer.getType()),
@@ -65,29 +70,29 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
 
     @Override
     public void serializeWithType(final MonetaryAmount value, final JsonGenerator generator,
-            final SerializationContext provider, final TypeSerializer serializer)
-    {
+            final SerializerProvider provider, final TypeSerializer serializer) throws IOException {
+
         // effectively assuming no type information at all
         serialize(value, generator, provider);
     }
 
     @Override
-    public void serialize(final MonetaryAmount value, final JsonGenerator json,
-            final SerializationContext ctxt)
-    {
+    public void serialize(final MonetaryAmount value, final JsonGenerator json, final SerializerProvider provider)
+            throws IOException {
+
         final CurrencyUnit currency = value.getCurrency();
-        final String formatted = format(value, ctxt);
+        @Nullable final String formatted = format(value, provider);
 
         if (!isUnwrapping) {
             json.writeStartObject();
         }
 
         {
-            ctxt.defaultSerializeProperty(transformName(names.getAmount()), writer.write(value), json);
-            ctxt.defaultSerializeProperty(transformName(names.getCurrency()), currency, json);
+            provider.defaultSerializeField(transformName(names.getAmount()), writer.write(value), json);
+            provider.defaultSerializeField(transformName(names.getCurrency()), currency, json);
 
             if (formatted != null) {
-                ctxt.defaultSerializeProperty(transformName(names.getFormatted()), formatted, json);
+                provider.defaultSerializeField(transformName(names.getFormatted()), formatted, json);
             }
         }
 
@@ -100,8 +105,9 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
         return (nameTransformer != null) ? nameTransformer.transform(name) : name;
     }
 
-    private String format(final MonetaryAmount value, final SerializationContext ctxt) {
-        final Locale locale = ctxt.getConfig().getLocale();
+    @Nullable
+    private String format(final MonetaryAmount value, final SerializerProvider provider) {
+        final Locale locale = provider.getConfig().getLocale();
         final MonetaryAmountFormat format = factory.create(locale);
         return format == null ? null : format.format(value);
     }
@@ -112,7 +118,7 @@ final class MonetaryAmountSerializer extends StdSerializer<MonetaryAmount>
     }
 
     @Override
-    public ValueSerializer<MonetaryAmount> unwrappingSerializer(final NameTransformer nameTransformer) {
+    public JsonSerializer<MonetaryAmount> unwrappingSerializer(@Nullable final NameTransformer nameTransformer) {
         return new MonetaryAmountSerializer(names, writer, factory, true, nameTransformer);
     }
 }

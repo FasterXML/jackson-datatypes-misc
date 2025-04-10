@@ -1,0 +1,25 @@
+diff --git a/javax-money/pom.xml b/javax-money/pom.xml
+index 34c3c06..c688cf2 100644
+--- a/javax-money/pom.xml
++++ b/javax-money/pom.xml
+@@ -112,16 +112,16 @@
+                 <version>3.1.0</version>
+                 <executions>
+                     <execution>
+-                        <phase>generate-sources</phase>
++                        <phase>generate-test-sources</phase>
+                         <goals><goal>run</goal></goals>
+                         <configuration>
+                             <target>
+-                                <mkdir dir="delombok/src/main/java"/>
++                                <mkdir dir="delombok/src/test/java"/>
+                                 <java classname="lombok.launch.Main" fork="true" failonerror="true">
+                                     <arg value="delombok"/>
+-                                    <arg value="src/main/java"/>
++                                    <arg value="src/test/java"/>
+                                     <arg value="-d"/>
+-                                    <arg value="delombok/src/main/java"/>
++                                    <arg value="delombok/src/test/java"/>
+                                     <classpath>
+                                         <pathelement location="/Users/tatu/bin/lombok.jar"/>
+                                     </classpath>
