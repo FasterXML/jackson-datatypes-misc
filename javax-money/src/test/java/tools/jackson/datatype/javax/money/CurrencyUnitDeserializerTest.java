@@ -10,8 +10,6 @@ import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 
-import tools.jackson.datatype.javax.money.JavaxMoneyModule;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -45,5 +43,4 @@ public final class CurrencyUnitDeserializerTest {
 
         assertThat(actual).isEqualTo(expected);
     }
-
 }
