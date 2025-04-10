@@ -16,12 +16,6 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.type.SimpleType;
-import com.fasterxml.jackson.datatype.javax.money.AmountWriter;
-import com.fasterxml.jackson.datatype.javax.money.DecimalAmountWriter;
-import com.fasterxml.jackson.datatype.javax.money.FieldNames;
-import com.fasterxml.jackson.datatype.javax.money.JavaxMoneyModule;
-import com.fasterxml.jackson.datatype.javax.money.MonetaryAmountFormatFactory;
-import com.fasterxml.jackson.datatype.javax.money.MonetaryAmountSerializer;
 
 import lombok.Value;
 import org.javamoney.moneta.FastMoney;
