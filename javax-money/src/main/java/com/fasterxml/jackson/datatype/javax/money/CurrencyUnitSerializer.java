@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatVisitorWrapper;
 import com.fasterxml.jackson.databind.ser.std.StdScalarSerializer;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.apiguardian.api.API;
 
 import javax.money.CurrencyUnit;
@@ -16,6 +15,7 @@ import static org.apiguardian.api.API.Status.MAINTAINED;
 
 @API(status = MAINTAINED)
 public final class CurrencyUnitSerializer extends StdScalarSerializer<CurrencyUnit> {
+    private static final long serialVersionUID = 1L;
 
     CurrencyUnitSerializer() {
         super(CurrencyUnit.class);
