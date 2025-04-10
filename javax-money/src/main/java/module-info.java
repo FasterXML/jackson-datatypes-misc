@@ -9,7 +9,6 @@ module tools.jackson.datatype.javax.money
 
     // compile-time only dependencies
     requires static org.apiguardian.api;
-    requires static lombok;
     
     exports tools.jackson.datatype.javax.money;
 

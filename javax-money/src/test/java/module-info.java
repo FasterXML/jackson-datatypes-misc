@@ -12,7 +12,6 @@ module tools.jackson.datatype.javax.money
 
     // compile-time only dependencies
     requires static org.apiguardian.api;
-    requires static lombok;
 
     // Additional test lib/framework dependencies
     requires org.assertj.core;
