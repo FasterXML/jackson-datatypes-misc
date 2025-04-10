@@ -21,13 +21,14 @@
   </licenses>
 
   <modules>
+<!--
     <module>joda-money</module>
     <module>json-org</module>
     <module>jsr-353</module>
-    <!-- since 2.12.2 -->
-    <module>jakarta-jsonp</module>
+-->    <!-- since 2.12.2 -->
+<!--    <module>jakarta-jsonp</module>
     <module>jakarta-mail</module>
-    <!-- since 2.19.0 -->
+-->    <!-- since 2.19.0 -->
     <module>javax-money</module>
     <module>moneta</module>
   </modules>
