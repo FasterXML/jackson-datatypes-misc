@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
-import tools.jackson.datatype.moneta.MonetaMoneyModule;
 
 import org.javamoney.moneta.CurrencyUnitBuilder;
 

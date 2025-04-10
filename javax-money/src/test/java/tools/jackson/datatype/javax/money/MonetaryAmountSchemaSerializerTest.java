@@ -1,18 +1,5 @@
 package tools.jackson.datatype.javax.money;
 
-import javax.money.MonetaryAmount;
-
-import org.junit.jupiter.api.Test;
-
-import tools.jackson.databind.*;
-import tools.jackson.databind.json.JsonMapper;
-
-import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
-
-import tools.jackson.datatype.javax.money.JavaxMoneyModule;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 public final class MonetaryAmountSchemaSerializerTest
 {
     // 19-Mar-2025, tatu: Alas, JsonSchemaGenerator won't work with Jackson 3.x (yet?)
@@ -78,7 +65,6 @@ public final class MonetaryAmountSchemaSerializerTest
 
         assertThat(actual).isEqualTo(expected);
     }
-    */
 
     private ObjectMapper unit(final JacksonModule module) {
         return JsonMapper.builder().addModule(module).build();
@@ -87,4 +73,5 @@ public final class MonetaryAmountSchemaSerializerTest
     private JavaxMoneyModule module() {
         return new JavaxMoneyModule();
     }
+    */
 }

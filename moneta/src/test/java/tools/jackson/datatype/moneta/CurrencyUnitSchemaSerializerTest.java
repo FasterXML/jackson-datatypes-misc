@@ -1,17 +1,9 @@
 package tools.jackson.datatype.moneta;
 
-import javax.money.CurrencyUnit;
-
 import org.junit.jupiter.api.Test;
 
-import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
-import tools.jackson.datatype.moneta.MonetaMoneyModule;
-
-import com.kjetland.jackson.jsonSchema.JsonSchemaGenerator;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public final class CurrencyUnitSchemaSerializerTest
 {
