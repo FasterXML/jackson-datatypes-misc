@@ -43,7 +43,7 @@ public final class MonetaryAmountSerializerTest {
         return unit(module());
     }
 
-    private ObjectMapper unit(final Module module) {
+    private ObjectMapper unit(com.fasterxml.jackson.databind.Module module) {
         return build(module).build();
     }
 
@@ -51,7 +51,7 @@ public final class MonetaryAmountSerializerTest {
         return build(module());
     }
 
-    private JsonMapper.Builder build(final Module module) {
+    private JsonMapper.Builder build(com.fasterxml.jackson.databind.Module module) {
         return JsonMapper.builder().addModule(module);
     }
 
