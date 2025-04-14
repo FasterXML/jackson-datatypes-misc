@@ -13,7 +13,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-3.0.0-rc3 (not yet released)
+3.0.0-rc3 (13-Apr-2025)
 
 #56: Change `jackson-datatype-javax-money`, `jackson-datatype-moneta`
   to directly use JPMS [JSTEP-11]
