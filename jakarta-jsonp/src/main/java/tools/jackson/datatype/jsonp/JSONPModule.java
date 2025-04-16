@@ -44,7 +44,7 @@ public class JSONPModule extends SimpleModule
             public ValueDeserializer<?> findBeanDeserializer(
                     JavaType type,
                     DeserializationConfig config,
-                    BeanDescription beanDesc
+                    BeanDescription.Supplier beanDescRef
             ) {
                 if (type.isTypeOrSubTypeOf(JsonValue.class)) {
                     if (type.hasRawClass(JsonValue.class)) {
@@ -65,7 +65,7 @@ public class JSONPModule extends SimpleModule
             public ValueDeserializer<?> findCollectionDeserializer(
                     CollectionType type,
                     DeserializationConfig config,
-                    BeanDescription beanDesc,
+                    BeanDescription.Supplier beanDescRef,
                     TypeDeserializer elementTypeDeserializer,
                     ValueDeserializer<?> elementDeserializer
             ) {
@@ -79,7 +79,7 @@ public class JSONPModule extends SimpleModule
             public ValueDeserializer<?> findMapDeserializer(
                     MapType type,
                     DeserializationConfig config,
-                    BeanDescription beanDesc,
+                    BeanDescription.Supplier beanDescRef,
                     KeyDeserializer keyDeserializer,
                     TypeDeserializer elementTypeDeserializer,
                     ValueDeserializer<?> elementDeserializer
