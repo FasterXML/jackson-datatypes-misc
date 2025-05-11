@@ -1,6 +1,7 @@
 name: Build and Deploy Snapshot
 on:
   push:
+    branches: ['2.*']
     paths-ignore:
     - "README.md"
     - "release-notes/*"
@@ -8,6 +9,9 @@ on:
     paths-ignore:
     - "README.md"
     - "release-notes/*"
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: 'ubuntu-24.04'
