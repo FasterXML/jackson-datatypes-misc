@@ -1,1 +1,1 @@
-com.fasterxml.jackson.datatype.javax.money.JavaxMoneyModule
+tools.jackson.datatype.javax.money.JavaxMoneyModule

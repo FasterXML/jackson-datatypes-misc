@@ -1,1 +1,1 @@
-com.fasterxml.jackson.datatype.jakarta.mail.JakartaMailModule
+tools.jackson.datatype.jakarta.mail.JakartaMailModule
