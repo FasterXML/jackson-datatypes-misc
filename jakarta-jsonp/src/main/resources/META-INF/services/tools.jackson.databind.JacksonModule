@@ -1,1 +1,1 @@
-com.fasterxml.jackson.datatype.jsonp.JSONPModule
+tools.jackson.datatype.jsonp.JSONPModule
