@@ -13,7 +13,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-3.0.0-rc5 (not yet released)
+3.0.0-rc5 (22-May-2025)
 
 #65: `jackson-datatype-jsr353` SPI class package name wrong
  (reported by @livk-cloud)
