@@ -15,4 +15,8 @@ module tools.jackson.datatype.jsonorg
 
     // Further, need to open up test packages for JUnit et al
     opens tools.jackson.datatype.jsonorg;
+
+    provides tools.jackson.databind.JacksonModule with
+        tools.jackson.datatype.jsonorg.JsonOrgModule;
+    uses tools.jackson.databind.JacksonModule;
 }

@@ -19,4 +19,8 @@ module tools.jackson.datatype.jsr353
 
     // Further, need to open up test packages for JUnit et al
     opens tools.jackson.datatype.jsr353;
+
+    provides tools.jackson.databind.JacksonModule with
+        tools.jackson.datatype.jsr353.JSR353Module;
+    uses tools.jackson.databind.JacksonModule;
 }

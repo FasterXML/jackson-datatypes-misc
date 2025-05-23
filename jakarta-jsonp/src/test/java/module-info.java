@@ -19,4 +19,8 @@ module tools.jackson.datatype.jsonp
 
     // Further, need to open up test packages for JUnit et al
     opens tools.jackson.datatype.jsonp;
+
+    provides tools.jackson.databind.JacksonModule with
+        tools.jackson.datatype.jsonp.JSONPModule;
+    uses tools.jackson.databind.JacksonModule;
 }

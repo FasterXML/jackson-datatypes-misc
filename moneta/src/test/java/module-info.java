@@ -23,4 +23,8 @@ module tools.jackson.datatype.moneta
 
     // Further, need to open up test packages for JUnit et al
     opens tools.jackson.datatype.moneta;
+
+    provides tools.jackson.databind.JacksonModule with
+        tools.jackson.datatype.moneta.MonetaMoneyModule;
+    uses tools.jackson.databind.JacksonModule;
 }

@@ -16,4 +16,8 @@ module tools.jackson.datatype.joda
 
     // Further, need to open up test packages for JUnit et al
     opens tools.jackson.datatype.jodamoney;
+
+    provides tools.jackson.databind.JacksonModule with
+        tools.jackson.datatype.jodamoney.JodaMoneyModule;
+    uses tools.jackson.databind.JacksonModule;
 }

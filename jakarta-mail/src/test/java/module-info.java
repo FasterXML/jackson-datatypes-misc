@@ -15,4 +15,8 @@ module tools.jackson.datatype.jakarta_mail
 
     // Further, need to open up test packages for JUnit et al
     opens tools.jackson.datatype.jakarta.mail;
+
+    provides tools.jackson.databind.JacksonModule with
+        tools.jackson.datatype.jakarta.mail.JakartaMailModule;
+    uses tools.jackson.databind.JacksonModule;
 }
