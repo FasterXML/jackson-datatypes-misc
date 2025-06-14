@@ -16,6 +16,10 @@ Modules:
 #68: Add unit tests to verify goodness of SPI metadata for Modules
 - Generate SBOMs [JSTEP-14]
 
+2.19.1 (13-Jun-2025)
+
+No changes since 2.19.0
+
 2.19.0 (24-Apr-2025)
 
 #48: Add new "javax.money" (JSR-354) and "moneta" (JSR-354 ref impl) modules
