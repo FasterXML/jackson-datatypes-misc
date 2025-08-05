@@ -11,7 +11,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.20.0 (not yet released)
+2.20.0-rc1 (04-Aug-2025)
 
 #68: Add unit tests to verify goodness of SPI metadata for Modules
 - Generate SBOMs [JSTEP-14]
