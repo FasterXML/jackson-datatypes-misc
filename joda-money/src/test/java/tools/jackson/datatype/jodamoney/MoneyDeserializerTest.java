@@ -179,7 +179,7 @@ public final class MoneyDeserializerTest extends ModuleTestBase
             fail("Should not pass but got: "+amount);
         } catch (final UnrecognizedPropertyException e) {
             verifyException(e, "Unrecognized property \"unknown\"");
-            verifyException(e, "2 known properties: \"amount\", \"currency\"]");
+            verifyException(e, "2 known properties: \"amount\", \"currency\"");
         }
     }
 
