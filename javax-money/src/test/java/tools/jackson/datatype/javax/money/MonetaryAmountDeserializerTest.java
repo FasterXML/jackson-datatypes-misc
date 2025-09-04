@@ -238,7 +238,7 @@ public final class MonetaryAmountDeserializerTest<M extends MonetaryAmount> {
 
         assertThat(exception.getMessage()).startsWith(
                 "Unrecognized property \"version\" (class javax.money.MonetaryAmount), " +
-                        "not marked as ignorable (3 known properties: \"amount\", \"currency\", \"formatted\"])");
+                        "not marked as ignorable (3 known properties: \"amount\", \"currency\", \"formatted\"");
     }
 
     @ParameterizedTest
