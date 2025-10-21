@@ -11,9 +11,14 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-2.20.0 (not yet released)
+2.21.0 (not yet released)
 
--
+No changes since 2.20
+
+2.20.0 (28-Aug-2025)
+
+#68: Add unit tests to verify goodness of SPI metadata for Modules
+- Generate SBOMs [JSTEP-14]
 
 2.19.2 (18-Jul-2025)
 2.19.1 (13-Jun-2025)

@@ -7,28 +7,21 @@
   <!-- do_not_remove: published-with-gradle-metadata -->
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <groupId>tools.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>2.19.3-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>jackson-datatype-jsr353</artifactId>
   <name>Jackson datatype: jsr-353</name>
-  <version>2.19.3-SNAPSHOT</version>
+  <version>3.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <description>Add-on module for Jackson (https://github.com/FasterXML/jackson) to support
+  <description>Add-on module for Jackson (http://github.com/FasterXML/jackson) to support
 working with JSR-353 (JSON-P) node types via data-binding
   </description>
-  <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+  <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
   <properties>
     <!-- Generate PackageVersion.java into this directory. -->
-    <packageVersion.dir>com/fasterxml/jackson/datatype/jsr353</packageVersion.dir>
+    <packageVersion.dir>tools/jackson/datatype/jsr353</packageVersion.dir>
     <packageVersion.package>${project.groupId}.jsr353</packageVersion.package>
   </properties>
 
@@ -42,25 +35,42 @@ working with JSR-353 (JSON-P) node types via data-binding
     </dependency>
 
     <!-- and for tests can use the RI -->
+    <!-- 18-Jan-2025, tatu: Except, not with JPMS because that PoS component
+       decided to use Automatic Module Name of "java.json". Which it absolutely
+       cannot, being the _API_ module.
+       So. We cannot really run tests any more. And with deprecation by Jakarta JSONP
+       we may want to remove the module. But for now drop dep
     <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.json</artifactId>
         <version>1.1.4</version>
         <scope>test</scope>
     </dependency>
+      -->
+
   </dependencies>
 
   <build>
     <plugins>
+      <!-- 18-Jan-2025, tatu: As per above, we cannot really run tests with JPMS.
+              So. Disable surefire plug-in altogether
+        -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
       </plugin>
+      <!-- 29-Apr-2025, tatu: SBOM generation [JSTEP-14] -->
       <plugin>
-        <groupId>org.moditect</groupId>
-        <artifactId>moditect-maven-plugin</artifactId>
-      </plugin>
-      <!-- 05-Jul-2020, tatu: Add generation of Gradle Module Metadata -->
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
+      </plugin>      <!-- 05-Jul-2020, tatu: Add generation of Gradle Module Metadata -->
       <!-- 28-Feb-2025, jjohannes: Apply plugin last as it has to be the last of all 'package phase' plugins -->
       <plugin>
         <groupId>org.gradlex</groupId>

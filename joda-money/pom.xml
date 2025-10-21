@@ -6,27 +6,20 @@
   <!-- do_not_remove: published-with-gradle-metadata -->
   <modelVersion>4.0.0</modelVersion> 
   <parent>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <groupId>tools.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>2.19.3-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>jackson-datatype-joda-money</artifactId>
   <name>Jackson datatype: joda-money</name>
   <packaging>jar</packaging>
-  <version>2.19.3-SNAPSHOT</version>
+  <version>3.0.1-SNAPSHOT</version>
   <description>Support for datatypes of Joda-Money library (https://www.joda.org/joda-money/)
   </description>
-  <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+  <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
   <properties>
     <!-- Generate PackageVersion.java into this directory. -->
-    <packageVersion.dir>com/fasterxml/jackson/datatype/jodamoney</packageVersion.dir>
+    <packageVersion.dir>tools/jackson/datatype/jodamoney</packageVersion.dir>
     <packageVersion.package>${project.groupId}.jodamoney</packageVersion.package>
   </properties>
 
@@ -35,7 +28,13 @@
     <dependency>
       <groupId>org.joda</groupId>
       <artifactId>joda-money</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.5</version>
+    </dependency>
+    <dependency>
+      <groupId>pl.pragmatists</groupId>
+      <artifactId>JUnitParams</artifactId>
+      <version>1.1.1</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   
@@ -45,9 +44,10 @@
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
       </plugin>
+      <!-- 29-Apr-2025, tatu: SBOM generation [JSTEP-14] -->
       <plugin>
-        <groupId>org.moditect</groupId>
-        <artifactId>moditect-maven-plugin</artifactId>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
       </plugin>
       <!-- 05-Jul-2020, tatu: Add generation of Gradle Module Metadata -->
       <!-- 28-Feb-2025, jjohannes: Apply plugin last as it has to be the last of all 'package phase' plugins -->

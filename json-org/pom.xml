@@ -6,28 +6,21 @@
   <!-- do_not_remove: published-with-gradle-metadata -->
   <modelVersion>4.0.0</modelVersion> 
   <parent>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <groupId>tools.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>2.19.3-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>jackson-datatype-json-org</artifactId>
   <name>Jackson datatype: org.json</name>
   <packaging>jar</packaging>
-  <version>2.19.3-SNAPSHOT</version>
-  <description>Support for datatypes of "org.json" JSON library (see https://json.org/java),
+  <version>3.0.1-SNAPSHOT</version>
+  <description>Support for datatypes of "org.json" JSON library (see http://json.org/java),
 mainly to make it easier to upgrade code to Jackson, using automated conversions.
   </description>
-  <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+  <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
   <properties>
     <!-- Generate PackageVersion.java into this directory. -->
-    <packageVersion.dir>com/fasterxml/jackson/datatype/jsonorg</packageVersion.dir>
+    <packageVersion.dir>tools/jackson/datatype/jsonorg</packageVersion.dir>
     <packageVersion.package>${project.groupId}.jsonorg</packageVersion.package>
   </properties>
 
@@ -36,7 +29,7 @@ mainly to make it easier to upgrade code to Jackson, using automated conversions
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20231013</version>
+      <version>20250107</version>
     </dependency>
   </dependencies>
   
@@ -46,12 +39,10 @@ mainly to make it easier to upgrade code to Jackson, using automated conversions
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
       </plugin>
-      <!--  19-Mar-2019, tatu: Add rudimentary JDK9+ module info. To build with JDK 8
-             will have to use `moduleInfoFile` as anything else requires JDK 9+
-        -->
+      <!-- 29-Apr-2025, tatu: SBOM generation [JSTEP-14] -->
       <plugin>
-        <groupId>org.moditect</groupId>
-        <artifactId>moditect-maven-plugin</artifactId>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
       </plugin>
       <!-- 05-Jul-2020, tatu: Add generation of Gradle Module Metadata -->
       <!-- 28-Feb-2025, jjohannes: Apply plugin last as it has to be the last of all 'package phase' plugins -->

@@ -1,4 +1,4 @@
-One of [Jackson](../../../..jackson) [Misec. datatype modules](../../..).
+One of [Jackson](../../../..jackson) [Misc. datatype modules](../../..).
 Supports JSON serialization and deserialization of
 ["org.json" JSON library](http://json.org/java) datatypes, most commonly
 seen in Android SDK.

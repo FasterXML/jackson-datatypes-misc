@@ -1,0 +1,24 @@
+Project: jackson-datatypes-misc
+Major version: 3 (for earlier, see VERSION-2.x)
+Modules:
+  jackson-datatype-joda-money
+  jackson-datatype-json-org
+  jackson-datatype-jsr353 (may be deprecated for 3.x)
+  jackson-datatype-jakarta-jsonp
+  jackson-datatype-jakarta-mail
+  jackson-datatype-javax-money
+  jackson-datatype-moneta
+
+------------------------------------------------------------------------
+=== Releases ===
+------------------------------------------------------------------------
+
+3.0.0 (03-Oct-2025)
+
+#52: Change 3.0 to use `module-info.java` directly [JSTEP-11]
+#56: Change `jackson-datatype-javax-money`, `jackson-datatype-moneta`
+  to directly use JPMS [JSTEP-11]
+#65: `jackson-datatype-jsr353` SPI class package name wrong
+ (reported by @livk-cloud)
+- Minimum Java baseline: Java 17
+- Branch rename "master" -> "3.x" [JSTEP-12]

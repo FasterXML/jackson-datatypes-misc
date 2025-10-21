@@ -10,6 +10,7 @@ jdk:
 
 branches:
   only:
-    - "2.13"
+    - "master"
+    - "3.0"
 
 script: mvn -B clean verify

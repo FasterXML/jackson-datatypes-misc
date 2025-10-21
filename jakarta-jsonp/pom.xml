@@ -7,28 +7,21 @@
   <!-- do_not_remove: published-with-gradle-metadata -->
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.fasterxml.jackson.datatype</groupId>
+    <groupId>tools.jackson.datatype</groupId>
     <artifactId>jackson-datatypes-misc-parent</artifactId>
-    <version>2.19.3-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>jackson-datatype-jakarta-jsonp</artifactId>
   <name>Jackson datatype: JSON-P (Jakarta)</name>
-  <version>2.19.3-SNAPSHOT</version>
+  <version>3.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <description>Add-on module for Jackson (https://github.com/FasterXML/jackson) to support
+  <description>Add-on module for Jackson (http://github.com/FasterXML/jackson) to support
 working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-binding
   </description>
-  <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
+  <url>http://github.com/FasterXML/jackson-datatypes-misc</url>    
   <properties>
     <!-- Generate PackageVersion.java into this directory. -->
-    <packageVersion.dir>com/fasterxml/jackson/datatype/jsonp</packageVersion.dir>
+    <packageVersion.dir>tools/jackson/datatype/jsonp</packageVersion.dir>
     <packageVersion.package>${project.groupId}.jsonp</packageVersion.package>
   </properties>
 
@@ -45,7 +38,7 @@ working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-b
     <dependency>
         <groupId>org.eclipse.parsson</groupId>
         <artifactId>parsson</artifactId>
-        <version>1.1.5</version>
+        <version>1.1.7</version>
         <scope>test</scope>
     </dependency>
   </dependencies>
@@ -56,9 +49,10 @@ working with JSON-P (JSON Processing) node types (new Jakarta flavor) via data-b
         <groupId>com.google.code.maven-replacer-plugin</groupId>
         <artifactId>replacer</artifactId>
       </plugin>
+      <!-- 29-Apr-2025, tatu: SBOM generation [JSTEP-14] -->
       <plugin>
-        <groupId>org.moditect</groupId>
-        <artifactId>moditect-maven-plugin</artifactId>
+        <groupId>org.cyclonedx</groupId>
+        <artifactId>cyclonedx-maven-plugin</artifactId>
       </plugin>
       <!-- 05-Jul-2020, tatu: Add generation of Gradle Module Metadata -->
       <!-- 28-Feb-2025, jjohannes: Apply plugin last as it has to be the last of all 'package phase' plugins -->

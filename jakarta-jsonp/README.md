@@ -21,7 +21,7 @@ To use module on Maven-based projects, use following dependency:
 ```xml
 <dependency>
   <groupId>com.fasterxml.jackson.datatype</groupId>
-  <artifactId>jackson-datatype-jsonp</artifactId>
+  <artifactId>jackson-datatype-jakarta-jsonp</artifactId>
   <version>2.12.2</version>
 </dependency>
 ```

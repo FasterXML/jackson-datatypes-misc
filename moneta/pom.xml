@@ -6,14 +6,14 @@
     <!-- do_not_remove: published-with-gradle-metadata -->
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <groupId>tools.jackson.datatype</groupId>
         <artifactId>jackson-datatypes-misc-parent</artifactId>
-        <version>2.19.3-SNAPSHOT</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>jackson-datatype-moneta</artifactId>
     <name>Jackson datatype: moneta (javax.money ref. impl)</name>
     <packaging>jar</packaging>
-    <version>2.19.3-SNAPSHOT</version>
+    <version>3.0.1-SNAPSHOT</version>
     <description>Support for datatypes of Money API spec from JSR 354 (https://javamoney.github.io/api.html)
     </description>
     <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
@@ -26,14 +26,14 @@
     </licenses>
     <properties>
         <!-- Generate PackageVersion.java into this directory. -->
-        <packageVersion.dir>com/fasterxml/jackson/datatype/moneta</packageVersion.dir>
+        <packageVersion.dir>tools/jackson/datatype/moneta</packageVersion.dir>
         <packageVersion.package>${project.groupId}.moneta</packageVersion.package>
         <slf4j.version>2.0.6</slf4j.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <groupId>tools.jackson.datatype</groupId>
             <artifactId>jackson-datatype-javax-money</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -53,12 +53,6 @@
             <groupId>org.apiguardian</groupId>
             <artifactId>apiguardian-api</artifactId>
             <version>1.1.2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>3.0.2</version>
             <scope>provided</scope>
         </dependency>
 
@@ -95,9 +89,10 @@
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
             </plugin>
+            <!-- 29-Apr-2025, tatu: SBOM generation [JSTEP-14] -->
             <plugin>
-                <groupId>org.moditect</groupId>
-                <artifactId>moditect-maven-plugin</artifactId>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
             </plugin>
             <!-- 28-Feb-2025, jjohannes: Apply plugin last as it has to be the last of all 'package phase' plugins -->
             <plugin>
@@ -106,5 +101,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
