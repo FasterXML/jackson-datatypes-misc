@@ -1,15 +1,15 @@
 package tools.jackson.datatype.jodamoney;
 
-import tools.jackson.annotation.JsonCreator;
-import tools.jackson.annotation.JsonFormat;
-import tools.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import tools.jackson.databind.ObjectMapper;
 import org.joda.money.Money;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("MoneyFormatShapeMapping tests")
 public class MoneyFormatShapeMappingTest extends ModuleTestBase {
@@ -29,7 +29,7 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\"");
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\""));
         }
 
         @Test
@@ -43,7 +43,7 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":12.34");
+            assertTrue(json.contains("\"amount\":{\"amount\":12.34"));
         }
 
         @Test
@@ -57,7 +57,7 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":12.34");
+            assertTrue(json.contains("\"amount\":{\"amount\":12.34"));
         }
 
         @Test
@@ -71,7 +71,7 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":1234");
+            assertTrue(json.contains("\"amount\":{\"amount\":1234"));
         }
 
         @Test
@@ -85,7 +85,7 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\""); // uses module default
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // uses module default
         }
     }
 
@@ -105,7 +105,7 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             PaymentWithStringShape deserialized = mapper.readValue(json, PaymentWithStringShape.class);
 
             // then
-            assertThat(deserialized.amount).isEqualTo(original.amount);
+            assertEquals(original.amount, deserialized.amount);
         }
 
         @Test
@@ -120,7 +120,7 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             PaymentWithNumberIntShape deserialized = mapper.readValue(json, PaymentWithNumberIntShape.class);
 
             // then
-            assertThat(deserialized.amount).isEqualTo(original.amount);
+            assertEquals(original.amount, deserialized.amount);
         }
     }
 
@@ -143,9 +143,9 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"stringAmount\":{\"amount\":\"12.34\"");
-            assertThat(json).contains("\"numberAmount\":{\"amount\":5.67");
-            assertThat(json).contains("\"intAmount\":{\"amount\":10000");
+            assertTrue(json.contains("\"stringAmount\":{\"amount\":\"12.34\""));
+            assertTrue(json.contains("\"numberAmount\":{\"amount\":5.67"));
+            assertTrue(json.contains("\"intAmount\":{\"amount\":10000"));
         }
 
         @Test
@@ -161,9 +161,9 @@ public class MoneyFormatShapeMappingTest extends ModuleTestBase {
             PaymentWithMultipleShapes payment = mapper.readValue(json, PaymentWithMultipleShapes.class);
 
             // then
-            assertThat(payment.stringAmount).isEqualTo(Money.parse("EUR 12.34"));
-            assertThat(payment.numberAmount).isEqualTo(Money.parse("EUR 5.67"));
-            assertThat(payment.intAmount).isEqualTo(Money.parse("EUR 100.00"));
+            assertEquals(Money.parse("EUR 12.34"), payment.stringAmount);
+            assertEquals(Money.parse("EUR 5.67"), payment.numberAmount);
+            assertEquals(Money.parse("EUR 100.00"), payment.intAmount);
         }
     }
 

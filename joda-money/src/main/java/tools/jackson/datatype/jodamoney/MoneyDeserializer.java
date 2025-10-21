@@ -4,15 +4,14 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 
-import tools.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import tools.jackson.core.JacksonException;
 import tools.jackson.core.JsonParser;
 import tools.jackson.core.JsonToken;
 
 import tools.jackson.databind.BeanProperty;
 import tools.jackson.databind.DeserializationContext;
-import tools.jackson.databind.JsonDeserializer;
-import tools.jackson.databind.deser.ContextualDeserializer;
+import tools.jackson.databind.ValueDeserializer;
 import tools.jackson.databind.deser.std.StdDeserializer;
 import tools.jackson.databind.jsontype.TypeDeserializer;
 import tools.jackson.databind.type.LogicalType;
@@ -23,7 +22,6 @@ import org.joda.money.Money;
 import static java.util.Objects.requireNonNull;
 
 public class MoneyDeserializer extends StdDeserializer<Money>
-    implements ContextualDeserializer
 {
     private static final String F_AMOUNT = "amount";
     private static final String F_CURRENCY = "currency";
@@ -41,7 +39,7 @@ public class MoneyDeserializer extends StdDeserializer<Money>
     }
 
     @Override
-    public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) {
+    public ValueDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) {
         if (property == null) {
             return this;
         }

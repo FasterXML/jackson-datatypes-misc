@@ -1,8 +1,8 @@
 package tools.jackson.datatype.jodamoney;
 
-import tools.jackson.annotation.JsonCreator;
-import tools.jackson.annotation.JsonFormat;
-import tools.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import tools.jackson.databind.ObjectMapper;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("MoneyFieldLevelRepresentation tests")
 public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
@@ -34,9 +34,9 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\"");
-            assertThat(json).contains("\"fee\":{\"amount\":567");
-            assertThat(json).contains("\"total\":{\"amount\":100.00");
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\""));
+            assertTrue(json.contains("\"fee\":{\"amount\":567"));
+            assertTrue(json.contains("\"total\":{\"amount\":100.00"));
         }
 
         @Test
@@ -52,9 +52,9 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             PaymentWithFieldAnnotations payment = mapper.readValue(json, PaymentWithFieldAnnotations.class);
 
             // then
-            assertThat(payment.amount).isEqualTo(Money.parse("EUR 12.34"));
-            assertThat(payment.fee).isEqualTo(Money.parse("EUR 5.67"));
-            assertThat(payment.total).isEqualTo(Money.parse("EUR 100.00"));
+            assertEquals(Money.parse("EUR 12.34"), payment.amount);
+            assertEquals(Money.parse("EUR 5.67"), payment.fee);
+            assertEquals(Money.parse("EUR 100.00"), payment.total);
         }
 
         @Test
@@ -68,7 +68,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\"");
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\""));
         }
 
         @Test
@@ -82,7 +82,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             PaymentWithConstructorAnnotations payment = mapper.readValue(json, PaymentWithConstructorAnnotations.class);
 
             // then
-            assertThat(payment.getAmount()).isEqualTo(Money.parse("EUR 12.34"));
+            assertEquals(Money.parse("EUR 12.34"), payment.getAmount());
         }
     }
 
@@ -105,9 +105,9 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\""); // override to string
-            assertThat(json).contains("\"fee\":{\"amount\":567"); // override to int
-            assertThat(json).contains("\"total\":{\"amount\":100.00"); // uses module default (number)
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // override to string
+            assertTrue(json.contains("\"fee\":{\"amount\":567")); // override to int
+            assertTrue(json.contains("\"total\":{\"amount\":100.00")); // uses module default (number)
         }
 
         @Test
@@ -121,7 +121,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\""); // @JsonMoney wins (STRING)
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // @JsonMoney wins (STRING)
         }
 
         @Test
@@ -140,9 +140,9 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             PaymentWithFieldAnnotations deserialized = mapper.readValue(json, PaymentWithFieldAnnotations.class);
 
             // then
-            assertThat(deserialized.amount).isEqualTo(original.amount);
-            assertThat(deserialized.fee).isEqualTo(original.fee);
-            assertThat(deserialized.total).isEqualTo(original.total);
+            assertEquals(original.amount, deserialized.amount);
+            assertEquals(original.fee, deserialized.fee);
+            assertEquals(original.total, deserialized.total);
         }
     }
 
@@ -161,7 +161,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\""); // inherits DECIMAL_STRING from module
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // inherits DECIMAL_STRING from module
         }
     }
 
@@ -173,38 +173,41 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
         @DisplayName("should apply @JsonMoney from mix-in to override representation")
         void jsonMoneyMixinOverridesDefault() throws Exception {
             // setup
-            ObjectMapper mapper = mapperWithModule();
-            mapper.addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJsonMoney.class);
+            ObjectMapper mapper = mapperWithModuleBuilder()
+                    .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJsonMoney.class)
+                    .build();
             PaymentWithoutAnnotations payment = new PaymentWithoutAnnotations(Money.parse("EUR 12.34"));
 
             // when
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\""); // mix-in applies DECIMAL_STRING
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // mix-in applies DECIMAL_STRING
         }
 
         @Test
         @DisplayName("should apply @JsonFormat from mix-in to override representation")
         void jsonFormatMixinOverridesDefault() throws Exception {
             // setup
-            ObjectMapper mapper = mapperWithModule();
-            mapper.addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJsonFormat.class);
+            ObjectMapper mapper = mapperWithModuleBuilder()
+                    .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJsonFormat.class)
+                    .build();
             PaymentWithoutAnnotations payment = new PaymentWithoutAnnotations(Money.parse("EUR 12.34"));
 
             // when
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":1234"); // mix-in applies NUMBER_INT -> MINOR_CURRENCY_UNIT
+            assertTrue(json.contains("\"amount\":{\"amount\":1234")); // mix-in applies NUMBER_INT -> MINOR_CURRENCY_UNIT
         }
 
         @Test
         @DisplayName("should round-trip with mix-in annotations")
         void roundTripWithMixin() throws Exception {
             // setup
-            ObjectMapper mapper = mapperWithModule();
-            mapper.addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJsonMoney.class);
+            ObjectMapper mapper = mapperWithModuleBuilder()
+                    .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJsonMoney.class)
+                    .build();
             PaymentWithoutAnnotations original = new PaymentWithoutAnnotations(Money.parse("EUR 12.34"));
 
             // when
@@ -212,22 +215,23 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             PaymentWithoutAnnotations deserialized = mapper.readValue(json, PaymentWithoutAnnotations.class);
 
             // then
-            assertThat(deserialized.amount).isEqualTo(original.amount);
+            assertEquals(original.amount, deserialized.amount);
         }
 
         @Test
         @DisplayName("should apply @JsonMoney mix-in over @JsonFormat mix-in when both present")
         void jsonMoneyMixinWinsOverJsonFormatMixin() throws Exception {
             // setup
-            ObjectMapper mapper = mapperWithModule();
-            mapper.addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithBothAnnotations.class);
+            ObjectMapper mapper = mapperWithModuleBuilder()
+                    .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithBothAnnotations.class)
+                    .build();
             PaymentWithoutAnnotations payment = new PaymentWithoutAnnotations(Money.parse("EUR 12.34"));
 
             // when
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertThat(json).contains("\"amount\":{\"amount\":\"12.34\""); // @JsonMoney (STRING) wins over @JsonFormat (NUMBER_INT)
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // @JsonMoney (STRING) wins over @JsonFormat (NUMBER_INT)
         }
     }
 
