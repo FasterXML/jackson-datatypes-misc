@@ -53,6 +53,7 @@ public class JodaMoneyModule extends Module
 
     public JodaMoneyModule withAmountRepresentation(final AmountRepresentation representation) {
         switch (representation) {
+            case DEFAULT:
             case DECIMAL_NUMBER:
                 return new JodaMoneyModule(DecimalNumberAmountConverter.getInstance());
             case DECIMAL_STRING:

@@ -7,6 +7,13 @@ package com.fasterxml.jackson.datatype.jodamoney;
 public enum AmountRepresentation {
 
     /**
+     * Default representation (inherit module-level configuration).
+     * When used in field-level annotation, indicates that the field should use
+     * the module's default representation.
+     */
+    DEFAULT,
+
+    /**
      * Decimal number representation, where amount is (de)serialized as decimal number equal
      * to {@link org.joda.money.Money Money}'s amount, e.g. {@code 12.34} for
      * {@code Money.parse("EUR 12.34")}.
