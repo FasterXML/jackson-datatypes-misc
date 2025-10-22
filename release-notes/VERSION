@@ -13,6 +13,10 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
+3.0.1 (21-Oct-2025)
+
+No changes since 3.0.0
+
 3.0.0 (03-Oct-2025)
 
 #52: Change 3.0 to use `module-info.java` directly [JSTEP-11]
