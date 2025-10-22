@@ -16,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
 
     @Nested
-    @DisplayName("@JsonMoney annotation tests")
-    class JsonMoneyAnnotationTests {
+    @DisplayName("@JodaMoney annotation tests")
+    class JodaMoneyAnnotationTests {
 
         @Test
-        @DisplayName("should serialize field with DECIMAL_STRING when @JsonMoney specified")
+        @DisplayName("should serialize field with DECIMAL_STRING when @JodaMoney specified")
         void fieldWithDecimalString() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModule();
@@ -40,7 +40,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
         }
 
         @Test
-        @DisplayName("should deserialize field with DECIMAL_STRING when @JsonMoney specified")
+        @DisplayName("should deserialize field with DECIMAL_STRING when @JodaMoney specified")
         void deserializeFieldWithDecimalString() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModule();
@@ -58,7 +58,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
         }
 
         @Test
-        @DisplayName("should serialize getter with @JsonMoney annotation")
+        @DisplayName("should serialize getter with @JodaMoney annotation")
         void getterWithAnnotation() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModule();
@@ -72,7 +72,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
         }
 
         @Test
-        @DisplayName("should deserialize constructor parameter with @JsonMoney annotation")
+        @DisplayName("should deserialize constructor parameter with @JodaMoney annotation")
         void constructorParameterWithAnnotation() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModule();
@@ -111,8 +111,8 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
         }
 
         @Test
-        @DisplayName("should use @JsonMoney over @JsonFormat when both present")
-        void jsonMoneyWinsOverJsonFormat() throws Exception {
+        @DisplayName("should use @JodaMoney over @JsonFormat when both present")
+        void jodaMoneyWinsOverJsonFormat() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModule();
             PaymentWithBothAnnotations payment = new PaymentWithBothAnnotations(Money.parse("EUR 12.34"));
@@ -121,7 +121,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // @JsonMoney wins (STRING)
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // @JodaMoney wins (STRING)
         }
 
         @Test
@@ -151,7 +151,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
     class DefaultRepresentationTests {
 
         @Test
-        @DisplayName("should inherit module default when @JsonMoney(DEFAULT) specified")
+        @DisplayName("should inherit module default when @JodaMoney(DEFAULT) specified")
         void defaultInheritsModuleConfig() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModule(m -> m.withAmountRepresentation(AmountRepresentation.DECIMAL_STRING));
@@ -170,11 +170,11 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
     class MixinAnnotationTests {
 
         @Test
-        @DisplayName("should apply @JsonMoney from mix-in to override representation")
-        void jsonMoneyMixinOverridesDefault() throws Exception {
+        @DisplayName("should apply @JodaMoney from mix-in to override representation")
+        void jodaMoneyMixinOverridesDefault() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModuleBuilder()
-                    .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJsonMoney.class)
+                    .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJodaMoney.class)
                     .build();
             PaymentWithoutAnnotations payment = new PaymentWithoutAnnotations(Money.parse("EUR 12.34"));
 
@@ -206,7 +206,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
         void roundTripWithMixin() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModuleBuilder()
-                    .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJsonMoney.class)
+                    .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithJodaMoney.class)
                     .build();
             PaymentWithoutAnnotations original = new PaymentWithoutAnnotations(Money.parse("EUR 12.34"));
 
@@ -219,8 +219,8 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
         }
 
         @Test
-        @DisplayName("should apply @JsonMoney mix-in over @JsonFormat mix-in when both present")
-        void jsonMoneyMixinWinsOverJsonFormatMixin() throws Exception {
+        @DisplayName("should apply @JodaMoney mix-in over @JsonFormat mix-in when both present")
+        void jodaMoneyMixinWinsOverJsonFormatMixin() throws Exception {
             // setup
             ObjectMapper mapper = mapperWithModuleBuilder()
                     .addMixIn(PaymentWithoutAnnotations.class, PaymentMixinWithBothAnnotations.class)
@@ -231,17 +231,17 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             String json = mapper.writeValueAsString(payment);
 
             // then
-            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // @JsonMoney (STRING) wins over @JsonFormat (NUMBER_INT)
+            assertTrue(json.contains("\"amount\":{\"amount\":\"12.34\"")); // @JodaMoney (STRING) wins over @JsonFormat (NUMBER_INT)
         }
     }
 
     // Test POJOs
 
     static class PaymentWithFieldAnnotations {
-        @JsonMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
+        @JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
         public Money amount;
 
-        @JsonMoney(amountRepresentation = AmountRepresentation.MINOR_CURRENCY_UNIT)
+        @JodaMoney(amountRepresentation = AmountRepresentation.MINOR_CURRENCY_UNIT)
         public Money fee;
 
         public Money total; // No annotation - uses module default
@@ -265,7 +265,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
             this.amount = amount;
         }
 
-        @JsonMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
+        @JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
         public Money getAmount() {
             return amount;
         }
@@ -276,7 +276,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
 
         @JsonCreator
         public PaymentWithConstructorAnnotations(
-            @JsonMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
+            @JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
             @JsonProperty("amount") Money amount
         ) {
             this.amount = amount;
@@ -288,7 +288,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
     }
 
     static class PaymentWithBothAnnotations {
-        @JsonMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
+        @JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
         @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
         public Money amount;
 
@@ -298,7 +298,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
     }
 
     static class PaymentWithDefaultAnnotation {
-        @JsonMoney(amountRepresentation = AmountRepresentation.DEFAULT)
+        @JodaMoney(amountRepresentation = AmountRepresentation.DEFAULT)
         public Money amount;
 
         public PaymentWithDefaultAnnotation(Money amount) {
@@ -319,8 +319,8 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
     }
 
     // Mix-in classes
-    abstract static class PaymentMixinWithJsonMoney {
-        @JsonMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
+    abstract static class PaymentMixinWithJodaMoney {
+        @JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
         public Money amount;
     }
 
@@ -330,7 +330,7 @@ public class MoneyFieldLevelRepresentationTest extends ModuleTestBase {
     }
 
     abstract static class PaymentMixinWithBothAnnotations {
-        @JsonMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
+        @JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
         @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
         public Money amount;
     }

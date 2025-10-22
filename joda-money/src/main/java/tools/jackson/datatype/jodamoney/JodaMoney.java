@@ -18,10 +18,10 @@ import com.fasterxml.jackson.annotation.JacksonAnnotation;
  * Example usage:
  * <pre>
  * public class Payment {
- *     &#64;JsonMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
+ *     &#64;JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
  *     private Money amount;
  *
- *     &#64;JsonMoney(amountRepresentation = AmountRepresentation.MINOR_CURRENCY_UNIT)
+ *     &#64;JodaMoney(amountRepresentation = AmountRepresentation.MINOR_CURRENCY_UNIT)
  *     private Money fee;
  * }
  * </pre>
@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JacksonAnnotation;
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @JacksonAnnotation
-public @interface JsonMoney {
+public @interface JodaMoney {
 
     /**
      * Specifies the amount representation to use for this property.

@@ -50,10 +50,10 @@ public class MoneySerializer extends JodaMoneySerializerBase<Money>
     }
 
     private AmountRepresentation _resolveRepresentation(BeanProperty property, SerializationContext ctxt) {
-        // Priority 1: @JsonMoney annotation
-        JsonMoney jsonMoney = property.getAnnotation(JsonMoney.class);
-        if (jsonMoney != null && jsonMoney.amountRepresentation() != AmountRepresentation.DEFAULT) {
-            return jsonMoney.amountRepresentation();
+        // Priority 1: @JodaMoney annotation
+        JodaMoney jodaMoney = property.getAnnotation(JodaMoney.class);
+        if (jodaMoney != null && jodaMoney.amountRepresentation() != AmountRepresentation.DEFAULT) {
+            return jodaMoney.amountRepresentation();
         }
 
         // Priority 2: @JsonFormat mapping
