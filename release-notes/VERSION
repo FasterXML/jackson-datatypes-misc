@@ -13,6 +13,12 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
+3.1.0 (not yet released)
+
+#76: (joda-money) Add field-level amount representation for Joda-Money (`@JodaMoney`
+  annotation)
+ (contributed by @sri-adarsh-kumar)
+
 3.0.1 (21-Oct-2025)
 
 No changes since 3.0.0
