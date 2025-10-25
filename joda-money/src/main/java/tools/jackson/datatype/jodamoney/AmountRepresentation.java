@@ -10,6 +10,9 @@ public enum AmountRepresentation {
      * Default representation (inherit module-level configuration).
      * When used in field-level annotation, indicates that the field should use
      * the module's default representation.
+     *
+     *
+     * @since 3.1
      */
     DEFAULT,
 

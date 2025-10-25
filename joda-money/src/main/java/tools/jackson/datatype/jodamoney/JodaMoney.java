@@ -28,6 +28,8 @@ import com.fasterxml.jackson.annotation.JacksonAnnotation;
  *
  * @see AmountRepresentation
  * @see JodaMoneyModule#withAmountRepresentation(AmountRepresentation)
+ *
+ * @since 3.1
  */
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
