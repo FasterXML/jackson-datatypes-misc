@@ -63,20 +63,20 @@ ObjectMapper mapper = JsonMapper.builder()
     .build();
 ```
 
-#### Field-level amount representation
+#### Field-level amount representation (3.1+)
 
-The `@JodaMoney` annotation allows you to override the amount representation on a per-field basis, taking precedence over the module-level configuration:
+The `@JodaMoney` annotation -- added in Jackson 3.1 -- allows you to override the amount representation on a per-field basis, taking precedence over the module-level configuration:
 
 ```java
 public class Payment {
     @JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
-    private Money amount;
+    public Money amount;
 
     @JodaMoney(amountRepresentation = AmountRepresentation.MINOR_CURRENCY_UNIT)
-    private Money fee;
+    public Money fee;
 
     // This field uses the module-level configuration
-    private Money tax;
+    public Money tax;
 }
 ```
 
