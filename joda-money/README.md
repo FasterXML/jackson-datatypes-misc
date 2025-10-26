@@ -62,3 +62,22 @@ ObjectMapper mapper = JsonMapper.builder()
     .addModule(new JodaMoneyModule().withAmountRepresentation(AmountRepresentation.DECIMAL_STRING))
     .build();
 ```
+
+#### Field-level amount representation
+
+The `@JodaMoney` annotation allows you to override the amount representation on a per-field basis, taking precedence over the module-level configuration:
+
+```java
+public class Payment {
+    @JodaMoney(amountRepresentation = AmountRepresentation.DECIMAL_STRING)
+    private Money amount;
+
+    @JodaMoney(amountRepresentation = AmountRepresentation.MINOR_CURRENCY_UNIT)
+    private Money fee;
+
+    // This field uses the module-level configuration
+    private Money tax;
+}
+```
+
+The annotation can be applied to fields, getter/setter methods, and constructor parameters. If not specified or set to `AmountRepresentation.DEFAULT`, the property will use the module-level configuration.
