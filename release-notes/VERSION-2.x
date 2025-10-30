@@ -16,6 +16,7 @@ Modules:
 #68: Add unit tests to verify goodness of SPI metadata for Modules
 - Generate SBOMs [JSTEP-14]
 
+2.19.4 (29-Oct-2025)
 2.19.3 (29-Oct-2025)
 2.19.2 (18-Jul-2025)
 2.19.1 (13-Jun-2025)
