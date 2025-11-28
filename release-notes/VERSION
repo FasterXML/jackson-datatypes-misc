@@ -19,6 +19,10 @@ Modules:
   annotation)
  (contributed by @sri-adarsh-kumar)
 
+3.0.3 (not yet released)
+
+#78: Restore SPI metadata for non-module apps
+
 3.0.2 (07-Nov-2025)
 3.0.1 (21-Oct-2025)
 
