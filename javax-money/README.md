@@ -176,7 +176,7 @@ ObjectMapper mapper = JsonMapper.builder()
 ```
 
 Please note that, for Moneta implementations like Money, FastMoney and RoundedMoney, the sibling module `jackson-datatype-moneta` can also be used.
-Refer to [javax-money-moneta](../javax-money-moneta/README.md) for more information.
+Refer to [moneta](../moneta/README.md) for more information.
 
 ### Custom Field Names
 
