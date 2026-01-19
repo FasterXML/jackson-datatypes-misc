@@ -15,6 +15,7 @@ Modules:
 
 No changes since 2.20
 
+2.20.2 (19-Jan-2026)
 2.20.1 (30-Oct-2025)
 
 No changes since 2.20.0
