@@ -15,6 +15,7 @@ Modules:
 
 No changes since 2.20
 
+2.20.2 (19-Jan-2026)
 2.20.1 (30-Oct-2025)
 
 No changes since 2.20.0
@@ -37,6 +38,7 @@ No changes since 2.19.0
 #51: Unify testing structure/tools to JUnit5 [JSTEP-10]
  (contributed by Joo-Hyuk K)
 
+2.18.6 (22-Feb-2026)
 2.18.5 (27-Oct-2025)
 2.18.4 (05-May-2025)
 2.18.3 (28-Feb-2025)
