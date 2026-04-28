@@ -8,12 +8,12 @@
     <parent>
         <groupId>com.fasterxml.jackson.datatype</groupId>
         <artifactId>jackson-datatypes-misc-parent</artifactId>
-        <version>2.21.3-SNAPSHOT</version>
+        <version>2.21.3</version>
     </parent>
     <artifactId>jackson-datatype-moneta</artifactId>
     <name>Jackson datatype: moneta (javax.money ref. impl)</name>
     <packaging>jar</packaging>
-    <version>2.21.3-SNAPSHOT</version>
+    <version>2.21.3</version>
     <description>Support for datatypes of Money API spec from JSR 354 (https://javamoney.github.io/api.html)
     </description>
     <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
