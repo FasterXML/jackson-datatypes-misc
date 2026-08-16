@@ -8,7 +8,7 @@
   <groupId>com.fasterxml.jackson.datatype</groupId>
   <artifactId>jackson-datatypes-misc-parent</artifactId>
   <name>Jackson datatypes: misc (parent pom)</name>
-  <version>2.22.2-SNAPSHOT</version>
+  <version>2.22.2</version>
   <packaging>pom</packaging>
   <description>Parent pom for Jackson misc datatype modules
   </description>
@@ -37,12 +37,12 @@
     <connection>scm:git:git@github.com:FasterXML/jackson-datatypes-misc.git</connection>
     <developerConnection>scm:git:git@github.com:FasterXML/jackson-datatypes-misc.git</developerConnection>
     <url>https://github.com/FasterXML/jackson-datatypes-misc</url>
-    <tag>HEAD</tag>
+    <tag>jackson-datatypes-misc-parent-2.22.2</tag>
   </scm>
 
   <properties>
     <!-- for Reproducible Builds -->
-    <project.build.outputTimestamp>2026-07-07T22:34:36Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2026-08-16T17:03:01Z</project.build.outputTimestamp>
   </properties>
   
   <dependencies>
