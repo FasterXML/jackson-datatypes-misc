@@ -15,7 +15,8 @@ Modules:
 
 3.3.0 (not yet released)
 
-No changes since 3.2
+#90: (json-org) `JSONObject` deserialization quietly returns empty Object
+  for non-Object input
 
 3.2.2 (14-Aug-2026)
 

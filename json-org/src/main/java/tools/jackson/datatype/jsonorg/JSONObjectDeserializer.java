@@ -32,7 +32,7 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
         if (t == JsonToken.START_OBJECT) {
             t = p.nextToken();
         } else if (t != JsonToken.PROPERTY_NAME) {
-            // 09-Sep-2026, pjfanning: Need to verify it IS an Object (like
+            // 09-Sep-2026, pjfanning: [datatypes-misc#90] Need to verify it IS an Object (like
             //    `JSONArrayDeserializer` does for Arrays);
             //    otherwise we would quietly return an empty JSONObject and leave the parser
             //    pointing in the middle of the (non-Object) value
