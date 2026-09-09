@@ -15,7 +15,8 @@ Modules:
 
 3.3.0 (not yet released)
 
-No changes since 3.2
+#96: (jsonp,jsr-353) Embedded binary (`byte[]`) not supported as Array value,
+  only as Object value
 
 3.2.2 (14-Aug-2026)
 
