@@ -5,6 +5,7 @@ import tools.jackson.core.*;
 import tools.jackson.databind.*;
 import tools.jackson.databind.deser.std.StdDeserializer;
 import tools.jackson.databind.type.LogicalType;
+import tools.jackson.databind.util.ClassUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,11 +28,19 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
     public JSONObject deserialize(JsonParser p, DeserializationContext ctxt)
         throws JacksonException
     {
-        JSONObject ob = new JSONObject();
         JsonToken t = p.currentToken();
         if (t == JsonToken.START_OBJECT) {
             t = p.nextToken();
+        } else if (t != JsonToken.PROPERTY_NAME) {
+            // 09-Sep-2026, pjfanning: Need to verify it IS an Object (like
+            //    `JSONArrayDeserializer` does for Arrays);
+            //    otherwise we would quietly return an empty JSONObject and leave the parser
+            //    pointing in the middle of the (non-Object) value
+            return (JSONObject) ctxt.handleUnexpectedToken(getValueType(ctxt), t, p,
+                    "Unexpected token (%s), expected START_OBJECT for %s value",
+                    t, ClassUtil.nameOf(handledType()));
         }
+        JSONObject ob = new JSONObject();
         for (; t == JsonToken.PROPERTY_NAME; t = p.nextToken()) {
             String fieldName = p.currentName();
             t = p.nextToken();
