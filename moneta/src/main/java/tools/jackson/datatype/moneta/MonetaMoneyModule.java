@@ -51,7 +51,7 @@ public final class MonetaMoneyModule extends JacksonModule
 
     @Override
     public String getModuleName() {
-        return JavaxMoneyModule.class.getSimpleName();
+        return MonetaMoneyModule.class.getSimpleName();
     }
 
     @Override
