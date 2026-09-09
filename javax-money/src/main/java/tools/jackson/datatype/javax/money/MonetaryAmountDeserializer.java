@@ -6,9 +6,6 @@ import java.util.Objects;
 import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-
 import tools.jackson.core.JsonParser;
 import tools.jackson.core.JsonToken;
 import tools.jackson.databind.DeserializationContext;
@@ -39,10 +36,16 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
     @Override
     public M deserialize(final JsonParser parser, final DeserializationContext context)
     {
+        if (!parser.isExpectedStartObjectToken()) {
+            // 09-Sep-2026, pjfanning: Verify we got an Object; otherwise `currentName()`
+            //    below returns `null` and we would fail with a bare NPE
+            return _handleNotObject(parser, context);
+        }
+
         BigDecimal amount = null;
         CurrencyUnit currency = null;
 
-        while (parser.nextToken() != JsonToken.END_OBJECT) {
+        while (parser.nextToken() == JsonToken.PROPERTY_NAME) {
             final String field = parser.currentName();
 
             parser.nextToken();
@@ -74,5 +77,10 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
 
         return context.reportPropertyInputMismatch(MonetaryAmount.class, missingName,
                 String.format("Missing property: '%s'", missingName));
+    }
+
+    @SuppressWarnings("unchecked")
+    private M _handleNotObject(final JsonParser parser, final DeserializationContext context) {
+        return (M) context.handleUnexpectedToken(MonetaryAmount.class, parser);
     }
 }
