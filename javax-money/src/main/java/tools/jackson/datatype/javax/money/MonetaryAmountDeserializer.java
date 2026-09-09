@@ -37,8 +37,9 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
     public M deserialize(final JsonParser parser, final DeserializationContext context)
     {
         if (!parser.isExpectedStartObjectToken()) {
-            // 09-Sep-2026, pjfanning: Verify we got an Object; otherwise `currentName()`
-            //    below returns `null` and we would fail with a bare NPE
+            // 09-Sep-2026, pjfanning: [datatypes-misc#91] Verify we got an Object;
+            //    otherwise `currentName()` below returns `null` and we would fail
+            //    with a bare NPE
             return _handleNotObject(parser, context);
         }
 
