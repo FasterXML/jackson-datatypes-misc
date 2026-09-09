@@ -15,7 +15,7 @@ Modules:
 
 3.3.0 (not yet released)
 
-No changes since 3.2
+#93: (moneta) `MonetaMoneyModule.getModuleName()` returns "JavaxMoneyModule"
 
 3.2.2 (14-Aug-2026)
 
