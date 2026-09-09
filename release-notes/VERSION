@@ -15,7 +15,8 @@ Modules:
 
 3.3.0 (not yet released)
 
-No changes since 3.2
+#95: (javax-money) `CurrencyUnitDeserializer` throws `UnknownCurrencyException`
+  (and `NullPointerException`) instead of standard databind exception
 
 3.2.2 (14-Aug-2026)
 
