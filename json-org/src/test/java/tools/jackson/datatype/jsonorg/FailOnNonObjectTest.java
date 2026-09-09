@@ -37,7 +37,7 @@ public class FailOnNonObjectTest extends ModuleTestBase
     public void testFailOnString() throws Exception
     {
         try {
-            JSONObject ob = MAPPER.readValue("\"abc\"", JSONObject.class);
+            JSONObject ob = MAPPER.readValue(a2q("'abc'"), JSONObject.class);
             fail("Should not pass but got: "+ob);
         } catch (MismatchedInputException e) {
             verifyException(e, "Unexpected token (VALUE_STRING), expected START_OBJECT");
@@ -60,7 +60,7 @@ public class FailOnNonObjectTest extends ModuleTestBase
     public void testFailOnScalarWithinList() throws Exception
     {
         try {
-            List<JSONObject> obs = MAPPER.readValue("[{\"a\":1},42,{\"b\":2}]",
+            List<JSONObject> obs = MAPPER.readValue(a2q("[{'a':1},42,{'b':2}]"),
                     new TypeReference<List<JSONObject>>() { });
             fail("Should not pass but got: "+obs);
         } catch (MismatchedInputException e) {
@@ -72,7 +72,7 @@ public class FailOnNonObjectTest extends ModuleTestBase
     public void testFailOnArrayWithinList() throws Exception
     {
         try {
-            List<JSONObject> obs = MAPPER.readValue("[{\"a\":1},[7,8],{\"b\":2}]",
+            List<JSONObject> obs = MAPPER.readValue(a2q("[{'a':1},[7,8],{'b':2}]"),
                     new TypeReference<List<JSONObject>>() { });
             fail("Should not pass but got: "+obs);
         } catch (MismatchedInputException e) {
@@ -90,7 +90,7 @@ public class FailOnNonObjectTest extends ModuleTestBase
     @Test
     public void testObjectListStillOk() throws Exception
     {
-        List<JSONObject> obs = MAPPER.readValue("[{\"a\":1},{\"b\":2}]",
+        List<JSONObject> obs = MAPPER.readValue(a2q("[{'a':1},{'b':2}]"),
                 new TypeReference<List<JSONObject>>() { });
         assertEquals(2, obs.size());
         assertEquals(1, obs.get(0).getInt("a"));
