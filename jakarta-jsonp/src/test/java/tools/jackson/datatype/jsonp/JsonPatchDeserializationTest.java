@@ -1,6 +1,7 @@
 package tools.jackson.datatype.jsonp;
 
 import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.exc.InvalidFormatException;
 
 import jakarta.json.*;
 
@@ -14,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class JsonPatchDeserializationTest extends TestBase {
 
     private static final ObjectMapper MAPPER = newMapper();
+
+    private static final String EXPECTED_MESSAGE = "JSON patch has to be an array of objects";
 
     @Test
     public void testDeserializationAndPatching() throws Exception {
@@ -49,6 +52,31 @@ public class JsonPatchDeserializationTest extends TestBase {
         final JsonStructure patchedPersonJson = jsonPatch.apply(personJson);
         final Person patchedPerson = MAPPER.convertValue(patchedPersonJson, Person.class);
         assertThat(patchedPerson).isEqualTo(new Person("Json", "Smith"));
+    }
+
+    @Test
+    public void testObjectDeserializationAndPatching() {
+        final String json = a2q("{'op':'replace','path':'/name','value':'Json'}");
+
+        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+                () -> MAPPER.readValue(json, JsonPatch.class));
+        assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
+    }
+
+    @Test
+    public void testScalarDeserializationAndPatching() {
+        final String json = a2q("'op'");
+
+        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+                () -> MAPPER.readValue(json, JsonPatch.class));
+        assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
+    }
+
+    @Test
+    public void testNumberDeserializationAndPatching() {
+        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+                () -> MAPPER.readValue("42", JsonPatch.class));
+        assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
     }
 
     static class Person {
