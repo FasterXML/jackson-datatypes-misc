@@ -4,6 +4,7 @@ import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 
 import tools.jackson.core.JsonParser;
+import tools.jackson.core.JsonToken;
 import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.deser.std.StdScalarDeserializer;
 import tools.jackson.databind.jsontype.TypeDeserializer;
@@ -29,7 +30,23 @@ public final class CurrencyUnitDeserializer extends StdScalarDeserializer<Curren
     @Override
     public CurrencyUnit deserialize(final JsonParser parser, final DeserializationContext context)
     {
-        final String currencyCode = parser.getValueAsString();
-        return Monetary.getCurrency(currencyCode);
+        if (parser.hasToken(JsonToken.VALUE_STRING)) {
+            final String currencyCode = parser.getString();
+            try {
+                return Monetary.getCurrency(currencyCode);
+            } catch (Exception e) {
+                // 09-Sep-2026, pjfanning: `Monetary` throws `UnknownCurrencyException`,
+                //    which is not a `JacksonException`: convert into standard databind
+                //    exception (and give `DeserializationProblemHandler`s a chance)
+                return (CurrencyUnit) context.handleWeirdStringValue(handledType(), currencyCode,
+                        e.getMessage());
+            }
+        }
+        // Anything but String is an error: `getValueAsString()` used to coerce here, and
+        // returned `null` for structured values -- leading to a bare NPE from `Monetary`
+        return (CurrencyUnit) context.handleUnexpectedToken(getValueType(context),
+                parser.currentToken(), parser,
+                "Expected a `JsonToken.VALUE_STRING`, got `JsonToken.%s`",
+                parser.currentToken());
     }
 }
