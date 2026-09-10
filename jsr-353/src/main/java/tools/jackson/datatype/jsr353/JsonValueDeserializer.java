@@ -187,6 +187,16 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                 case VALUE_STRING:
                     b.add(p.getString());
                     break;
+                case VALUE_EMBEDDED_OBJECT: {
+                    // 09-Sep-2026, pjfanning: as with Object values above, support
+                    //   binary data as Base64 encoded text
+                    Object ob = p.getEmbeddedObject();
+                    if (ob instanceof byte[]) {
+                        String b64 = ctxt.getBase64Variant().encode((byte[]) ob, false);
+                        b.add(b64);
+                        break;
+                    }
+                }
                 default:
                     return (JsonArray) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
             }
