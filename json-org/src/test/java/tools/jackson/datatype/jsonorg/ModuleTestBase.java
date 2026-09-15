@@ -30,6 +30,10 @@ public abstract class ModuleTestBase
                 .addModule(new JsonOrgModule());
     }
     
+    protected static String a2q(String json) {
+        return json.replace("'", "\"");
+    }
+
     protected void verifyException(Throwable e, String... matches)
     {
         String msg = e.getMessage();

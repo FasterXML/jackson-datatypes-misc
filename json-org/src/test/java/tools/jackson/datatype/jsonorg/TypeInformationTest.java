@@ -24,7 +24,12 @@ public class TypeInformationTest extends ModuleTestBase
     private final ObjectMapper POLY_MAPPER = newMapperBuilder()
             .activateDefaultTyping(new NoCheckSubTypeValidator())
             .build();
-    
+
+    private final ObjectMapper POLY_PROP_MAPPER = newMapperBuilder()
+            .activateDefaultTypingAsProperty(new NoCheckSubTypeValidator(),
+                    DefaultTyping.NON_FINAL, "@class")
+            .build();
+
     @Test
     public void testWrappedArray() throws Exception
     {
@@ -55,5 +60,36 @@ public class TypeInformationTest extends ModuleTestBase
         JSONObject resultOb = (JSONObject) result.value;
         assertEquals(1, resultOb.length());
         assertTrue(resultOb.getBoolean("a"));
+    }
+
+    // [datatypes-misc#90]: with As-Property Type Id, deserializer is called with
+    // parser positioned past the Type Id: PROPERTY_NAME, or END_OBJECT for empty Object
+    @Test
+    public void testObjectWithTypeIdAsProperty() throws Exception
+    {
+        JSONObject ob = new JSONObject();
+        ob.put("a", true);
+
+        String json = POLY_PROP_MAPPER.writeValueAsString(new ObjectWrapper(ob));
+        assertEquals(a2q("{'@class':'"+ObjectWrapper.class.getName()+"',"
+                +"'value':{'@class':'org.json.JSONObject','a':true}}"), json);
+
+        ObjectWrapper result = POLY_PROP_MAPPER.readValue(json, ObjectWrapper.class);
+        assertEquals(JSONObject.class, result.value.getClass());
+        JSONObject resultOb = (JSONObject) result.value;
+        assertEquals(1, resultOb.length());
+        assertTrue(resultOb.getBoolean("a"));
+    }
+
+    @Test
+    public void testEmptyObjectWithTypeIdAsProperty() throws Exception
+    {
+        String json = POLY_PROP_MAPPER.writeValueAsString(new ObjectWrapper(new JSONObject()));
+        assertEquals(a2q("{'@class':'"+ObjectWrapper.class.getName()+"',"
+                +"'value':{'@class':'org.json.JSONObject'}}"), json);
+
+        ObjectWrapper result = POLY_PROP_MAPPER.readValue(json, ObjectWrapper.class);
+        assertEquals(JSONObject.class, result.value.getClass());
+        assertEquals(0, ((JSONObject) result.value).length());
     }
 }
