@@ -1,7 +1,7 @@
 package tools.jackson.datatype.jsonp;
 
 import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.exc.InvalidFormatException;
+import tools.jackson.databind.exc.MismatchedInputException;
 
 import jakarta.json.*;
 
@@ -58,7 +58,7 @@ public class JsonPatchDeserializationTest extends TestBase {
     public void testObjectDeserializationAndPatching() {
         final String json = a2q("{'op':'replace','path':'/name','value':'Json'}");
 
-        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+        final MismatchedInputException ex = assertThrows(MismatchedInputException.class,
                 () -> MAPPER.readValue(json, JsonPatch.class));
         assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
     }
@@ -67,14 +67,14 @@ public class JsonPatchDeserializationTest extends TestBase {
     public void testScalarDeserializationAndPatching() {
         final String json = a2q("'op'");
 
-        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+        final MismatchedInputException ex = assertThrows(MismatchedInputException.class,
                 () -> MAPPER.readValue(json, JsonPatch.class));
         assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
     }
 
     @Test
     public void testNumberDeserializationAndPatching() {
-        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+        final MismatchedInputException ex = assertThrows(MismatchedInputException.class,
                 () -> MAPPER.readValue("42", JsonPatch.class));
         assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
     }
