@@ -7,12 +7,14 @@ import javax.json.*;
 import org.junit.jupiter.api.Test;
 
 import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.exc.MismatchedInputException;
+import tools.jackson.databind.util.TokenBuffer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for binary (byte[]) content embedded in the token stream, which is
- * exposed as Base64 encoded text (see [issue#5]). Verifies Array and Object
+ * exposed as Base64 encoded text (see [issue#5]). Verifies root, Array and Object
  * positions behave the same way.
  */
 public class EmbeddedBinaryTest extends TestBase
@@ -23,6 +25,14 @@ public class EmbeddedBinaryTest extends TestBase
     private final static byte[] BINARY = new byte[] { 1, 2, 3 };
 
     private final static String BINARY_B64 = "AQID";
+
+    @Test
+    public void testBinaryAsRootValue() throws Exception
+    {
+        JsonValue v = MAPPER.convertValue(BINARY, JsonValue.class);
+        assertEquals(JsonValue.ValueType.STRING, v.getValueType());
+        assertEquals(BINARY_B64, ((JsonString) v).getString());
+    }
 
     @Test
     public void testBinaryAsObjectValue() throws Exception
@@ -65,5 +75,36 @@ public class EmbeddedBinaryTest extends TestBase
         JsonArray a = MAPPER.convertValue(Collections.singletonList(BINARY), JsonArray.class);
         assertEquals(1, a.size());
         assertEquals(BINARY_B64, a.getString(0));
+    }
+
+    // Embedded values other than byte[] are still not supported, in any position
+    @Test
+    public void testNonBinaryEmbeddedFails() throws Exception
+    {
+        final Object embedded = new Object();
+
+        TokenBuffer root = TokenBuffer.forGeneration();
+        root.writeEmbeddedObject(embedded);
+        _verifyEmbeddedFails(root);
+
+        TokenBuffer arr = TokenBuffer.forGeneration();
+        arr.writeStartArray();
+        arr.writeEmbeddedObject(embedded);
+        arr.writeEndArray();
+        _verifyEmbeddedFails(arr);
+
+        TokenBuffer obj = TokenBuffer.forGeneration();
+        obj.writeStartObject();
+        obj.writeName("k");
+        obj.writeEmbeddedObject(embedded);
+        obj.writeEndObject();
+        _verifyEmbeddedFails(obj);
+    }
+
+    private void _verifyEmbeddedFails(TokenBuffer buf) throws Exception
+    {
+        MismatchedInputException e = assertThrows(MismatchedInputException.class,
+                () -> MAPPER.readValue(buf.asParser(), JsonValue.class));
+        assertTrue(e.getMessage().contains("Embedded Object"), e.getMessage());
     }
 }

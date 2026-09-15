@@ -27,3 +27,6 @@ Christopher Smith (chrylis@github): author of `jakarta-mail` module (added in 2.
  (3.3.0)
 * Contributed #93: (moneta) `MonetaMoneyModule.getModuleName()` returns "JavaxMoneyModule"
  (3.3.0)
+* Contributed #96: (jsonp/jsr-353) Embedded binary (`byte[]`) not supported as Array
+  or root value, only as Object value
+ (3.3.0)
