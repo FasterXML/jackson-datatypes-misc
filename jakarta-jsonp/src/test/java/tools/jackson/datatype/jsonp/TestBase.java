@@ -49,4 +49,8 @@ public abstract class TestBase
     protected JsonObjectBuilder objectBuilder() {
         return MODULE._builderFactory.createObjectBuilder();
     }
+
+    protected static String a2q(String json) {
+        return json.replace("'", "\"");
+    }
 }
