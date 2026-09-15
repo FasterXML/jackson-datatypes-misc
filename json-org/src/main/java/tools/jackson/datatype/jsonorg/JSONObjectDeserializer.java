@@ -29,7 +29,7 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
         throws JacksonException
     {
         JsonToken t = p.currentToken();
-        if (t == JsonToken.START_OBJECT) {
+        if (p.isExpectedStartObjectToken()) {
             t = p.nextToken();
         } else if (t != JsonToken.PROPERTY_NAME && t != JsonToken.END_OBJECT) {
             // 09-Sep-2026, pjfanning: [datatypes-misc#90] Need to verify it IS an Object (like
