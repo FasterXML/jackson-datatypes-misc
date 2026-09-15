@@ -18,9 +18,6 @@ Modules:
 #90: (json-org) `JSONObject` deserialization quietly returns empty Object
   for non-Object input
  (contributed by @pjfanning)
-#92: (jakarta-jsonp) `JsonPatch` deserialization throws `NullPointerException`
-  for non-Array input
- (contributed by @pjfanning)
 #93: (moneta) `MonetaMoneyModule.getModuleName()` returns "JavaxMoneyModule"
  (contributed by @pjfanning)
 
