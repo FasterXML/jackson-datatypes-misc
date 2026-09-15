@@ -1,11 +1,11 @@
 package tools.jackson.datatype.moneta;
 
 import javax.money.CurrencyUnit;
-import javax.money.UnknownCurrencyException;
 
 import org.junit.jupiter.api.Test;
 
 import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.exc.InvalidFormatException;
 import tools.jackson.databind.json.JsonMapper;
 import tools.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 
@@ -28,8 +28,9 @@ public final class CurrencyUnitDeserializerTest {
 
     @Test
     public void shouldNotDeserializeInvalidCurrency() {
-        assertThrows(UnknownCurrencyException.class, () ->
+        final InvalidFormatException e = assertThrows(InvalidFormatException.class, () ->
                 unit.readValue("\"FOO\"", CurrencyUnit.class));
+        assertThat(e.getValue()).isEqualTo("FOO");
     }
 
     @Test

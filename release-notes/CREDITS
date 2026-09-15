@@ -22,5 +22,8 @@ Christopher Smith (chrylis@github): author of `jakarta-mail` module (added in 2.
 * Contributed #90: (json-org) `JSONObject` deserialization quietly returns empty Object
   for non-Object input
  (3.3.0)
+* Contributed #91: (javax-money) `MonetaryAmountDeserializer` throws `NullPointerException`
+  for non-Object input
+ (3.3.0)
 * Contributed #93: (moneta) `MonetaMoneyModule.getModuleName()` returns "JavaxMoneyModule"
  (3.3.0)
