@@ -2,8 +2,10 @@ package tools.jackson.datatype.javax.money;
 
 import javax.money.CurrencyUnit;
 import javax.money.Monetary;
+import javax.money.UnknownCurrencyException;
 
 import tools.jackson.core.JsonParser;
+import tools.jackson.core.JsonToken;
 import tools.jackson.databind.DeserializationContext;
 import tools.jackson.databind.deser.std.StdScalarDeserializer;
 import tools.jackson.databind.jsontype.TypeDeserializer;
@@ -29,7 +31,19 @@ public final class CurrencyUnitDeserializer extends StdScalarDeserializer<Curren
     @Override
     public CurrencyUnit deserialize(final JsonParser parser, final DeserializationContext context)
     {
-        final String currencyCode = parser.getValueAsString();
-        return Monetary.getCurrency(currencyCode);
+        // [datatypes-misc#91] Only accept String values: for other tokens
+        //    `getValueAsString()` returns `null` (leading to bare NPE) or
+        //    coerces scalars (like numbers) into bogus currency codes
+        if (!parser.hasToken(JsonToken.VALUE_STRING)) {
+            return (CurrencyUnit) context.handleUnexpectedToken(getValueType(context), parser);
+        }
+        final String currencyCode = parser.getString();
+        try {
+            return Monetary.getCurrency(currencyCode);
+        } catch (UnknownCurrencyException e) {
+            // [datatypes-misc#91] Report as regular Jackson exception
+            return (CurrencyUnit) context.handleWeirdStringValue(handledType(), currencyCode,
+                    "not a valid currency code");
+        }
     }
 }
