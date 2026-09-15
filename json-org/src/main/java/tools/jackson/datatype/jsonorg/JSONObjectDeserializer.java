@@ -31,11 +31,13 @@ public class JSONObjectDeserializer extends StdDeserializer<JSONObject>
         JsonToken t = p.currentToken();
         if (t == JsonToken.START_OBJECT) {
             t = p.nextToken();
-        } else if (t != JsonToken.PROPERTY_NAME) {
+        } else if (t != JsonToken.PROPERTY_NAME && t != JsonToken.END_OBJECT) {
             // 09-Sep-2026, pjfanning: [datatypes-misc#90] Need to verify it IS an Object (like
             //    `JSONArrayDeserializer` does for Arrays);
             //    otherwise we would quietly return an empty JSONObject and leave the parser
-            //    pointing in the middle of the (non-Object) value
+            //    pointing in the middle of the (non-Object) value.
+            //    But note: PROPERTY_NAME and END_OBJECT are legal too, since we may be
+            //    called with parser already inside Object (e.g. after As-Property Type Id)
             return (JSONObject) ctxt.handleUnexpectedToken(getValueType(ctxt), t, p,
                     "Unexpected token (%s), expected START_OBJECT for %s value",
                     t, ClassUtil.nameOf(handledType()));

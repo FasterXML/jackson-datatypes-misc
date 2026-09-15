@@ -16,3 +16,9 @@ Christopher Smith (chrylis@github): author of `jakarta-mail` module (added in 2.
 * Contributed #76: (joda-money) Add field-level amount representation for Joda-Money
   (`@JodaMoney` annotation)
  (3.1.0)
+
+@pjfanning
+
+* Contributed #90: (json-org) `JSONObject` deserialization quietly returns empty Object
+  for non-Object input
+ (3.3.0)

@@ -17,6 +17,7 @@ Modules:
 
 #90: (json-org) `JSONObject` deserialization quietly returns empty Object
   for non-Object input
+ (contributed by @pjfanning)
 
 3.2.2 (14-Aug-2026)
 
