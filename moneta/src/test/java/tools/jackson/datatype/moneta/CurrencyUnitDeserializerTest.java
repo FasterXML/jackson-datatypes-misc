@@ -32,6 +32,7 @@ public final class CurrencyUnitDeserializerTest {
         final InvalidFormatException e = assertThrows(InvalidFormatException.class, () ->
                 unit.readValue(a2q("'FOO'"), CurrencyUnit.class));
         assertThat(e.getMessage()).contains("FOO");
+        assertThat(e.getValue()).isEqualTo("FOO");
     }
 
     @Test

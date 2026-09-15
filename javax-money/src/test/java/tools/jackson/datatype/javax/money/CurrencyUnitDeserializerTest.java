@@ -1,6 +1,7 @@
 package tools.jackson.datatype.javax.money;
 
 import javax.money.CurrencyUnit;
+import javax.money.MonetaryAmount;
 
 import org.javamoney.moneta.CurrencyUnitBuilder;
 import org.junit.jupiter.api.Test;
@@ -29,26 +30,36 @@ public final class CurrencyUnitDeserializerTest {
     @Test
     public void shouldNotDeserializeInvalidCurrency() {
         final InvalidFormatException e = assertThrows(InvalidFormatException.class, () ->
-                unit.readValue(a2q("'FOO'"), CurrencyUnit.class));
-        assertThat(e.getMessage()).contains("FOO");
+                unit.readValue("\"FOO\"", CurrencyUnit.class));
+        assertThat(e.getMessage()).contains("javax.money.CurrencyUnit", "\"FOO\"",
+                "not a valid currency code");
+        assertThat(e.getValue()).isEqualTo("FOO");
     }
 
     @Test
-    public void shouldNotDeserializeFromNumber() {
-        assertThrows(MismatchedInputException.class, () ->
-                unit.readValue("12", CurrencyUnit.class));
+    public void shouldNotDeserializeInvalidCurrencyWithinAmount() {
+        assertThrows(InvalidFormatException.class, () ->
+                unit.readValue("{\"amount\":1,\"currency\":\"FOO\"}", MonetaryAmount.class));
+    }
+
+    // [datatypes-misc#91] Non-String input must fail with Jackson exception, not NPE
+    @Test
+    public void shouldFailOnNonStringInput() {
+        for (String json : new String[] { "12", "true", "{}", "{\"x\":1}", "[]", "[\"EUR\"]" }) {
+            final MismatchedInputException e = assertThrows(MismatchedInputException.class,
+                    () -> unit.readValue(json, CurrencyUnit.class), json);
+            assertThat(e.getMessage()).contains("javax.money.CurrencyUnit");
+        }
     }
 
     @Test
-    public void shouldNotDeserializeFromObject() {
-        assertThrows(MismatchedInputException.class, () ->
-                unit.readValue(a2q("{'a':1}"), CurrencyUnit.class));
-    }
-
-    @Test
-    public void shouldNotDeserializeFromArray() {
-        assertThrows(MismatchedInputException.class, () ->
-                unit.readValue("[1,2]", CurrencyUnit.class));
+    public void shouldFailOnNonStringInputWithinAmount() {
+        for (String currency : new String[] { "1", "{\"x\":1}", "[\"EUR\"]" }) {
+            final String json = "{\"amount\":1,\"currency\":" + currency + "}";
+            final MismatchedInputException e = assertThrows(MismatchedInputException.class,
+                    () -> unit.readValue(json, MonetaryAmount.class), json);
+            assertThat(e.getMessage()).contains("javax.money.CurrencyUnit");
+        }
     }
 
     @Test

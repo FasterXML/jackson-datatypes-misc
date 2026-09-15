@@ -18,6 +18,9 @@ Modules:
 #90: (json-org) `JSONObject` deserialization quietly returns empty Object
   for non-Object input
  (contributed by @pjfanning)
+#91: (javax-money) `MonetaryAmountDeserializer` throws `NullPointerException`
+  for non-Object input
+ (contributed by @pjfanning)
 #93: (moneta) `MonetaMoneyModule.getModuleName()` returns "JavaxMoneyModule"
  (contributed by @pjfanning)
 #95: (javax-money) `CurrencyUnitDeserializer` throws `UnknownCurrencyException`
