@@ -187,6 +187,16 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
                 case VALUE_STRING:
                     b.add(p.getString());
                     break;
+                case VALUE_EMBEDDED_OBJECT: {
+                    // 09-Sep-2026, pjfanning: as with Object values above, support
+                    //   binary data as Base64 encoded text
+                    Object ob = p.getEmbeddedObject();
+                    if (ob instanceof byte[]) {
+                        String b64 = ctxt.getBase64Variant().encode((byte[]) ob, false);
+                        b.add(b64);
+                        break;
+                    }
+                }
                 default:
                     return (JsonArray) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
             }
@@ -198,10 +208,16 @@ public class JsonValueDeserializer extends StdDeserializer<JsonValue>
         throws JacksonException
     {
         switch (p.currentToken()) {
-        case VALUE_EMBEDDED_OBJECT:
-            // Not sure what to do with it -- could convert byte[] into Base64 encoded
-            // if we wanted to... ?
+        case VALUE_EMBEDDED_OBJECT: {
+            // 14-Sep-2026, tatu: as with Object and Array values, support
+            //   binary data as Base64 encoded text
+            Object ob = p.getEmbeddedObject();
+            if (ob instanceof byte[]) {
+                String b64 = ctxt.getBase64Variant().encode((byte[]) ob, false);
+                return _builderFactory.createArrayBuilder().add(b64).build().get(0);
+            }
             return (JsonValue) ctxt.handleUnexpectedToken(getValueType(ctxt), p);
+        }
         case VALUE_FALSE:
             return JsonValue.FALSE;
         case VALUE_TRUE:
