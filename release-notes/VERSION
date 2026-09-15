@@ -26,6 +26,9 @@ Modules:
 #96: (jsonp/jsr-353) Embedded binary (`byte[]`) not supported as Array
   or root value, only as Object value
  (contributed by @pjfanning)
+#99: (jakarta-jsonp) `JsonPatch` deserialization throws `NullPointerException`
+  for non-Array input
+ (contributed by @pjfanning)
 
 3.2.2 (14-Aug-2026)
 

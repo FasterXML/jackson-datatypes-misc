@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import javax.json.*;
 
 import tools.jackson.databind.ObjectMapper;
-import tools.jackson.databind.exc.InvalidFormatException;
+import tools.jackson.databind.exc.MismatchedInputException;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,7 +62,7 @@ public class JsonPatchDeserializationTest extends TestBase {
             "\"value\":\"Json\"" +
             "}";
 
-        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+        final MismatchedInputException ex = assertThrows(MismatchedInputException.class,
                 () -> MAPPER.readValue(json, JsonPatch.class));
         assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
     }
@@ -71,7 +71,7 @@ public class JsonPatchDeserializationTest extends TestBase {
     public void testScalarDeserializationAndPatching() {
         final String json = "\"op\"";
 
-        final InvalidFormatException ex = assertThrows(InvalidFormatException.class,
+        final MismatchedInputException ex = assertThrows(MismatchedInputException.class,
                 () -> MAPPER.readValue(json, JsonPatch.class));
         assertThat(ex.getMessage()).contains(EXPECTED_MESSAGE);
     }
