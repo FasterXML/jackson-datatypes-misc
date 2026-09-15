@@ -74,8 +74,4 @@ public final class CurrencyUnitDeserializerTest {
 
         assertThat(actual).isEqualTo(expected);
     }
-
-    private static String a2q(final String json) {
-        return json.replace("'", "\"");
-    }
 }

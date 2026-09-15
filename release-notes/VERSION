@@ -23,9 +23,6 @@ Modules:
  (contributed by @pjfanning)
 #93: (moneta) `MonetaMoneyModule.getModuleName()` returns "JavaxMoneyModule"
  (contributed by @pjfanning)
-#95: (javax-money) `CurrencyUnitDeserializer` throws `UnknownCurrencyException`
-  (and `NullPointerException`) instead of standard databind exception
- (contributed by @pjfanning)
 
 3.2.2 (14-Aug-2026)
 
