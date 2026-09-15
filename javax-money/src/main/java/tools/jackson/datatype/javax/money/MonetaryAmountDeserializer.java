@@ -36,17 +36,22 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
     @Override
     public M deserialize(final JsonParser parser, final DeserializationContext context)
     {
-        if (!parser.isExpectedStartObjectToken()) {
-            // 09-Sep-2026, pjfanning: [datatypes-misc#91] Verify we got an Object;
-            //    otherwise `currentName()` below returns `null` and we would fail
-            //    with a bare NPE
+        // 09-Sep-2026, pjfanning: [datatypes-misc#91] Verify we got an Object;
+        //    otherwise `currentName()` below returns `null` and we would fail
+        //    with a bare NPE. Besides START_OBJECT, also accept being positioned
+        //    within Object contents (PROPERTY_NAME or END_OBJECT), as may happen
+        //    when caller has already consumed START_OBJECT (and possibly properties)
+        JsonToken t = parser.currentToken();
+        if (t == JsonToken.START_OBJECT) {
+            t = parser.nextToken();
+        } else if (t != JsonToken.PROPERTY_NAME && t != JsonToken.END_OBJECT) {
             return _handleNotObject(parser, context);
         }
 
         BigDecimal amount = null;
         CurrencyUnit currency = null;
 
-        while (parser.nextToken() == JsonToken.PROPERTY_NAME) {
+        for (; t == JsonToken.PROPERTY_NAME; t = parser.nextToken()) {
             final String field = parser.currentName();
 
             parser.nextToken();
@@ -56,8 +61,8 @@ public final class MonetaryAmountDeserializer<M extends MonetaryAmount> extends 
             } else if (field.equals(names.getCurrency())) {
                 currency = context.readValue(parser, CurrencyUnit.class);
             } else if (field.equals(names.getFormatted())) {
-                //noinspection UnnecessaryContinue
-                continue;
+                // [datatypes-misc#91] Skip whole value, which may be structured
+                parser.skipChildren();
             } else if (context.isEnabled(FAIL_ON_UNKNOWN_PROPERTIES)) {
                 throw UnrecognizedPropertyException.from(parser, MonetaryAmount.class, field,
                         Arrays.asList(names.getAmount(), names.getCurrency(), names.getFormatted()));
