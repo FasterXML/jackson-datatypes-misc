@@ -6,7 +6,7 @@ import tools.jackson.databind.*;
 import tools.jackson.databind.jsontype.TypeDeserializer;
 import tools.jackson.databind.module.SimpleDeserializers;
 import tools.jackson.databind.module.SimpleModule;
-import tools.jackson.databind.ser.std.StdDelegatingSerializer;
+import tools.jackson.databind.ser.std.StdConvertingSerializer;
 import tools.jackson.databind.type.CollectionType;
 import tools.jackson.databind.type.MapType;
 import tools.jackson.databind.util.Converter;
@@ -100,7 +100,7 @@ public class JSR353Module extends SimpleModule
         });
     }
 
-    static class JsonPatchSerializer extends StdDelegatingSerializer
+    static class JsonPatchSerializer extends StdConvertingSerializer
     {
         public JsonPatchSerializer() {
             super(new PatchConverter());
@@ -113,7 +113,7 @@ public class JSR353Module extends SimpleModule
         }
 
         @Override
-        protected StdDelegatingSerializer withDelegate(Converter<Object,?> converter,
+        protected StdConvertingSerializer withDelegate(Converter<Object,?> converter,
                 JavaType delegateType, ValueSerializer<?> delegateSerializer,
                 BeanProperty prop) {
             return new JsonPatchSerializer(converter, delegateType, delegateSerializer, prop);
@@ -129,7 +129,7 @@ public class JSR353Module extends SimpleModule
         }
     }
 
-    static class JsonMergePatchSerializer extends StdDelegatingSerializer
+    static class JsonMergePatchSerializer extends StdConvertingSerializer
     {
         public JsonMergePatchSerializer() {
             super(new MergePatchConverter());
@@ -142,7 +142,7 @@ public class JSR353Module extends SimpleModule
         }
 
         @Override
-        protected StdDelegatingSerializer withDelegate(Converter<Object,?> converter,
+        protected StdConvertingSerializer withDelegate(Converter<Object,?> converter,
                 JavaType delegateType, ValueSerializer<?> delegateSerializer,
                 BeanProperty prop) {
             return new JsonMergePatchSerializer(converter, delegateType, delegateSerializer, prop);
