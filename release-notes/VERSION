@@ -13,7 +13,7 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
-3.3.0 (not yet released)
+3.3.0 (07-Nov-2026)
 
 #90: (json-org) `JSONObject` deserialization quietly returns empty Object
   for non-Object input
