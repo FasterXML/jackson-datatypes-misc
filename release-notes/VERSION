@@ -13,6 +13,10 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
+3.4.0 (not yet released)
+
+#105: Bump `org.json:json` to latest, `20260814`
+
 3.3.0 (07-Nov-2026)
 
 #90: (json-org) `JSONObject` deserialization quietly returns empty Object
