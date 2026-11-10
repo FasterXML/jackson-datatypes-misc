@@ -11,6 +11,10 @@ Modules:
 === Releases ===
 ------------------------------------------------------------------------
 
+2.24.0 (not yet released)
+
+#105: Bump `org.json:json` to latest, `20260814`
+
 2.23.0 (07-Nov-2026)
 
 No changes since 2.22
