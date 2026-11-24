@@ -55,6 +55,10 @@ No changes since 3.2.0
 #85: (jakarta-mail) Upgrade `com.sun.mail:jakarta.mail` dependency
   from 2.0.1 to 2.0.2
 
+3.1.9 (24-Nov-2026)
+
+No changes since 3.1.8
+
 3.1.8 (17-Oct-2026)
 
 No changes since 3.1.7
